@@ -1,6 +1,6 @@
 # TODO
 
-Atomic task list for `mds-curriculum` development.  
+Atomic task list for `Medical Data Science Curriculum` development.  
 Follows [Semantic Versioning](https://semver.org). Each milestone maps to a deliverable state.  
 Update this file via PR only. Mark tasks `[x]` on completion.
 
@@ -18,8 +18,10 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [ ] Add `.gitignore` (R, Python, Quarto, data directories)
 - [ ] Add `_quarto.yml` (site scaffold, no content pages yet)
 - [ ] Add `CHANGELOG.md` (empty, versioned from v0.1.0)
-- [ ] Create directory skeleton: `basic/`, `intermediate/`, `advanced/`, `datasets/`, `facilitator/`, `capstone-archive/`
+- [ ] Create directory skeleton: `basic/`, `intermediate/`, `advanced/`, `datasets/`, `facilitator/`, `capstone-archive/`, `certificate/`
 - [ ] Add placeholder `README.md` in each top-level directory
+- [ ] Add `certificate/REGISTRY.yaml` — empty registry with schema comment
+- [ ] Add `certificate/params-example.yml` — example parameter file for template
 - [ ] Configure GitHub Pages deployment (source: `gh-pages` branch or `docs/`)
 - [ ] Verify site renders and deploys on push to `main`
 
@@ -125,6 +127,9 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [ ] Author resident onboarding email template (in `facilitator-guide`)
 - [ ] Dry-run Week 1 setup guide with at least one non-technical tester
 - [ ] Document dry-run findings as GitHub Issues; resolve before cohort start
+- [ ] Author `certificate/template.qmd` — parameterized Quarto PDF; fields: recipient name, tier, cohort, date, curriculum version, certificate ID
+- [ ] Add `certificate/assets/` — program logo, HoD signature scans (two signatories)
+- [ ] Test certificate PDF render end-to-end against example params
 
 ---
 
@@ -138,6 +143,9 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [ ] Archive capstones to `capstone-archive/basic-cohort-01/` (with resident consent)
 - [ ] Post-cohort review: triage all Issues into patch/minor/major
 - [ ] Apply all patch and minor revisions
+- [ ] Issue certificates for all capstone-passing residents
+  - [ ] Generate parameterized PDF per resident from `certificate/template.qmd`
+  - [ ] Append each record to `certificate/REGISTRY.yaml` (ID, tier, cohort, curriculum version, capstone URL, date)
 - [ ] Update `CHANGELOG.md`
 - [ ] Tag `v0.5.0`
 
@@ -360,7 +368,7 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 
 - [ ] Indonesian language track (module translation)
 - [ ] Cross-institution cohort (collaborative delivery with other residency programs)
-- [ ] Integration with `mjs` for Advanced Research track capstone publication
+- [ ] Integration with `IJAMI` (Indonesia Journal of Augmented Medical Intelligence) for Advanced Research track capstone publication (coming soon)
 - [ ] Automated Quarto site CI/CD (GitHub Actions on push to `main`)
 - [ ] Dataset versioning with DVC or equivalent
 - [ ] Advanced Tier expansion: waveform deep learning module (VitalDB)

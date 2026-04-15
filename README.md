@@ -1,7 +1,7 @@
-# mds-curriculum
+# Medical Data Science Curriculum
 
-**Balinesthesia Medical Data Science Curriculum**  
-Anesthesiology and Intensive Therapy Study Program  
+**Division of Data Science and Artificial Intelligence**  
+Study Program of Anesthesiology and Intensive Therapy  
 Faculty of Medicine, Universitas Udayana
 
 ---
@@ -58,6 +58,11 @@ mds-curriculum/
 │   ├── onboarding.qmd
 │   └── rubrics/
 ├── capstone-archive/          # Past cohort capstones (with consent)
+├── certificate/
+│   ├── template.qmd           # Parameterized Quarto PDF template
+│   ├── params-example.yml     # Example parameter file
+│   ├── assets/                # Seal, signature scan
+│   └── REGISTRY.yaml          # Public verification record
 ├── _quarto.yml
 └── ARCHITECTURE.md
 ```
@@ -82,6 +87,20 @@ Advanced graduates are trained as junior facilitators. Facilitator onboarding is
 
 ---
 
+## Certificate of Competency
+
+Residents who complete a tier capstone receive a **Certificate of Competency** issued by the Division of Data Science and Artificial Intelligence, Study Program of Anesthesiology and Intensive Therapy, Faculty of Medicine, Universitas Udayana.
+
+**Signatories:**
+- Koordinator Program Studi — Prof. Dr. dr. Tjokorda Gde Agung Senapathi, SpAn-TI, Subsp.A.R (K)
+- Kepala Divisi Data Science dan Artificial Intelligence — dr. I Made Agus Kresna Sucandra, SpAn-TI, Subsp.T.I (K)
+
+**Verification:** Every certificate carries a unique ID resolvable at `balinesthesia.github.io/mds-curriculum/verify` against `certificate/REGISTRY.yaml`.
+
+**Template:** Generated from `certificate/template.qmd` — parameterized Quarto PDF, versioned with the curriculum.
+
+---
+
 ## Versioning
 
 This curriculum follows [Semantic Versioning](https://semver.org):
@@ -100,7 +119,7 @@ Each cohort records the curriculum version they completed.
 
 Free to use and adapt for non-commercial academic and clinical education purposes with attribution. Commercial use requires explicit written permission from Balinesthesia.
 
-Attribution: **Balinesthesia — Anesthesiology and Intensive Therapy Study Program, Faculty of Medicine, Universitas Udayana**
+Attribution: **Division of Data Science and Artificial Intelligence, Study Program of Anesthesiology and Intensive Therapy, Faculty of Medicine, Universitas Udayana**
 
 ---
 
