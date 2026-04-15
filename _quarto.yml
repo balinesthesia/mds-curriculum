@@ -1,0 +1,47 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Medical Data Science Curriculum"
+  description: "Division of Data Science and Artificial Intelligence — Study Program of Anesthesiology and Intensive Therapy, Faculty of Medicine, Universitas Udayana"
+  site-url: "https://balinesthesia.github.io/mds-curriculum"
+  repo-url: "https://github.com/balinesthesia/mds-curriculum"
+  repo-actions: [issue]
+
+  navbar:
+    left:
+      - text: "Basic"
+        href: basic/index.qmd
+      - text: "Intermediate"
+        href: intermediate/index.qmd
+      - text: "Advanced"
+        href: advanced/index.qmd
+    right:
+      - text: "Datasets"
+        href: datasets/index.qmd
+      - icon: github
+        href: "https://github.com/balinesthesia/mds-curriculum"
+
+  sidebar: false
+
+  page-footer:
+    left: "CC BY-NC 4.0 · Division of Data Science and Artificial Intelligence, FK Udayana"
+    right: "Built with [Quarto](https://quarto.org)"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    code-fold: false
+    code-tools: true
+    number-sections: false
+    smooth-scroll: true
+    highlight-style: github
+
+execute:
+  freeze: auto
+  echo: true
+  warning: false
+  message: false

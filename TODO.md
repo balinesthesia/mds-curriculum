@@ -128,6 +128,7 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [ ] Dry-run Week 1 setup guide with at least one non-technical tester
 - [ ] Document dry-run findings as GitHub Issues; resolve before cohort start
 - [ ] Author `certificate/template.qmd` — parameterized Quarto PDF; fields: recipient name, tier, cohort, date, curriculum version, certificate ID
+- [ ] Add `certificate/design-reference.html` — self-contained HTML mockup for visual design review and stakeholder sign-off
 - [ ] Add `certificate/assets/` — program logo, HoD signature scans (two signatories)
 - [ ] Test certificate PDF render end-to-end against example params
 
@@ -238,6 +239,9 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [ ] Author `facilitator/intermediate-guide.qmd`
 - [ ] Create `cohort-intermediate-01` private repo and team
 - [ ] Dry-run Week 1 Python environment setup
+- [ ] Issue certificates for all Intermediate capstone-passing residents
+  - [ ] Generate parameterized PDF per resident from `certificate/template.qmd`
+  - [ ] Append each record to `certificate/REGISTRY.yaml` (ID, tier, cohort, curriculum version, capstone URL, date)
 - [ ] Tag `v0.7.0`
 
 ---
@@ -344,6 +348,9 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [ ] Resolve all critical and major issues
 - [ ] Author `facilitator/advanced-guide.qmd`
 - [ ] Create `cohort-advanced-01` private repo and team
+- [ ] Issue certificates for all Advanced capstone-passing residents
+  - [ ] Generate parameterized PDF per resident from `certificate/template.qmd`
+  - [ ] Append each record to `certificate/REGISTRY.yaml` (ID, tier, cohort, curriculum version, capstone URL, date)
 - [ ] Tag `v0.9.0`
 
 ---
