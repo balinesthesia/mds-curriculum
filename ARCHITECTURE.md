@@ -17,13 +17,17 @@ Motivation lever: their own patient data, their own clinical questions.
 
 1. **Concept before tool.** Every module follows: Concept → Clinical context → Tool. Never Tool → Application.
 2. **Clinical anchor is load-bearing, not decorative.** Toy datasets are prohibited. Every exercise uses real or realistic clinical data.
-3. **Reproducibility as discipline, not afterthought.** Version control, environment management, and literate programming are introduced in Week 1 of Basic and never relaxed.
+3. **Reproducibility as discipline, not afterthought.** Version control, environment management, and literate programming are introduced in Week 1 of Intro and never relaxed.
 4. **Prediction vs inference is the central distinction.** This single concept separates the Basic researcher track from the Intermediate builder track and must be taught explicitly.
 5. **AI-assisted workflows are taught critically.** AI tools enter at Advanced tier only. Residents learn what LLMs cannot catch before they learn to use them.
 
 ---
 
 ## Tier Design Rationale
+
+### Why Introductory Course
+
+The Introductory Course (4 weeks) serves as a zero-assumption entry path. Residents arrive with clinical intelligence but no programming or statistics background. The Intro tier establishes shared toolchain competence (R, RStudio/VSCode, Git, GitHub, Quarto) before Basic tier content begins. Without this foundation, Week 1 of Basic would require simultaneous learning of tools and concepts — a proven failure mode.
 
 ### Why R for Basic
 
@@ -68,20 +72,56 @@ Deliberate. An LMS adds a platform dependency and separates learning from toolin
 
 ## Repository Governance
 
+### GitHub Teams Permission Model
+
+| Team | Members | Repositories | Permission |
+|------|---------|--------------|------------|
+| `facilitators` | Trained facilitators (staff + Advanced graduates) | `mds-curriculum`, `facilitator-guide` | Write |
+| `basic-cohort-template` | Template team — copied for each Basic cohort | `mds-curriculum` | Read |
+| `intermediate-cohort-template` | Template team — copied for each Intermediate cohort | `mds-curriculum` | Read |
+| `advanced-cohort-template` | Template team — copied for each Advanced cohort | `mds-curriculum` | Read |
+
+**Cohort template team timing:** Template teams (`basic-cohort-template`, `intermediate-cohort-template`, `advanced-cohort-template`) are created at the start of each tier's cohort infrastructure milestone — not all at v0.1.0. This ensures template is validated against actual curriculum content before first cohort launch.
+
+**Cohort team creation:** On cohort launch, copy the appropriate template team, rename to `cohort-{tier}-{NN}` (e.g., `cohort-basic-01`), and add resident GitHub accounts. Template teams remain empty for reuse.
+
 ### Curriculum repo (`mds-curriculum`) — public
 
-Owned by Balinesthesia org. Facilitators have write access. Residents have read access.  
+Owned by Balinesthesia org. Facilitators have write access via `facilitators` team. Residents have read access via their cohort team.  
 All changes via PR. No direct commits to `main`.
 
 ### Cohort repos (e.g., `cohort-basic-01`) — private
 
-One repo per cohort per tier. Resident teams have write access scoped to their capstone directory. Facilitator has full write access.  
+One repo per cohort per tier. Created from template with `README.md` pre-populated with cohort record fields.  
+Resident teams have write access scoped to their capstone directory. Facilitator has full write access via `facilitators` team.  
 Archived (not deleted) after cohort completion.
 
 ### Facilitator guide (`facilitator-guide`) — private
 
-Write access: facilitators only. Contains rubrics, onboarding materials, session notes.  
+Write access: `facilitators` team only. Contains rubrics, onboarding materials, session notes.  
 Versioned in sync with curriculum via matching tags.
+
+---
+
+## Certificate Architecture
+
+### Certificate of Competency
+
+Issued by **Division of Data Science and Artificial Intelligence, Study Program of Anesthesiology and Intensive Therapy, Faculty of Medicine, Universitas Udayana**.
+
+**Signatories:**
+- Koordinator Program Studi — Prof. Dr. dr. Tjokorda Gde Agung Senapathi, SpAn-TI, Subsp.A.R (K)
+- Kepala Divisi Data Science dan Artificial Intelligence — dr. I Made Agus Kresna Sucandra, SpAn-TI, Subsp.T.I (K)
+
+**Verification:** Every certificate carries a unique ID resolvable at `balinesthesia.github.io/mds-curriculum/verify` against `certificate/REGISTRY.yaml`. Public registry ensures transparency without compromising resident privacy.
+
+**Generation:** Parameterized Quarto PDF from `certificate/template.qmd`. Per-resident `params.yml` drives rendering. No manual layout work required.
+
+**Storage:**
+- `certificate/template.qmd` — versioned template
+- `certificate/REGISTRY.yaml` — public verification registry
+- `certificate/assets/` — program logo, scanned signatures
+- `certificate/params-example.yml` — documentation for certificate generation
 
 ---
 
@@ -140,3 +180,6 @@ This pipeline is the primary curriculum sustainability mechanism. It must be exp
 | 2026-04 | R for Basic, Python for Intermediate/Advanced | Clinical literature compatibility vs builder ecosystem fit |
 | 2026-04 | Linear tier progression | Foundation integrity over speed, no lateral entry |
 | 2026-04 | 4–6 residents per cohort | Capstone feedback quality, peer review viability |
+| 2026-04 | Introductory Course added | Zero-assumption entry path; separates tool learning from concept learning |
+| 2026-04 | Certificate of Competency — department-issued, dual-signed, public registry | Institutional credibility for resident credentials; verification without central authority |
+| 2026-04 | Issuing authority: Division of Data Science and Artificial Intelligence, FK Udayana | Clear organizational ownership for credential legitimacy |

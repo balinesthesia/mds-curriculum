@@ -22,26 +22,46 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [x] Add placeholder `README.md` in each top-level directory
 - [x] Add `certificate/REGISTRY.yaml` — empty registry with schema comment
 - [x] Add `certificate/params-example.yml` — example parameter file for template
-- [x] Configure GitHub Pages deployment (source: `docs/`)
+- [x] Configure GitHub Pages deployment (source: `docs/` on `main`)
 - [x] Verify site renders and deploys on push to `main`
 
-> Three things worth noting:
-
-  - `output-dir: docs` — GitHub Pages serves from docs/ on main, which avoids needing a separate gh-pages branch. Simpler for a solo/small team setup.
-  - `freeze: auto` — rendered code output is cached. Modules that use MIMIC-IV data locally won't break CI when the data isn't present on the server.
-  - Navbar links point to `basic/index.qmd`, `intermediate/index.qmd`, `advanced/index.qmd` — placeholder files created, ready for v0.2.0+ content.
-
+> **Note:** `intro/` directory was considered but not implemented — site uses `index.qmd` as landing page instead.
 
 ### GitHub Org Setup
-- [ ] Create GitHub Team: `facilitators` — write access to `mds-curriculum` and `facilitator-guide`
-- [ ] Create GitHub Team: `basic-cohort-template` — read access to `mds-curriculum`
-- [ ] Document team permission model in `ARCHITECTURE.md`
-- [ ] Create private repo `facilitator-guide` under `balinesthesia` org
-- [ ] Add `facilitator-guide/README.md` with access and purpose description
+- [x] Create GitHub Team: `facilitators` — write access to `mds-curriculum` and `facilitator-guide`
+- [x] Create GitHub Team: `basic-cohort-template` — read access to `mds-curriculum`
+- [x] Document team permission model in `ARCHITECTURE.md`
+> **Note:** `intermediate-cohort-template` and `advanced-cohort-template` teams are created at their respective tier milestones (v0.8.0 and v0.10.0), not v0.1.0.
+- [x] Create private repo `facilitator-guide` under `balinesthesia` org
+- [x] Add `facilitator-guide/README.md` with access and purpose description
 
 ---
 
-## v0.2.0 — Basic Tier Content Draft
+## v0.2.0 — Introductory Course Content Draft
+> Deliverable: All 4 Intro modules authored as `.qmd` files, unreviewed. No prior knowledge assumed.
+
+### Environment and Setup
+- [ ] Author `facilitator/intro-setup-guide.qmd` — pre-session checklist: OS requirements, installation steps for R, RStudio/VSCode, Quarto, Git, GitHub account
+- [ ] Author `facilitator/intro-verification-checklist.qmd` — "setup works" confirmation items; must pass before Week 1
+- [ ] Author `intro/README.md` — course overview, learning goals, zero-assumption framing
+
+### Module Authoring — Introductory Course
+- [ ] `intro/week-01/index.qmd` — Command line basics; terminal, file system, paths, navigation
+  - [ ] Facilitator notes: `intro/week-01/facilitator.qmd`
+  - [ ] Exercise: navigate to a directory, create a folder, move and rename a file — all via terminal
+- [ ] `intro/week-02/index.qmd` — Git and GitHub fundamentals; clone, commit, push; GitHub account setup
+  - [ ] Facilitator notes: `intro/week-02/facilitator.qmd`
+  - [ ] Exercise: clone the `mds-curriculum` repo, make a small edit, commit and push to a personal fork
+- [ ] `intro/week-03/index.qmd` — R + RStudio/VSCode orientation; Quarto basics; render a document
+  - [ ] Facilitator notes: `intro/week-03/facilitator.qmd`
+  - [ ] Exercise: create a `.qmd` file with one code chunk and one text section; render to HTML; push to GitHub
+- [ ] `intro/week-04/index.qmd` — Core programming concepts; variables, data types, functions, reading/writing files; basic statistics refresher (mean, median, variance, distributions, p-value intuition — no code)
+  - [ ] Facilitator notes: `intro/week-04/facilitator.qmd`
+  - [ ] Exercise: load a CSV file in R, compute summary statistics, write results to a new file
+
+---
+
+## v0.3.0 — Basic Tier Content Draft
 > Deliverable: All 16 Basic modules authored as `.qmd` files, unreviewed. Capstone brief drafted.
 
 ### Environment and Setup
@@ -110,7 +130,7 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 
 ---
 
-## v0.3.0 — Basic Tier Internal Review
+## v0.4.0 — Basic Tier Internal Review
 > Deliverable: All Basic modules reviewed by at least one clinical + one methodological reviewer. Errata resolved.
 
 - [ ] Identify clinical reviewer (anesthesia staff)
@@ -118,13 +138,13 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [ ] Open GitHub Issues for each module requiring revision
 - [ ] Resolve all critical issues (factual errors, broken exercises, missing data)
 - [ ] Resolve all major issues (concept clarity, clinical anchor accuracy)
-- [ ] Tag `v0.3.0` after all issues closed
+- [ ] Tag `v0.4.0` after all issues closed
 - [ ] Update `CHANGELOG.md`
 
 ---
 
-## v0.4.0 — Basic Tier Cohort Infrastructure
-> Deliverable: Everything needed to run the first Basic cohort, including facilitator guide and cohort repo template.
+## v0.5.0 — Basic Tier Cohort Infrastructure
+> Deliverable: Everything needed to run the first Basic cohort, including facilitator guide, cohort repo, and certificate template.
 
 - [ ] Author `facilitator/onboarding.qmd` — facilitator role, responsibilities, session format
 - [ ] Author `facilitator/basic-guide.qmd` — per-module facilitation notes compiled
@@ -141,8 +161,8 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 
 ---
 
-## v0.5.0 — Basic Tier First Cohort Delivery
-> Deliverable: First Basic cohort completed, capstones submitted, post-cohort revisions captured.
+## v0.6.0 — Basic Tier First Cohort Delivery
+> Deliverable: First Basic cohort completed, capstones submitted, certificates issued, post-cohort revisions captured.
 
 - [ ] Deliver 16-week Basic cohort
 - [ ] Collect per-module feedback from residents after each session
@@ -155,11 +175,11 @@ Update this file via PR only. Mark tasks `[x]` on completion.
   - [ ] Generate parameterized PDF per resident from `certificate/template.qmd`
   - [ ] Append each record to `certificate/REGISTRY.yaml` (ID, tier, cohort, curriculum version, capstone URL, date)
 - [ ] Update `CHANGELOG.md`
-- [ ] Tag `v0.5.0`
+- [ ] Tag `v0.6.0`
 
 ---
 
-## v0.6.0 — Intermediate Tier Content Draft
+## v0.7.0 — Intermediate Tier Content Draft
 > Deliverable: All 20 Intermediate modules authored. Capstone brief drafted.
 
 ### Environment
@@ -238,22 +258,23 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 
 ---
 
-## v0.7.0 — Intermediate Tier Review + Cohort Infrastructure
-> Mirrors v0.3.0 + v0.4.0 process for Intermediate tier.
+## v0.8.0 — Intermediate Tier Review + Cohort Infrastructure
+> Mirrors v0.4.0 + v0.5.0 process for Intermediate tier.
 
 - [ ] Clinical and methodological review of all 20 modules
 - [ ] Resolve all critical and major issues
 - [ ] Author `facilitator/intermediate-guide.qmd`
+- [ ] Create GitHub Team: `intermediate-cohort-template` — read access to `mds-curriculum`
 - [ ] Create `cohort-intermediate-01` private repo and team
 - [ ] Dry-run Week 1 Python environment setup
 - [ ] Issue certificates for all Intermediate capstone-passing residents
   - [ ] Generate parameterized PDF per resident from `certificate/template.qmd`
   - [ ] Append each record to `certificate/REGISTRY.yaml` (ID, tier, cohort, curriculum version, capstone URL, date)
-- [ ] Tag `v0.7.0`
+- [ ] Tag `v0.8.0`
 
 ---
 
-## v0.8.0 — Advanced Tier Content Draft
+## v0.9.0 — Advanced Tier Content Draft
 > Deliverable: All 24 Advanced modules authored, both builder and researcher tracks scaffolded.
 
 ### Module Authoring — Advanced Tier
@@ -348,29 +369,31 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 
 ---
 
-## v0.9.0 — Advanced Tier Review + Cohort Infrastructure
-> Mirrors v0.3.0 + v0.4.0 process for Advanced tier.
+## v0.10.0 — Advanced Tier Review + Cohort Infrastructure
+> Mirrors v0.4.0 + v0.5.0 process for Advanced tier.
 
 - [ ] Clinical, methodological, and AI/ethics review of all 24 modules
 - [ ] Resolve all critical and major issues
 - [ ] Author `facilitator/advanced-guide.qmd`
+- [ ] Create GitHub Team: `advanced-cohort-template` — read access to `mds-curriculum`
 - [ ] Create `cohort-advanced-01` private repo and team
 - [ ] Issue certificates for all Advanced capstone-passing residents
   - [ ] Generate parameterized PDF per resident from `certificate/template.qmd`
   - [ ] Append each record to `certificate/REGISTRY.yaml` (ID, tier, cohort, curriculum version, capstone URL, date)
-- [ ] Tag `v0.9.0`
+- [ ] Tag `v0.10.0`
 
 ---
 
 ## v1.0.0 — Full Curriculum Stable
-> Deliverable: All three tiers delivered at least once, post-cohort revisions applied, facilitator pipeline operational.
+> Deliverable: All tiers delivered at least once, post-cohort revisions applied, facilitator pipeline operational.
 
+- [ ] Intro Course: minimum one cohort completed and revised
 - [ ] Basic Tier: minimum one cohort completed and revised
 - [ ] Intermediate Tier: minimum one cohort completed and revised
 - [ ] Advanced Tier: minimum one cohort completed and revised
 - [ ] Minimum one Advanced graduate active as junior facilitator
 - [ ] Capstone archive contains at least one entry per tier
-- [ ] All three facilitator guides reviewed by active facilitators
+- [ ] All facilitator guides reviewed by active facilitators
 - [ ] Site renders cleanly across all tiers with no broken links or missing data pointers
 - [ ] `CHANGELOG.md` complete from v0.1.0 through v1.0.0
 - [ ] Public announcement (Balinesthesia website, academic network)
