@@ -1,0 +1,32 @@
+---
+title: "Advanced Tier"
+subtitle: "24 weeks · Python + AI-assisted · Tool Builder"
+---
+
+## Overview
+
+The Advanced tier produces residents who can build clinical tools or produce preprint-ready research. **AI-assisted workflows are taught critically** — residents learn what LLMs cannot catch before they learn to use them.
+
+## Why AI-assisted?
+
+By Advanced, residents have enough foundation to use AI tools critically — as a supervised junior collaborator, not an oracle. Teaching AI-assisted workflows without this foundation produces tool dependency, not competency.
+
+## Datasets
+
+- MIMIC-IV: PhysioNet credentialed (local copy required, never committed)
+
+## Capstone
+
+Deployed clinical tool prototype **or** preprint-ready manuscript (builder/researcher track).
+
+## Facilitator Pipeline
+
+Advanced graduates can become junior facilitators for Basic cohorts, creating a sustainable curriculum model.
+
+## Modules
+
+*Coming soon. Module structure: Week 1–24 with `index.qmd` (resident-facing) and `facilitator.qmd` (facilitator notes).*
+
+---
+
+[← Back to Home](../index.qmd)

@@ -1,0 +1,44 @@
+# Datasets
+
+Curated datasets for the Medical Data Science Curriculum.
+
+---
+
+## Directory Structure
+
+```
+datasets/
+├── basic/          # Curated, clean, versioned — committed to repo
+├── intermediate/   # VitalDB slices, eICU samples
+└── advanced/       # MIMIC-IV pointers only
+```
+
+## Tier-Specific Data Policy
+
+### Basic
+- Curated synthetic and public anesthesia datasets
+- Small, clean, immediately usable
+- Committed directly to repository
+
+### Intermediate
+- VitalDB: Open access, committed if <100MB
+- eICU-CRD: PhysioNet credentialed, samples committed if <100MB
+- Larger datasets: Pointers and download instructions
+
+### Advanced
+- **MIMIC-IV: Never committed to repository**
+- Modules assume local `data/mimic-iv/` directory
+- Each module includes `data/README.md` specifying exact tables, columns, and cohort query
+- Reproducibility via code, not data distribution
+
+## Access Requirements
+
+| Dataset | Access | Prerequisite |
+|---------|--------|--------------|
+| VitalDB | Open | None |
+| eICU-CRD | PhysioNet credentialed | CITI training |
+| MIMIC-IV | PhysioNet credentialed | CITI training |
+
+---
+
+*See [ARCHITECTURE.md](../ARCHITECTURE.md) for full data governance policy.*

@@ -1,0 +1,42 @@
+---
+title: "Medical Data Science Curriculum"
+subtitle: "Division of Data Science and Artificial Intelligence — FK Udayana"
+about:
+  template: marquee
+  links:
+    - text: Basic Tier
+      href: basic/index.qmd
+    - text: Intermediate Tier
+      href: intermediate/index.qmd
+    - text: Advanced Tier
+      href: advanced/index.qmd
+    - text: GitHub
+      href: https://github.com/balinesthesia/mds-curriculum
+      icon: github
+---
+
+## Overview
+
+A tiered, cohort-based curriculum bridging traditional clinical statistics and modern data science for anesthesiology residents. Built around reproducibility, causal reasoning, and real clinical datasets.
+
+This curriculum is **not** a generic data science course. Every concept is anchored to anesthesia and critical care practice. Residents leave as researchers who can build, or builders who can publish.
+
+---
+
+## Curriculum Structure
+
+| Tier | Duration | Language | Goal |
+|---|---|---|---|
+| [Basic](basic/index.qmd) | 16 weeks | R | Critical consumer + reproducible researcher |
+| [Intermediate](intermediate/index.qmd) | 20 weeks | Python | Independent analyst, researcher/builder entry |
+| [Advanced](advanced/index.qmd) | 24 weeks | Python + AI-assisted | Clinical tool builder or preprint-ready researcher |
+
+**Progression:** Linear. Basic → Intermediate → Advanced.  
+**Cohort size:** 4–6 residents per cohort.  
+**Contact hours:** 2 hours/week.
+
+---
+
+## License
+
+[CC BY-NC 4.0](LICENSE) — Free to use and adapt for non-commercial academic and clinical education with attribution.

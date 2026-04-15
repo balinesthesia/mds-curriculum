@@ -10,20 +10,27 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 > Deliverable: Repo is publicly accessible, licensed, structured, and navigable. No curriculum content yet.
 
 ### Infrastructure
-- [ ] Initialize `mds-curriculum` repo under `github.com/balinesthesia`
-- [ ] Add `LICENSE` (CC BY-NC 4.0 full text)
-- [ ] Add `README.md`
-- [ ] Add `ARCHITECTURE.md`
-- [ ] Add `TODO.md` (this file)
-- [ ] Add `.gitignore` (R, Python, Quarto, data directories)
-- [ ] Add `_quarto.yml` (site scaffold, no content pages yet)
-- [ ] Add `CHANGELOG.md` (empty, versioned from v0.1.0)
-- [ ] Create directory skeleton: `basic/`, `intermediate/`, `advanced/`, `datasets/`, `facilitator/`, `capstone-archive/`, `certificate/`
-- [ ] Add placeholder `README.md` in each top-level directory
-- [ ] Add `certificate/REGISTRY.yaml` — empty registry with schema comment
-- [ ] Add `certificate/params-example.yml` — example parameter file for template
-- [ ] Configure GitHub Pages deployment (source: `gh-pages` branch or `docs/`)
-- [ ] Verify site renders and deploys on push to `main`
+- [x] Initialize `mds-curriculum` repo under `github.com/balinesthesia`
+- [x] Add `LICENSE` (CC BY-NC 4.0 full text)
+- [x] Add `README.md`
+- [x] Add `ARCHITECTURE.md`
+- [x] Add `TODO.md` (this file)
+- [x] Add `.gitignore` (R, Python, Quarto, data directories)
+- [x] Add `_quarto.yml` (site scaffold, no content pages yet)
+- [x] Add `CHANGELOG.md` (empty, versioned from v0.1.0)
+- [x] Create directory skeleton: `basic/`, `intermediate/`, `advanced/`, `datasets/`, `facilitator/`, `capstone-archive/`, `certificate/`
+- [x] Add placeholder `README.md` in each top-level directory
+- [x] Add `certificate/REGISTRY.yaml` — empty registry with schema comment
+- [x] Add `certificate/params-example.yml` — example parameter file for template
+- [x] Configure GitHub Pages deployment (source: `docs/`)
+- [x] Verify site renders and deploys on push to `main`
+
+> Three things worth noting:
+
+  - `output-dir: docs` — GitHub Pages serves from docs/ on main, which avoids needing a separate gh-pages branch. Simpler for a solo/small team setup.
+  - `freeze: auto` — rendered code output is cached. Modules that use MIMIC-IV data locally won't break CI when the data isn't present on the server.
+  - Navbar links point to `basic/index.qmd`, `intermediate/index.qmd`, `advanced/index.qmd` — placeholder files created, ready for v0.2.0+ content.
+
 
 ### GitHub Org Setup
 - [ ] Create GitHub Team: `facilitators` — write access to `mds-curriculum` and `facilitator-guide`

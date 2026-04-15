@@ -1,0 +1,17 @@
+# Example parameter file for certificate generation
+# Usage: quarto render template.qmd --metadata-file params.yml
+
+recipient_name: "dr. Residen Anestesi"
+tier: "basic"
+cohort: "basic-01"
+curriculum_version: "v0.2.0"
+certificate_id: "MDS-B-01-001"
+date: "2026-08-15"
+
+signatories:
+  coordinator:
+    name: "Prof. Dr. dr. Tjokorda Gde Agung Senapathi, SpAn-TI, Subsp.A.R (K)"
+    title: "Koordinator Program Studi"
+  division_head:
+    name: "dr. I Made Agus Kresna Sucandra, SpAn-TI, Subsp.T.I (K)"
+    title: "Kepala Divisi Data Science dan Artificial Intelligence"

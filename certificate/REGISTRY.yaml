@@ -1,0 +1,18 @@
+# Certificate Registry
+# Public verification record for Certificates of Competency
+# Query: https://balinesthesia.github.io/mds-curriculum/verify
+#
+# Schema:
+# - id: Unique certificate ID (UUID short form)
+#   recipient: Full name of resident
+#   tier: basic | intermediate | advanced
+#   cohort: Cohort identifier (e.g., "basic-01", "intermediate-03")
+#   curriculum_version: SemVer at cohort start (e.g., "v0.2.1")
+#   capstone_url: GitHub URL to capstone repository
+#   issued_date: ISO 8601 date (YYYY-MM-DD)
+#   signatories:
+#     - Koordinator Program Studi
+#     - Kepala Divisi Data Science dan AI
+
+---
+# No entries yet. First cohort certificates will be recorded here.

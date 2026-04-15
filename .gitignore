@@ -19,7 +19,6 @@ capstone-archive/*/data/
 renv/library/
 renv/local/
 renv/cellar/
-renv/lock/
 renv/sandbox/
 renv/staging/
 .Rprofile
@@ -53,11 +52,10 @@ build/
 _site/
 _freeze/
 
-# Rendered outputs (keep source only)
-*.html
-*.pdf
-*.docx
-*.pptx
+# Rendered outputs — docs/ is committed (Quarto site output served by GitHub Pages)
+# Certificate PDFs are ignored except the versioned template and signed assets
+certificate/*.pdf
+certificate/assets/*.pdf
 !certificate/template.pdf
 !certificate/assets/*.pdf
 
