@@ -41,23 +41,23 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 > Deliverable: All 4 Intro modules authored as `.qmd` files, unreviewed. No prior knowledge assumed.
 
 ### Environment and Setup
-- [ ] Author `facilitator/intro-setup-guide.qmd` — pre-session checklist: OS requirements, installation steps for R, RStudio/VSCode, Quarto, Git, GitHub account
-- [ ] Author `facilitator/intro-verification-checklist.qmd` — "setup works" confirmation items; must pass before Week 1
-- [ ] Author `intro/README.md` — course overview, learning goals, zero-assumption framing
+- [x] Author `facilitator/intro-setup-guide.qmd` — pre-session checklist: OS requirements, installation steps for R, RStudio/VSCode, Quarto, Git, GitHub account
+- [x] Author `facilitator/intro-verification-checklist.qmd` — "setup works" confirmation items; must pass before Week 1
+- [x] Author `intro/README.md` — course overview, learning goals, zero-assumption framing
 
 ### Module Authoring — Introductory Course
-- [ ] `intro/week-01/index.qmd` — Command line basics; terminal, file system, paths, navigation
-  - [ ] Facilitator notes: `intro/week-01/facilitator.qmd`
-  - [ ] Exercise: navigate to a directory, create a folder, move and rename a file — all via terminal
-- [ ] `intro/week-02/index.qmd` — Git and GitHub fundamentals; clone, commit, push; GitHub account setup
-  - [ ] Facilitator notes: `intro/week-02/facilitator.qmd`
-  - [ ] Exercise: clone the `mds-curriculum` repo, make a small edit, commit and push to a personal fork
-- [ ] `intro/week-03/index.qmd` — R + RStudio/VSCode orientation; Quarto basics; render a document
-  - [ ] Facilitator notes: `intro/week-03/facilitator.qmd`
-  - [ ] Exercise: create a `.qmd` file with one code chunk and one text section; render to HTML; push to GitHub
-- [ ] `intro/week-04/index.qmd` — Core programming concepts; variables, data types, functions, reading/writing files; basic statistics refresher (mean, median, variance, distributions, p-value intuition — no code)
-  - [ ] Facilitator notes: `intro/week-04/facilitator.qmd`
-  - [ ] Exercise: load a CSV file in R, compute summary statistics, write results to a new file
+- [x] `intro/week-01/index.qmd` — Command line basics; terminal, file system, paths, navigation
+  - [x] Facilitator notes: `intro/week-01/facilitator.qmd`
+  - [x] Exercise: navigate to a directory, create a folder, move and rename a file — all via terminal
+- [x] `intro/week-02/index.qmd` — Git and GitHub fundamentals; clone, commit, push; GitHub account setup
+  - [x] Facilitator notes: `intro/week-02/facilitator.qmd`
+  - [x] Exercise: clone the `mds-curriculum` repo, make a small edit, commit and push to a personal fork
+- [x] `intro/week-03/index.qmd` — R + RStudio/VSCode orientation; Quarto basics; render a document
+  - [x] Facilitator notes: `intro/week-03/facilitator.qmd`
+  - [x] Exercise: create a `.qmd` file with one code chunk and one text section; render to HTML; push to GitHub
+- [x] `intro/week-04/index.qmd` — Core programming concepts; variables, data types, functions, reading/writing files; basic statistics refresher (mean, median, variance, distributions, p-value intuition — no code)
+  - [x] Facilitator notes: `intro/week-04/facilitator.qmd`
+  - [x] Exercise: load a CSV file in R, compute summary statistics, write results to a new file
 
 ---
 

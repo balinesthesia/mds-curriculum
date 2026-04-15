@@ -1,0 +1,88 @@
+---
+title: "Introductory Course — Verification Checklist"
+subtitle: '"Setup works" confirmation items — must pass before Week 1'
+---
+
+## Purpose
+
+This checklist verifies that every resident's environment is functional before Week 1 begins. Do not proceed with content delivery until all items are checked. A resident with a broken environment will fall behind permanently.
+
+---
+
+## Individual Resident Verification
+
+**Resident Name:** _________________ **Date:** _________ **Verified By:** _________________
+
+### R Installation
+
+- [ ] Can open RStudio (or R from terminal)
+- [ ] Can execute `R --version` in terminal and reports 4.3.0 or newer
+- [ ] Can install a package: `install.packages("tidyverse")`
+- [ ] Package loads without error: `library(tidyverse)`
+
+### Git Installation
+
+- [ ] Can open Terminal (macOS/Linux) or Git Bash (Windows)
+- [ ] Can execute `git --version` and reports 2.40.0 or newer
+- [ ] Can execute `git config --global user.name` and see their name
+- [ ] Can execute `git config --global user.email` and see their email
+
+### GitHub Connectivity
+
+- [ ] Has GitHub account with 2FA enabled
+- [ ] Can execute `ssh -T git@github.com` and see "Hi username! You've successfully authenticated"
+- [ ] Can clone a repository: `git clone git@github.com:balinesthesia/mds-curriculum.git`
+- [ ] Can navigate into cloned directory and see files
+
+### Quarto Installation
+
+- [ ] Can execute `quarto --version` and reports 1.4.0 or newer
+- [ ] Can render a basic document (create `test.qmd` with one heading, render to HTML)
+- [ ] HTML output opens in browser without errors
+
+### File System Navigation
+
+- [ ] Can open terminal in a specific directory
+- [ ] Can navigate up/down directory tree (`cd`, `cd ..`, `ls`/`dir`)
+- [ ] Can create a new directory: `mkdir test-folder`
+- [ ] Can create a new file: `touch test.txt` (macOS/Linux) or `type nul > test.txt` (Windows CMD)
+- [ ] Can move and rename files
+
+---
+
+## Cohort Readiness Gate
+
+**Before Week 1 session:**
+
+| Metric | Threshold | Status |
+|--------|-----------|--------|
+| Residents with verified setup | 100% | ☐ |
+| Residents needing 1-on-1 support | 0 or scheduled | ☐ |
+| Backup laptops available | 1 per 6 residents | ☐ |
+| Facilitator has all residents' GitHub usernames | Yes | ☐ |
+
+---
+
+## Failure Protocols
+
+### If a resident fails verification:
+
+1. **Immediate:** Schedule 1-on-1 session within 48 hours
+2. **During session:** Walk through failed items together
+3. **If unresolved:** Provide temporary cloud environment (GitHub Codespaces) as bridge
+4. **Document:** Log issue and resolution for future cohorts
+
+### If >20% of cohort fails verification:
+
+1. **Do not start Week 1**
+2. **Reschedule:** Move Week 1 by 1 week
+3. **Root cause:** Identify common failure mode (usually Windows Git or SSH)
+4. **Remediation:** Group session targeting specific failure
+
+---
+
+## Sign-off
+
+**Facilitator:** I confirm all residents in this cohort have passed verification or have documented remediation plans.
+
+**Signature:** _________________ **Date:** _________

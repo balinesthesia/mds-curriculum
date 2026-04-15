@@ -1,6 +1,15 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "*.qmd"
+    - "intro/**/*.qmd"
+    - "basic/**/*.qmd"
+    - "intermediate/**/*.qmd"
+    - "advanced/**/*.qmd"
+    - "datasets/**/*.qmd"
+    - "facilitator/**/*.qmd"
+    - "!**/facilitator.qmd"  # Exclude facilitator notes from public site render
 
 website:
   title: "Medical Data Science Curriculum"
@@ -11,6 +20,8 @@ website:
 
   navbar:
     left:
+      - text: "Intro"
+        href: intro/index.qmd
       - text: "Basic"
         href: basic/index.qmd
       - text: "Intermediate"
