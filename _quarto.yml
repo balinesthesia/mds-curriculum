@@ -9,7 +9,8 @@ project:
     - "advanced/**/*.qmd"
     - "datasets/**/*.qmd"
     - "facilitator/**/*.qmd"
-    - "!**/facilitator.qmd"  # Exclude facilitator notes from public site render
+    - "!**/facilitator.qmd"   # Exclude facilitator notes from public site render
+    - "!certificate/**/*.qmd" # Exclude certificate templates — PDF artifacts, rendered manually
 
 website:
   title: "Medical Data Science Curriculum"
