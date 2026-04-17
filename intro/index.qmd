@@ -50,4 +50,4 @@ No formal capstone. Completion verified via `facilitator/intro-verification-chec
 
 ---
 
-*See main [README.md](../README.md) for full curriculum overview.*
+*See main [README.md](../index.qmd) for full curriculum overview.*

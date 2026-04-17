@@ -18,6 +18,9 @@ jobs:
         with:
           r-version: '4.3.0'
 
+      - name: Install R packages
+        run: Rscript -e 'install.packages(c("knitr", "rmarkdown", "tidyverse"), repos="https://cloud.r-project.org")'
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 

@@ -196,4 +196,4 @@ Before leaving this session, confirm you can:
 
 ---
 
-[← Back to Intro Course](../README.md)
+[← Back to Intro Course](../index.qmd)
