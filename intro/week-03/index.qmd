@@ -30,7 +30,7 @@ Quarto is **literate programming** — code and prose in one document. It ensure
 
 ### The Quarto Document Structure
 
-```markdown
+````markdown
 ---
 title: "My Analysis"
 author: "Your Name"
@@ -49,7 +49,7 @@ mean(c(1, 2, 3, 4, 5))
 ## Results
 
 The mean is `r mean(c(1, 2, 3, 4, 5))`.
-```
+````
 
 ### Code Chunks
 
