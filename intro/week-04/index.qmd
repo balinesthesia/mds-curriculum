@@ -205,11 +205,10 @@ date: "2026-04-15"
 
 ## Data Summary
 
-Analyzing `r nrow(patients)` patients.
-
-Mean age: `r round(mean(patients$age), 1)` years.
-
-Mean BMI: `r round(mean(patients$bmi), 1)`.
+Analyzing N patients.  
+Mean age: X years.  
+Mean BMI: Y.  
+*(Replace N, X, Y with inline R expressions: backtick-r-nrow, backtick-r-mean, etc.)*
 
 ## By BMI Category
 

@@ -48,7 +48,7 @@ mean(c(1, 2, 3, 4, 5))
 
 ## Results
 
-The mean is `r mean(c(1, 2, 3, 4, 5))`.
+The mean is 3. *(In your document: use an inline R expression here)*
 ````
 
 ### Code Chunks
@@ -119,7 +119,7 @@ patients
 
 ## Summary
 
-The mean propofol dose is `r round(mean(patients$propofol_mg), 1)` mg.
+The mean propofol dose is 310 mg. *(In your document: use an inline R expression here)*
 ````
 
 ### Part 3: Render
