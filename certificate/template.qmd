@@ -1,0 +1,87 @@
+---
+title: "Certificate of Competency"
+subtitle: "Medical Data Science Curriculum"
+format:
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    fontsize: 12pt
+    colorlinks: true
+params:
+  recipient: "Recipient Name"
+  tier: "Basic"  # Basic, Intermediate, or Advanced
+  cohort: "01"
+  curriculum_version: "v0.5.0"
+  certificate_id: "MDS-YYYY-XXXX"
+  issued_date: "2026-06-15"
+  signatory_1: "Prof. Dr. dr. Tjokorda Gde Agung Senapathi, SpAn-TI, Subsp.A.R (K)"
+  signatory_1_title: "Koordinator Program Studi"
+  signatory_2: "dr. I Made Agus Kresna Sucandra, SpAn-TI, Subsp.T.I (K)"
+  signatory_2_title: "Kepala Divisi Data Science dan Artificial Intelligence"
+---
+
+::: {style="text-align: center; margin-top: 2in;"}
+
+![Program Logo](assets/logo.png){width=2in}
+
+# Certificate of Competency
+
+## Medical Data Science Curriculum
+
+:::
+
+::: {style="text-align: center; margin-top: 1in;"}
+
+This certifies that
+
+**`r params$recipient`**
+
+has successfully completed the
+
+**`r params$tier` Tier**
+
+of the Medical Data Science Curriculum
+
+(Cohort `r params$cohort`, Version `r params$curriculum_version`)
+
+:::
+
+::: {style="text-align: center; margin-top: 1.5in;"}
+
+**Issued:** `r params$issued_date`
+
+**Certificate ID:** `r params$certificate_id`
+
+Verify at: `https://balinesthesia.github.io/mds-curriculum/verify?id=`r params$certificate_id`
+
+:::
+
+::: {style="margin-top: 2in;"}
+
+::: {style="float: left; width: 45%; text-align: center;"}
+
+![Signature 1](assets/signature-1.png){width=2in}
+
+`r params$signatory_1`  
+`r params$signatory_1_title`
+
+:::
+
+::: {style="float: right; width: 45%; text-align: center;"}
+
+![Signature 2](assets/signature-2.png){width=2in}
+
+`r params$signatory_2`  
+`r params$signatory_2_title`
+
+:::
+
+:::
+
+::: {style="clear: both; text-align: center; margin-top: 3in; font-size: 10pt;"}
+
+**Division of Data Science and Artificial Intelligence**  
+Study Program of Anesthesiology and Intensive Therapy  
+Faculty of Medicine, Universitas Udayana
+
+:::

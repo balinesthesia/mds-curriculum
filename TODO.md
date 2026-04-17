@@ -43,7 +43,7 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 ### Environment and Setup
 - [x] Author `facilitator/intro-setup-guide.qmd` — pre-session checklist: OS requirements, installation steps for R, RStudio/VSCode, Quarto, Git, GitHub account
 - [x] Author `facilitator/intro-verification-checklist.qmd` — "setup works" confirmation items; must pass before Week 1
-- [x] Author `intro/README.md` — course overview, learning goals, zero-assumption framing
+- [x] Author `intro/index.qmd` — course overview, learning goals, zero-assumption framing (renamed from README.md)
 
 ### Module Authoring — Introductory Course
 - [x] `intro/week-01/index.qmd` — Command line basics; terminal, file system, paths, navigation

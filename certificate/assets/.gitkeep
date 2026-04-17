@@ -1,0 +1,9 @@
+# Placeholder for certificate assets
+
+Add the following files to this directory:
+
+- `logo.png` — Program logo (high resolution, transparent background preferred)
+- `signature-1.png` — Scanned signature of Koordinator Program Studi
+- `signature-2.png` — Scanned signature of Kepala Divisi Data Science dan AI
+
+See `certificate/README.md` for specifications and generation workflow.
