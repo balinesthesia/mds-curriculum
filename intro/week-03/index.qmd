@@ -41,7 +41,7 @@ date: "2026-04-15"
 
 This is **markdown** text.
 
-```{r}
+```r
 # This is an R code chunk
 mean(c(1, 2, 3, 4, 5))
 ```
@@ -88,7 +88,7 @@ date: "2026-04-15"
 
 Load the packages we need:
 
-```{r}
+```r
 #| warning: false
 library(tidyverse)
 ```
@@ -97,7 +97,7 @@ library(tidyverse)
 
 Create a simple dataset of patient weights:
 
-```{r}
+```r
 patients <- tibble(
   id = 1:5,
   weight_kg = c(70, 85, 60, 90, 75)
@@ -110,7 +110,7 @@ patients
 
 Calculate propofol induction dose (2 mg/kg):
 
-```{r}
+```r
 patients <- patients |>
   mutate(propofol_mg = weight_kg * 2)
 

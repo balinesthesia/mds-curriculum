@@ -212,8 +212,7 @@ Mean BMI: Y.
 
 ## By BMI Category
 
-```{r}
-#| echo: false
+```r
 patients |>
   group_by(bmi_category) |>
   summarise(n = n(), mean_sbp = mean(systolic_bp)) |>
