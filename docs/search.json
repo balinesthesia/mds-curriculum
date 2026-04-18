@@ -1,45 +1,269 @@
 [
   {
-    "objectID": "datasets/index.html",
-    "href": "datasets/index.html",
-    "title": "Datasets",
+    "objectID": "intro/week-04/index.html",
+    "href": "intro/week-04/index.html",
+    "title": "Week 4 — Programming Concepts + Statistics Refresher",
     "section": "",
-    "text": "Curated synthetic and public anesthesia datasets\nSmall, clean, immediately usable\nCommitted directly to repository\n\n\n\n\n\nVitalDB: Open access, committed if &lt;100MB\neICU-CRD: PhysioNet credentialed, samples committed if &lt;100MB\nLarger datasets: Pointers and download instructions\n\n\n\n\n\nMIMIC-IV: Never committed to repository\nModules assume local data/mimic-iv/ directory\nEach module includes data/README.md specifying exact tables, columns, and cohort query\nReproducibility via code, not data distribution"
+    "text": "By the end of this session, you will be able to:\n\nDefine and use variables, data types, and functions\nRead and write CSV files in R\nCompute summary statistics (mean, median, SD)\nUnderstand distributions and p-values conceptually\nLoad data, analyze it, and save results"
   },
   {
-    "objectID": "datasets/index.html#tier-specific-data-policy",
-    "href": "datasets/index.html#tier-specific-data-policy",
-    "title": "Datasets",
+    "objectID": "intro/week-04/index.html#learning-objectives",
+    "href": "intro/week-04/index.html#learning-objectives",
+    "title": "Week 4 — Programming Concepts + Statistics Refresher",
     "section": "",
-    "text": "Curated synthetic and public anesthesia datasets\nSmall, clean, immediately usable\nCommitted directly to repository\n\n\n\n\n\nVitalDB: Open access, committed if &lt;100MB\neICU-CRD: PhysioNet credentialed, samples committed if &lt;100MB\nLarger datasets: Pointers and download instructions\n\n\n\n\n\nMIMIC-IV: Never committed to repository\nModules assume local data/mimic-iv/ directory\nEach module includes data/README.md specifying exact tables, columns, and cohort query\nReproducibility via code, not data distribution"
+    "text": "By the end of this session, you will be able to:\n\nDefine and use variables, data types, and functions\nRead and write CSV files in R\nCompute summary statistics (mean, median, SD)\nUnderstand distributions and p-values conceptually\nLoad data, analyze it, and save results"
   },
   {
-    "objectID": "datasets/index.html#access-requirements",
-    "href": "datasets/index.html#access-requirements",
-    "title": "Datasets",
-    "section": "Access Requirements",
-    "text": "Access Requirements\n\n\n\nDataset\nAccess\nPrerequisite\n\n\n\n\nVitalDB\nOpen\nNone\n\n\neICU-CRD\nPhysioNet credentialed\nCITI training\n\n\nMIMIC-IV\nPhysioNet credentialed\nCITI training\n\n\n\n\n← Back to Home"
+    "objectID": "intro/week-04/index.html#why-this-matters",
+    "href": "intro/week-04/index.html#why-this-matters",
+    "title": "Week 4 — Programming Concepts + Statistics Refresher",
+    "section": "Why This Matters",
+    "text": "Why This Matters\nClinical data is messy and complex. Programming gives you the tools to:\n\nProcess thousands of patient records systematically\nReproduce your analysis exactly\nShare your methods transparently"
   },
   {
-    "objectID": "CHANGELOG.html",
-    "href": "CHANGELOG.html",
+    "objectID": "intro/week-04/index.html#core-concepts",
+    "href": "intro/week-04/index.html#core-concepts",
+    "title": "Week 4 — Programming Concepts + Statistics Refresher",
+    "section": "Core Concepts",
+    "text": "Core Concepts\n\nVariables and Data Types\n\n\n\nType\nExample\nClinical Example\n\n\n\n\nNumeric\n70.5\nPatient weight, lab value\n\n\nInteger\n42L\nPatient count, age in years\n\n\nCharacter\n\"Male\"\nSex, diagnosis code\n\n\nLogical\nTRUE\nEvent occurred? (yes/no)\n\n\nFactor\nfactor(\"Severe\")\nOrdered category (ASA I-V)\n\n\n\n\n\nData Structures\n# Vector (one column)\nages &lt;- c(45, 62, 33, 58, 71)\n\n# Data frame (table)\npatients &lt;- data.frame(\n  id = 1:5,\n  age = ages,\n  sex = c(\"M\", \"F\", \"F\", \"M\", \"M\"),\n  bmi = c(24.5, 28.2, 22.1, 31.5, 26.0)\n)\n\n\nFunctions\nA function takes input, does something, returns output:\n# Built-in\nmean(patients$age)\nsd(patients$bmi)\n\n# Your own\ncalculate_bmi &lt;- function(weight_kg, height_m) {\n  bmi &lt;- weight_kg / (height_m ^ 2)\n  return(bmi)\n}\n\ncalculate_bmi(70, 1.75)  # 22.86"
+  },
+  {
+    "objectID": "intro/week-04/index.html#file-io",
+    "href": "intro/week-04/index.html#file-io",
+    "title": "Week 4 — Programming Concepts + Statistics Refresher",
+    "section": "File I/O",
+    "text": "File I/O\n\nReading CSV\n# Load data\ndata &lt;- read_csv(\"patients.csv\")\n\n# View structure\nstr(data)\nhead(data)\n\n\nWriting CSV\n# Save results\nwrite_csv(results, \"analysis_output.csv\")"
+  },
+  {
+    "objectID": "intro/week-04/index.html#statistics-refresher-no-code",
+    "href": "intro/week-04/index.html#statistics-refresher-no-code",
+    "title": "Week 4 — Programming Concepts + Statistics Refresher",
+    "section": "Statistics Refresher (No Code)",
+    "text": "Statistics Refresher (No Code)\n\nMeasures of Central Tendency\n\n\n\n\n\n\n\n\nMeasure\nWhen to Use\nExample\n\n\n\n\nMean\nSymmetric data, no outliers\nAverage MAP in stable patients\n\n\nMedian\nSkewed data, outliers present\nICU length of stay (some very long stays)\n\n\nMode\nCategorical data\nMost common ASA class\n\n\n\n\n\nSpread\n\n\n\nMeasure\nInterpretation\n\n\n\n\nSD\nTypical distance from mean\n\n\nIQR\nRange of middle 50% of data\n\n\nRange\nMin to max (sensitive to outliers)\n\n\n\n\n\nDistributions\n\nNormal (Gaussian): Symmetric, bell-shaped (e.g., height in adults)\nSkewed right: Tail to the right (e.g., hospital length of stay)\nSkewed left: Tail to the left (rare in clinical data)\nBimodal: Two peaks (e.g., blood pressure by sex)\n\n\n\nThe p-value\nA p-value is the probability of seeing your result (or more extreme) if the null hypothesis were true.\n\nSmall p (e.g., &lt; 0.05): Unlikely under null → “statistically significant”\nLarge p (e.g., &gt; 0.05): Plausibly under null → “not significant”\n\nWarning: Statistical significance ≠ clinical importance. A drug can lower blood pressure by 0.5 mmHg with p &lt; 0.001 and still be clinically meaningless."
+  },
+  {
+    "objectID": "intro/week-04/index.html#exercise",
+    "href": "intro/week-04/index.html#exercise",
+    "title": "Week 4 — Programming Concepts + Statistics Refresher",
+    "section": "Exercise",
+    "text": "Exercise\n\nPart 1: Load and Explore Data\nCreate a CSV file ~/mds-work/patients.csv:\nid,age,sex,weight_kg,height_m,systolic_bp\n1,45,M,70,1.75,120\n2,62,F,65,1.60,135\n3,33,F,55,1.55,110\n4,58,M,85,1.80,145\n5,71,M,78,1.70,150\nNow in R:\nlibrary(tidyverse)\n\n# Load\npatients &lt;- read_csv(\"~/mds-work/patients.csv\")\n\n# Explore\nstr(patients)\nsummary(patients)\n\n\nPart 2: Calculate Statistics\n# Age statistics\nmean(patients$age)\nmedian(patients$age)\nsd(patients$age)\n\n# BMI calculation\npatients &lt;- patients |&gt;\n  mutate(\n    bmi = weight_kg / (height_m ^ 2),\n    bmi_category = case_when(\n      bmi &lt; 18.5 ~ \"Underweight\",\n      bmi &lt; 25 ~ \"Normal\",\n      bmi &lt; 30 ~ \"Overweight\",\n      TRUE ~ \"Obese\"\n    )\n  )\n\n# Summary by category\npatients |&gt;\n  group_by(bmi_category) |&gt;\n  summarise(\n    n = n(),\n    mean_sbp = mean(systolic_bp),\n    sd_sbp = sd(systolic_bp)  # NA when n = 1 — expected with small datasets\n  )\n\n\nPart 3: Save Results\n# Save processed data\nwrite_csv(patients, \"~/mds-work/patients_analyzed.csv\")\n\n# Save summary statistics\nsummary_stats &lt;- patients |&gt;\n  summarise(\n    across(c(age, bmi, systolic_bp), list(mean = mean, sd = sd, median = median))\n  )\n\nwrite_csv(summary_stats, \"~/mds-work/summary_stats.csv\")\n\n\nPart 4: Create a Quarto Report\nCreate ~/mds-work/week4-report.qmd:\n---\ntitle: \"Week 4 Analysis Report\"\nauthor: \"Your Name\"\ndate: \"2026-04-15\"\n---\n\n## Data Summary\n\nAnalyzing N patients.  \nMean age: X years.  \nMean BMI: Y.  \n*(Replace N, X, Y with inline R expressions: backtick-r-nrow, backtick-r-mean, etc.)*\n\n## By BMI Category\n\n```r\npatients |&gt;\n  group_by(bmi_category) |&gt;\n  summarise(n = n(), mean_sbp = mean(systolic_bp)) |&gt;\n  knitr::kable()\n```\n\n## Conclusion\n\nData processing complete. Files saved to `patients_analyzed.csv`.\nRender and push to GitHub."
+  },
+  {
+    "objectID": "intro/week-04/index.html#common-pitfalls",
+    "href": "intro/week-04/index.html#common-pitfalls",
+    "title": "Week 4 — Programming Concepts + Statistics Refresher",
+    "section": "Common Pitfalls",
+    "text": "Common Pitfalls\n\n\n\n\n\n\n\nProblem\nSolution\n\n\n\n\n“File not found”\nCheck working directory: getwd(); use full path\n\n\nFactor vs character confusion\nUse stringsAsFactors = FALSE or read_csv()\n\n\nNA values break calculations\nUse na.rm = TRUE: mean(x, na.rm = TRUE)\n\n\nWrong variable type\nConvert: as.numeric(), as.character()"
+  },
+  {
+    "objectID": "intro/week-04/index.html#verification",
+    "href": "intro/week-04/index.html#verification",
+    "title": "Week 4 — Programming Concepts + Statistics Refresher",
+    "section": "Verification",
+    "text": "Verification\nBefore leaving this session, confirm you can:\n\nCreate a data frame with multiple variable types\nWrite a simple function\nRead a CSV file and inspect its structure\nCalculate mean, median, and SD\nAdd a new calculated column to data\nSave results to CSV\nExplain when to use mean vs median"
+  },
+  {
+    "objectID": "intro/week-04/index.html#resources",
+    "href": "intro/week-04/index.html#resources",
+    "title": "Week 4 — Programming Concepts + Statistics Refresher",
+    "section": "Resources",
+    "text": "Resources\n\nR for Data Science: Data transformation\nStatistical Rethinking — Conceptual depth (optional)\n\n\n← Back to Intro Course"
+  },
+  {
+    "objectID": "intro/week-02/index.html",
+    "href": "intro/week-02/index.html",
+    "title": "Week 2 — Git and GitHub Fundamentals",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nExplain what version control is and why it matters\nConfigure Git with your identity\nClone a repository from GitHub\nStage, commit, and push changes\nFork a repository and make a pull request"
+  },
+  {
+    "objectID": "intro/week-02/index.html#learning-objectives",
+    "href": "intro/week-02/index.html#learning-objectives",
+    "title": "Week 2 — Git and GitHub Fundamentals",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nExplain what version control is and why it matters\nConfigure Git with your identity\nClone a repository from GitHub\nStage, commit, and push changes\nFork a repository and make a pull request"
+  },
+  {
+    "objectID": "intro/week-02/index.html#why-version-control",
+    "href": "intro/week-02/index.html#why-version-control",
+    "title": "Week 2 — Git and GitHub Fundamentals",
+    "section": "Why Version Control?",
+    "text": "Why Version Control?\nClinical data science is collaborative and iterative. Version control lets you:\n\nTrack every change to your analysis\nCollaborate without overwriting each other’s work\nRevert mistakes instantly\nShare your work with the world (or keep it private)"
+  },
+  {
+    "objectID": "intro/week-02/index.html#core-concepts",
+    "href": "intro/week-02/index.html#core-concepts",
+    "title": "Week 2 — Git and GitHub Fundamentals",
+    "section": "Core Concepts",
+    "text": "Core Concepts\n\nGit vs GitHub\n\nGit — Version control software (runs on your computer)\nGitHub — Web platform for hosting Git repositories (cloud service)\n\n\n\nThe Git Workflow\nWorking Directory → Staging Area → Repository → GitHub\n        |                |              |           |\n      edit           git add        git commit   git push"
+  },
+  {
+    "objectID": "intro/week-02/index.html#setup",
+    "href": "intro/week-02/index.html#setup",
+    "title": "Week 2 — Git and GitHub Fundamentals",
+    "section": "Setup",
+    "text": "Setup\n\nConfigure Git Identity\nTell Git who you are (one-time setup):\ngit config --global user.name \"Your Name\"\ngit config --global user.email \"your.email@hospital.id\"\nVerify:\ngit config --global user.name\ngit config --global user.email\n\n\nConnect to GitHub\nEnsure your SSH key is set up (from Week 1 setup):\nssh -T git@github.com\nYou should see: “Hi username! You’ve successfully authenticated…”"
+  },
+  {
+    "objectID": "intro/week-02/index.html#exercise",
+    "href": "intro/week-02/index.html#exercise",
+    "title": "Week 2 — Git and GitHub Fundamentals",
+    "section": "Exercise",
+    "text": "Exercise\n\nPart 1: Clone a Repository\n\nNavigate to your home directory: cd ~\nCreate a folder for coursework: mkdir mds-work and enter it: cd mds-work\nClone the curriculum repository:\ngit clone git@github.com:balinesthesia/mds-curriculum.git\nNavigate into it: cd mds-curriculum\nList files: ls — you should see README.md, ARCHITECTURE.md, etc.\nCheck Git status: git status — should say “nothing to commit”\n\n\n\nPart 2: Make Your First Contribution\n\nFork the repository on GitHub (click “Fork” on the repo page)\nClone your fork:\ncd ~\ngit clone git@github.com:YOUR-USERNAME/mds-curriculum.git my-fork\ncd my-fork\nCreate a new branch: git checkout -b my-first-edit\nOpen README.md and add your name to the bottom (as a comment: &lt;!-- Resident: Your Name --&gt;)\nCheck status: git status — should show README.md as modified\nStage the change: git add README.md\nCommit: git commit -m \"Add my name to README\"\nPush: git push origin my-first-edit\nCreate a Pull Request on GitHub\n\n\n\nPart 3: Understanding the Commands\n\n\n\nCommand\nWhat it does\n\n\n\n\ngit status\nShows what’s changed\n\n\ngit add filename\nStages a file for commit\n\n\ngit commit -m \"message\"\nSaves staged changes with a message\n\n\ngit push\nSends commits to GitHub\n\n\ngit pull\nDownloads changes from GitHub\n\n\ngit log\nShows commit history"
+  },
+  {
+    "objectID": "intro/week-02/index.html#key-principles",
+    "href": "intro/week-02/index.html#key-principles",
+    "title": "Week 2 — Git and GitHub Fundamentals",
+    "section": "Key Principles",
+    "text": "Key Principles\n\nCommit Messages\nGood commit messages explain why, not just what:\n\n❌ “Update file”\n✅ “Fix dose calculation error in propofol analysis”\n\n\n\nAtomic Commits\nEach commit should represent one logical change:\n\n❌ One commit with “Add data cleaning + fix typo + update README”\n✅ Three separate commits"
+  },
+  {
+    "objectID": "intro/week-02/index.html#common-pitfalls",
+    "href": "intro/week-02/index.html#common-pitfalls",
+    "title": "Week 2 — Git and GitHub Fundamentals",
+    "section": "Common Pitfalls",
+    "text": "Common Pitfalls\n\n\n\n\n\n\n\nProblem\nSolution\n\n\n\n\n“Permission denied” on push\nCheck SSH key is added to ssh-agent\n\n\n“Merge conflict”\nEdit the file to resolve markers, then commit\n\n\nForgot to stage a file before committing\ngit add filename then git commit --amend --no-edit\n\n\nPushed sensitive data\nImmediately rotate credentials; don’t just delete from Git (history remains)"
+  },
+  {
+    "objectID": "intro/week-02/index.html#verification",
+    "href": "intro/week-02/index.html#verification",
+    "title": "Week 2 — Git and GitHub Fundamentals",
+    "section": "Verification",
+    "text": "Verification\nBefore leaving this session, confirm you can:\n\nConfigure Git with your name and email\nClone a repository from GitHub\nMake an edit, stage, commit, and push\nCreate a pull request\nExplain the difference between git add, git commit, and git push"
+  },
+  {
+    "objectID": "intro/week-02/index.html#resources",
+    "href": "intro/week-02/index.html#resources",
+    "title": "Week 2 — Git and GitHub Fundamentals",
+    "section": "Resources",
+    "text": "Resources\n\nGitHub Git Cheat Sheet\nOh Shit, Git!?! — Common mistake recovery\n\n\n← Back to Intro Course"
+  },
+  {
+    "objectID": "intro/index.html",
+    "href": "intro/index.html",
     "title": "",
     "section": "",
     "text": "Code"
   },
   {
-    "objectID": "CHANGELOG.html#unreleased",
-    "href": "CHANGELOG.html#unreleased",
+    "objectID": "intro/index.html#overview",
+    "href": "intro/index.html#overview",
     "title": "",
-    "section": "[Unreleased]",
-    "text": "[Unreleased]"
+    "section": "Overview",
+    "text": "Overview\nResidents arrive with clinical intelligence but no programming or statistics background. The Introductory Course separates tool learning from concept learning. Without this foundation, Week 1 of Basic would require simultaneous learning of tools and concepts — a proven failure mode."
   },
   {
-    "objectID": "CHANGELOG.html#section",
-    "href": "CHANGELOG.html#section",
+    "objectID": "intro/index.html#learning-goals",
+    "href": "intro/index.html#learning-goals",
     "title": "",
-    "section": "[0.1.0] — 2026-04",
-    "text": "[0.1.0] — 2026-04\n\nAdded\n\nInitial repository structure\nREADME.md, ARCHITECTURE.md, TODO.md, CHANGELOG.md\nLICENSE — CC BY-NC 4.0\nDirectory skeleton: basic/, intermediate/, advanced/, datasets/, facilitator/, capstone-archive/"
+    "section": "Learning Goals",
+    "text": "Learning Goals\nBy the end of this course, residents will:\n\nNavigate the command line confidently (terminal, file system, paths)\nUse Git and GitHub for version control (clone, commit, push, fork)\nRender a Quarto document with R code chunks\nUnderstand core programming concepts (variables, data types, functions)\nRefresh basic statistics intuition (mean, median, variance, distributions, p-values)"
+  },
+  {
+    "objectID": "intro/index.html#structure",
+    "href": "intro/index.html#structure",
+    "title": "",
+    "section": "Structure",
+    "text": "Structure\nEach week follows the pattern:\nweek-NN/\n├── index.qmd          # Resident-facing module\n├── facilitator.qmd    # Facilitator notes\n└── data/              # Module dataset (if any)"
+  },
+  {
+    "objectID": "intro/index.html#week-overview",
+    "href": "intro/index.html#week-overview",
+    "title": "",
+    "section": "Week Overview",
+    "text": "Week Overview\n\n\n\n\n\n\n\n\nWeek\nTopic\nKey Skills\n\n\n\n\n1\nCommand line basics\nTerminal navigation, file operations\n\n\n2\nGit and GitHub\nVersion control, repository workflow\n\n\n3\nR + Quarto orientation\nLiterate programming, document rendering\n\n\n4\nProgramming + Statistics\nVariables, functions, summary statistics"
+  },
+  {
+    "objectID": "intro/index.html#capstone",
+    "href": "intro/index.html#capstone",
+    "title": "",
+    "section": "Capstone",
+    "text": "Capstone\nNo formal capstone. Completion verified via facilitator/intro-verification-checklist.qmd."
+  },
+  {
+    "objectID": "intro/index.html#prerequisites",
+    "href": "intro/index.html#prerequisites",
+    "title": "",
+    "section": "Prerequisites",
+    "text": "Prerequisites\n\nClinical intelligence (you have this)\nNo programming or statistics background assumed\nPersonal laptop (Windows, macOS, or Linux)\n\n\nSee main README.md for full curriculum overview."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Medical Data Science Curriculum",
+    "section": "",
+    "text": "A tiered, cohort-based curriculum bridging traditional clinical statistics and modern data science for anesthesiology residents. Built around reproducibility, causal reasoning, and real clinical datasets.\nThis curriculum is not a generic data science course. Every concept is anchored to anesthesia and critical care practice. Residents leave as researchers who can build, or builders who can publish."
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "Medical Data Science Curriculum",
+    "section": "",
+    "text": "A tiered, cohort-based curriculum bridging traditional clinical statistics and modern data science for anesthesiology residents. Built around reproducibility, causal reasoning, and real clinical datasets.\nThis curriculum is not a generic data science course. Every concept is anchored to anesthesia and critical care practice. Residents leave as researchers who can build, or builders who can publish."
+  },
+  {
+    "objectID": "index.html#curriculum-structure",
+    "href": "index.html#curriculum-structure",
+    "title": "Medical Data Science Curriculum",
+    "section": "Curriculum Structure",
+    "text": "Curriculum Structure\n\n\n\nTier\nDuration\nLanguage\nGoal\n\n\n\n\nBasic\n16 weeks\nR\nCritical consumer + reproducible researcher\n\n\nIntermediate\n20 weeks\nPython\nIndependent analyst, researcher/builder entry\n\n\nAdvanced\n24 weeks\nPython + AI-assisted\nClinical tool builder or preprint-ready researcher\n\n\n\nProgression: Linear. Basic → Intermediate → Advanced.\nCohort size: 4–6 residents per cohort.\nContact hours: 2 hours/week."
+  },
+  {
+    "objectID": "index.html#license",
+    "href": "index.html#license",
+    "title": "Medical Data Science Curriculum",
+    "section": "License",
+    "text": "License\nCC BY-NC 4.0 — Free to use and adapt for non-commercial academic and clinical education with attribution."
+  },
+  {
+    "objectID": "facilitator/intro-setup-guide.html",
+    "href": "facilitator/intro-setup-guide.html",
+    "title": "Introductory Course — Setup Guide",
+    "section": "",
+    "text": "This guide ensures every resident arrives at Week 1 with a working development environment. Do not assume prior technical knowledge. Test this process yourself on a clean machine before the cohort begins."
+  },
+  {
+    "objectID": "facilitator/intro-setup-guide.html#purpose",
+    "href": "facilitator/intro-setup-guide.html#purpose",
+    "title": "Introductory Course — Setup Guide",
+    "section": "",
+    "text": "This guide ensures every resident arrives at Week 1 with a working development environment. Do not assume prior technical knowledge. Test this process yourself on a clean machine before the cohort begins."
+  },
+  {
+    "objectID": "facilitator/intro-setup-guide.html#os-requirements",
+    "href": "facilitator/intro-setup-guide.html#os-requirements",
+    "title": "Introductory Course — Setup Guide",
+    "section": "OS Requirements",
+    "text": "OS Requirements\n\n\n\nOS\nMinimum Version\nNotes\n\n\n\n\nWindows\nWindows 10\nWSL2 recommended for Git Bash compatibility\n\n\nmacOS\nmacOS 11 (Big Sur)\nTerminal.app or iTerm2\n\n\nLinux\nUbuntu 20.04 LTS\nAny modern distro with apt equivalent"
+  },
+  {
+    "objectID": "facilitator/intro-setup-guide.html#installation-steps",
+    "href": "facilitator/intro-setup-guide.html#installation-steps",
+    "title": "Introductory Course — Setup Guide",
+    "section": "Installation Steps",
+    "text": "Installation Steps\n\n1. R (4.3.0 or newer)\nWindows: 1. Download from cran.r-project.org 2. Run installer with default options 3. Verify: Open RGui, type R.version.string\nmacOS:\nbrew install --cask r\n\nNote: The --cask flag installs the official CRAN R with full toolchain support needed for package compilation.\n\nLinux (Ubuntu):\nsudo apt update\nsudo apt install r-base\n\n\n2. RStudio or VSCode\nRStudio (recommended for beginners): - Download from posit.co/download/rstudio-desktop/\nVSCode (alternative): - Download from code.visualstudio.com - Install extensions: R Extension Pack, Quarto\n\n\n3. Quarto\nDownload from quarto.org/docs/get-started\nVerify installation:\nquarto --version\n\n\n4. Git\nWindows: - Download from git-scm.com - Use Git Bash as terminal\nmacOS:\nxcode-select --install\nLinux:\nsudo apt install git\nVerify:\ngit --version\n\n\n5. GitHub Account\n\nCreate account at github.com\nEnable two-factor authentication\nAdd SSH key (follow GitHub docs)\nTest: ssh -T git@github.com"
+  },
+  {
+    "objectID": "facilitator/intro-setup-guide.html#pre-session-distribution",
+    "href": "facilitator/intro-setup-guide.html#pre-session-distribution",
+    "title": "Introductory Course — Setup Guide",
+    "section": "Pre-Session Distribution",
+    "text": "Pre-Session Distribution\nSend residents this checklist 2 weeks before Week 1:\nSubject: Medical Data Science — Pre-Course Setup Required\n\nDear Resident,\n\nBefore our first session, please complete the environment setup:\n\n□ Install R (4.3.0+): https://cran.r-project.org/\n□ Install RStudio: https://posit.co/download/rstudio-desktop/\n□ Install Quarto: https://quarto.org/docs/get-started/\n□ Install Git: https://git-scm.com/downloads\n□ Create GitHub account: https://github.com (enable 2FA)\n□ Add SSH key to GitHub (follow their documentation)\n\nVerification: Can you run these commands in Terminal/Git Bash?\n  R --version        (Should show R version 4.3.0 or newer)\n  git --version\n  quarto --version\n  ssh -T git@github.com\n\nReply to this email with \"Setup complete\" once done."
+  },
+  {
+    "objectID": "facilitator/intro-setup-guide.html#troubleshooting-common-issues",
+    "href": "facilitator/intro-setup-guide.html#troubleshooting-common-issues",
+    "title": "Introductory Course — Setup Guide",
+    "section": "Troubleshooting Common Issues",
+    "text": "Troubleshooting Common Issues\n\n\n\n\n\n\n\nIssue\nResolution\n\n\n\n\n“R not found”\nCheck PATH; restart RStudio after R installation\n\n\nGit Bash won’t open\nInstall Git with “Use Git from Git Bash only” option\n\n\nSSH key rejected\nEnsure key is added to ssh-agent: eval \"$(ssh-agent -s)\" && ssh-add ~/.ssh/id_ed25519\n\n\nQuarto render fails\nCheck for spaces in file paths (Windows)"
+  },
+  {
+    "objectID": "facilitator/intro-setup-guide.html#facilitator-verification",
+    "href": "facilitator/intro-setup-guide.html#facilitator-verification",
+    "title": "Introductory Course — Setup Guide",
+    "section": "Facilitator Verification",
+    "text": "Facilitator Verification\nBefore the cohort starts:\n\nTested setup on clean Windows VM\nTested setup on clean macOS install\nSent pre-session email to all residents\nTracked responses; followed up with non-responders\nScheduled 1-on-1 sessions for residents reporting issues"
   },
   {
     "objectID": "basic/index.html",
@@ -75,244 +299,6 @@
     "title": "Basic Tier",
     "section": "Modules",
     "text": "Modules\nComing soon. Module structure: Week 1–16 with index.qmd (resident-facing) and facilitator.qmd (facilitator notes).\n\n← Back to Home"
-  },
-  {
-    "objectID": "intermediate/index.html",
-    "href": "intermediate/index.html",
-    "title": "Intermediate Tier",
-    "section": "",
-    "text": "The Intermediate tier transitions residents from reproduction to independent analysis. Introduction to prediction vs inference as the central methodological distinction."
-  },
-  {
-    "objectID": "intermediate/index.html#overview",
-    "href": "intermediate/index.html#overview",
-    "title": "Intermediate Tier",
-    "section": "",
-    "text": "The Intermediate tier transitions residents from reproduction to independent analysis. Introduction to prediction vs inference as the central methodological distinction."
-  },
-  {
-    "objectID": "intermediate/index.html#why-python",
-    "href": "intermediate/index.html#why-python",
-    "title": "Intermediate Tier",
-    "section": "Why Python?",
-    "text": "Why Python?\nThe builder track opens at Intermediate. EHR wrangling, feature engineering, and prediction pipelines are better served by Python’s ecosystem. scikit-learn, lifelines, polars, shap — no equivalent coherence in R for this workflow."
-  },
-  {
-    "objectID": "intermediate/index.html#datasets",
-    "href": "intermediate/index.html#datasets",
-    "title": "Intermediate Tier",
-    "section": "Datasets",
-    "text": "Datasets\n\nVitalDB: Open access hemodynamic monitoring dataset\neICU-CRD: PhysioNet credentialed critical care database"
-  },
-  {
-    "objectID": "intermediate/index.html#capstone",
-    "href": "intermediate/index.html#capstone",
-    "title": "Intermediate Tier",
-    "section": "Capstone",
-    "text": "Capstone\nQuarto manuscript + reproducible Python pipeline using VitalDB or eICU."
-  },
-  {
-    "objectID": "intermediate/index.html#modules",
-    "href": "intermediate/index.html#modules",
-    "title": "Intermediate Tier",
-    "section": "Modules",
-    "text": "Modules\nComing soon. Module structure: Week 1–20 with index.qmd (resident-facing) and facilitator.qmd (facilitator notes).\n\n← Back to Home"
-  },
-  {
-    "objectID": "TODO.html",
-    "href": "TODO.html",
-    "title": "",
-    "section": "",
-    "text": "Code"
-  },
-  {
-    "objectID": "TODO.html#v0.1.0-repository-foundation",
-    "href": "TODO.html#v0.1.0-repository-foundation",
-    "title": "",
-    "section": "v0.1.0 — Repository Foundation",
-    "text": "v0.1.0 — Repository Foundation\n\nDeliverable: Repo is publicly accessible, licensed, structured, and navigable. No curriculum content yet.\n\n\nInfrastructure\n\nInitialize mds-curriculum repo under github.com/balinesthesia\nAdd LICENSE (CC BY-NC 4.0 full text)\nAdd README.md\nAdd ARCHITECTURE.md\nAdd TODO.md (this file)\nAdd .gitignore (R, Python, Quarto, data directories)\nAdd _quarto.yml (site scaffold, no content pages yet)\nAdd CHANGELOG.md (empty, versioned from v0.1.0)\nCreate directory skeleton: basic/, intermediate/, advanced/, datasets/, facilitator/, capstone-archive/, certificate/\nAdd placeholder README.md in each top-level directory\nAdd certificate/REGISTRY.yaml — empty registry with schema comment\nAdd certificate/params-example.yml — example parameter file for template\nConfigure GitHub Pages deployment (source: docs/ on main)\nVerify site renders and deploys on push to main\n\n\nNote: intro/ directory was considered but not implemented — site uses index.qmd as landing page instead.\n\n\n\nGitHub Org Setup\n\nCreate GitHub Team: facilitators — write access to mds-curriculum and facilitator-guide\nCreate GitHub Team: basic-cohort-template — read access to mds-curriculum\nDocument team permission model in ARCHITECTURE.md &gt; Note: intermediate-cohort-template and advanced-cohort-template teams are created at their respective tier milestones (v0.8.0 and v0.10.0), not v0.1.0.\nCreate private repo facilitator-guide under balinesthesia org\nAdd facilitator-guide/README.md with access and purpose description"
-  },
-  {
-    "objectID": "TODO.html#v0.2.0-introductory-course-content-draft",
-    "href": "TODO.html#v0.2.0-introductory-course-content-draft",
-    "title": "",
-    "section": "v0.2.0 — Introductory Course Content Draft",
-    "text": "v0.2.0 — Introductory Course Content Draft\n\nDeliverable: All 4 Intro modules authored as .qmd files, unreviewed. No prior knowledge assumed.\n\n\nEnvironment and Setup\n\nAuthor facilitator/intro-setup-guide.qmd — pre-session checklist: OS requirements, installation steps for R, RStudio/VSCode, Quarto, Git, GitHub account\nAuthor facilitator/intro-verification-checklist.qmd — “setup works” confirmation items; must pass before Week 1\nAuthor intro/README.md — course overview, learning goals, zero-assumption framing\n\n\n\nModule Authoring — Introductory Course\n\nintro/week-01/index.qmd — Command line basics; terminal, file system, paths, navigation\n\nFacilitator notes: intro/week-01/facilitator.qmd\nExercise: navigate to a directory, create a folder, move and rename a file — all via terminal\n\nintro/week-02/index.qmd — Git and GitHub fundamentals; clone, commit, push; GitHub account setup\n\nFacilitator notes: intro/week-02/facilitator.qmd\nExercise: clone the mds-curriculum repo, make a small edit, commit and push to a personal fork\n\nintro/week-03/index.qmd — R + RStudio/VSCode orientation; Quarto basics; render a document\n\nFacilitator notes: intro/week-03/facilitator.qmd\nExercise: create a .qmd file with one code chunk and one text section; render to HTML; push to GitHub\n\nintro/week-04/index.qmd — Core programming concepts; variables, data types, functions, reading/writing files; basic statistics refresher (mean, median, variance, distributions, p-value intuition — no code)\n\nFacilitator notes: intro/week-04/facilitator.qmd\nExercise: load a CSV file in R, compute summary statistics, write results to a new file"
-  },
-  {
-    "objectID": "TODO.html#v0.3.0-basic-tier-content-draft",
-    "href": "TODO.html#v0.3.0-basic-tier-content-draft",
-    "title": "",
-    "section": "v0.3.0 — Basic Tier Content Draft",
-    "text": "v0.3.0 — Basic Tier Content Draft\n\nDeliverable: All 16 Basic modules authored as .qmd files, unreviewed. Capstone brief drafted.\n\n\nEnvironment and Setup\n\nAuthor facilitator/setup-guide.qmd — pre-session resident setup checklist (R, RStudio/VSCode, Quarto, Git, GitHub account)\nAuthor facilitator/verification-checklist.qmd — “setup works” confirmation items\nAuthor basic/README.md — tier overview, learning goals, dataset index\n\n\n\nModule Authoring — Basic Tier\n\nbasic/week-01/index.qmd — Environment & Philosophy; reproducibility rationale; Retraction Watch framing\n\nFacilitator notes: basic/week-01/facilitator.qmd\nExercise: inspect a retracted anesthesia paper, identify the methodological failure\n\nbasic/week-02/index.qmd — R + Quarto + GitHub basics; literate programming concept\n\nFacilitator notes: basic/week-02/facilitator.qmd\nExercise: create a .qmd file, render to HTML, push to GitHub\n\nbasic/week-03/index.qmd — Data structures & tidy data; observation vs variable\n\nFacilitator notes: basic/week-03/facilitator.qmd\nExercise: tidy a messy anesthesia chart exported as CSV\n\nbasic/week-04/index.qmd — Clinical data types; continuous, ordinal, nominal, time-to-event\n\nFacilitator notes: basic/week-04/facilitator.qmd\nExercise: classify SOFA score components by data type; justify choices\n\nbasic/week-05/index.qmd — EDA I: distributions, shape, spread, outliers\n\nFacilitator notes: basic/week-05/facilitator.qmd\nExercise: describe propofol dose distribution across a curated case dataset\n\nbasic/week-06/index.qmd — EDA II: ggplot2, visual thinking\n\nFacilitator notes: basic/week-06/facilitator.qmd\nExercise: plot intraoperative MAP over time for 10 cases; annotate events\n\nbasic/week-07/index.qmd — Table 1; tableone, descriptive statistics\n\nFacilitator notes: basic/week-07/facilitator.qmd\nExercise: reproduce Table 1 from a resident-chosen anesthesia RCT\n\nbasic/week-08/index.qmd — Inference philosophy; hypothesis, error types, effect sizes\n\nFacilitator notes: basic/week-08/facilitator.qmd\nExercise: calculate effect size (Cohen’s d) for a drug comparison; compare to p-value conclusion\n\nbasic/week-09/index.qmd — Comparing groups; t-test, Mann-Whitney, framing as tools\n\nFacilitator notes: basic/week-09/facilitator.qmd\nExercise: compare remifentanil dose between GA and regional cases; justify test choice\n\nbasic/week-10/index.qmd — Categorical outcomes; chi-square, Fisher, odds ratios\n\nFacilitator notes: basic/week-10/facilitator.qmd\nExercise: calculate PONV rate by anesthetic technique; compute OR with CI\n\nbasic/week-11/index.qmd — Linear regression; estimation, interpretation, assumptions\n\nFacilitator notes: basic/week-11/facilitator.qmd\nExercise: predict estimated blood loss from case features; check assumptions\n\nbasic/week-12/index.qmd — Logistic regression; probability output, odds ratios\n\nFacilitator notes: basic/week-12/facilitator.qmd\nExercise: model 30-day mortality from ICU admission variables\n\nbasic/week-13/index.qmd — Survival basics; KM curves, log-rank, hazard concept\n\nFacilitator notes: basic/week-13/facilitator.qmd\nExercise: KM curve for ICU length of stay; compare two patient groups\n\nbasic/week-14/index.qmd — Study design; RCT, cohort, case-control, their limits\n\nFacilitator notes: basic/week-14/facilitator.qmd\nExercise: classify 5 anesthesia papers by design; identify one limitation each\n\nbasic/week-15/index.qmd — Capstone workshop; guided working session\n\nFacilitator notes: basic/week-15/facilitator.qmd\n\nbasic/week-16/index.qmd — Capstone submission and peer review\n\nFacilitator notes: basic/week-16/facilitator.qmd\n\n\n\n\nBasic Capstone\n\nAuthor basic/capstone/brief.qmd — instructions, scope, selection criteria for target paper\nAuthor basic/capstone/template.qmd — parameterized Quarto template for submission\nAuthor basic/capstone/rubric.md — evaluation criteria (add to facilitator-guide repo)\n\n\n\nBasic Datasets\n\nCurate datasets/basic/propofol-doses.csv — anonymized/synthetic dose data with data dictionary\nCurate datasets/basic/iop-map.csv — intraoperative MAP time series, 10 cases minimum\nCurate datasets/basic/icu-outcomes.csv — ICU admission variables with 30-day mortality outcome\nAdd datasets/basic/README.md — source, variables, known limitations for each dataset"
-  },
-  {
-    "objectID": "TODO.html#v0.4.0-basic-tier-internal-review",
-    "href": "TODO.html#v0.4.0-basic-tier-internal-review",
-    "title": "",
-    "section": "v0.4.0 — Basic Tier Internal Review",
-    "text": "v0.4.0 — Basic Tier Internal Review\n\nDeliverable: All Basic modules reviewed by at least one clinical + one methodological reviewer. Errata resolved.\n\n\nIdentify clinical reviewer (anesthesia staff)\nIdentify methodological reviewer (biostatistics or epidemiology)\nOpen GitHub Issues for each module requiring revision\nResolve all critical issues (factual errors, broken exercises, missing data)\nResolve all major issues (concept clarity, clinical anchor accuracy)\nTag v0.4.0 after all issues closed\nUpdate CHANGELOG.md"
-  },
-  {
-    "objectID": "TODO.html#v0.5.0-basic-tier-cohort-infrastructure",
-    "href": "TODO.html#v0.5.0-basic-tier-cohort-infrastructure",
-    "title": "",
-    "section": "v0.5.0 — Basic Tier Cohort Infrastructure",
-    "text": "v0.5.0 — Basic Tier Cohort Infrastructure\n\nDeliverable: Everything needed to run the first Basic cohort, including facilitator guide, cohort repo, and certificate template.\n\n\nAuthor facilitator/onboarding.qmd — facilitator role, responsibilities, session format\nAuthor facilitator/basic-guide.qmd — per-module facilitation notes compiled\nCreate private repo cohort-basic-01 under balinesthesia org\nAdd cohort-basic-01/README.md — cohort record: curriculum version, resident roster (anonymized), dates\nCreate GitHub Team basic-cohort-01 — scoped to cohort-basic-01 write + mds-curriculum read\nAuthor resident onboarding email template (in facilitator-guide)\nDry-run Week 1 setup guide with at least one non-technical tester\nDocument dry-run findings as GitHub Issues; resolve before cohort start\nAuthor certificate/template.qmd — parameterized Quarto PDF; fields: recipient name, tier, cohort, date, curriculum version, certificate ID\nAdd certificate/design-reference.html — self-contained HTML mockup for visual design review and stakeholder sign-off\nAdd certificate/assets/ — program logo, HoD signature scans (two signatories)\nTest certificate PDF render end-to-end against example params"
-  },
-  {
-    "objectID": "TODO.html#v0.6.0-basic-tier-first-cohort-delivery",
-    "href": "TODO.html#v0.6.0-basic-tier-first-cohort-delivery",
-    "title": "",
-    "section": "v0.6.0 — Basic Tier First Cohort Delivery",
-    "text": "v0.6.0 — Basic Tier First Cohort Delivery\n\nDeliverable: First Basic cohort completed, capstones submitted, certificates issued, post-cohort revisions captured.\n\n\nDeliver 16-week Basic cohort\nCollect per-module feedback from residents after each session\nLog friction points as GitHub Issues during delivery (do not fix mid-cohort)\nComplete capstone peer review (Week 16)\nArchive capstones to capstone-archive/basic-cohort-01/ (with resident consent)\nPost-cohort review: triage all Issues into patch/minor/major\nApply all patch and minor revisions\nIssue certificates for all capstone-passing residents\n\nGenerate parameterized PDF per resident from certificate/template.qmd\nAppend each record to certificate/REGISTRY.yaml (ID, tier, cohort, curriculum version, capstone URL, date)\n\nUpdate CHANGELOG.md\nTag v0.6.0"
-  },
-  {
-    "objectID": "TODO.html#v0.7.0-intermediate-tier-content-draft",
-    "href": "TODO.html#v0.7.0-intermediate-tier-content-draft",
-    "title": "",
-    "section": "v0.7.0 — Intermediate Tier Content Draft",
-    "text": "v0.7.0 — Intermediate Tier Content Draft\n\nDeliverable: All 20 Intermediate modules authored. Capstone brief drafted.\n\n\nEnvironment\n\nAuthor intermediate/README.md — tier overview, R-to-Python transition framing, dataset index\nAuthor facilitator/intermediate-transition.qmd — guidance for residents moving from R to Python\n\n\n\nModule Authoring — Intermediate Tier\n\nintermediate/week-01/index.qmd — Python environment; uv, Jupyter, R-to-Python transition\n\nFacilitator notes: intermediate/week-01/facilitator.qmd\nExercise: replicate a Basic week-11 linear regression in Python; compare output\n\nintermediate/week-02/index.qmd — Pandas/Polars fundamentals; DataFrames, indexing, pipes\n\nFacilitator notes: intermediate/week-02/facilitator.qmd\nExercise: load and index VitalDB case metadata; answer 5 clinical questions using DataFrame operations\n\nintermediate/week-03/index.qmd — Data wrangling I; merging, reshaping, type casting\n\nFacilitator notes: intermediate/week-03/facilitator.qmd\nExercise: join OR log table to intraoperative vital signs table; resolve key mismatches\n\nintermediate/week-04/index.qmd — Data wrangling II; missing data patterns, MAR/MCAR/MNAR\n\nFacilitator notes: intermediate/week-04/facilitator.qmd\nExercise: characterize missingness in an ICU dataset; classify each variable’s pattern with justification\n\nintermediate/week-05/index.qmd — EDA in Python; plotly, seaborn, profiling\n\nFacilitator notes: intermediate/week-05/facilitator.qmd\nExercise: produce an EDA profile report for an eICU patient cohort; identify two data quality issues\n\nintermediate/week-06/index.qmd — Prediction vs Inference; the fundamental distinction\n\nFacilitator notes: intermediate/week-06/facilitator.qmd\nExercise: classify 6 clinical research questions as prediction or inference; justify each\n\nintermediate/week-07/index.qmd — Feature engineering; clinical domain knowledge as feature design\n\nFacilitator notes: intermediate/week-07/facilitator.qmd\nExercise: engineer time-to-intubation, cumulative dose, and delta-MAP features from raw VitalDB signals\n\nintermediate/week-08/index.qmd — Regression as prediction; train/test, cross-validation, metrics\n\nFacilitator notes: intermediate/week-08/facilitator.qmd\nExercise: predict extubation timing using cross-validated linear regression; report RMSE and MAE\n\nintermediate/week-09/index.qmd — Classification models; logistic regression, decision tree, random forest\n\nFacilitator notes: intermediate/week-09/facilitator.qmd\nExercise: build three classifiers for postop AKI; compare performance on held-out test set\n\nintermediate/week-10/index.qmd — Clinical risk scores; building vs validating vs applying\n\nFacilitator notes: intermediate/week-10/facilitator.qmd\nExercise: reconstruct APACHE II from MIMIC-IV variables; validate against documented scores\n\nintermediate/week-11/index.qmd — Model evaluation; ROC, AUC, calibration, Brier score\n\nFacilitator notes: intermediate/week-11/facilitator.qmd\nExercise: evaluate week-09 AKI classifier with full calibration analysis; explain why AUC alone is insufficient\n\nintermediate/week-12/index.qmd — Survival in Python; lifelines, Cox regression\n\nFacilitator notes: intermediate/week-12/facilitator.qmd\nExercise: reproduce a KM curve from a published critical care paper using eICU data\n\nintermediate/week-13/index.qmd — Longitudinal data; mixed models, repeated measures\n\nFacilitator notes: intermediate/week-13/facilitator.qmd\nExercise: model serial lactate trajectory in sepsis using a linear mixed model\n\nintermediate/week-14/index.qmd — Missing data strategies; imputation, sensitivity analysis\n\nFacilitator notes: intermediate/week-14/facilitator.qmd\nExercise: apply three imputation strategies to MIMIC missing data; compare downstream model performance\n\nintermediate/week-15/index.qmd — Interpretability; SHAP, feature importance, partial dependence\n\nFacilitator notes: intermediate/week-15/facilitator.qmd\nExercise: generate SHAP summary plot for week-09 AKI model; translate top features into clinical language\n\nintermediate/week-16/index.qmd — Subgroup analysis; interaction terms, effect modification\n\nFacilitator notes: intermediate/week-16/facilitator.qmd\nExercise: test whether AKI model performance differs by age group and surgical category\n\nintermediate/week-17/index.qmd — Reproducible pipelines; Git discipline, uv, Quarto + Python\n\nFacilitator notes: intermediate/week-17/facilitator.qmd\nExercise: refactor week-09 notebook into a documented pipeline a stranger can re-run from scratch\n\nintermediate/week-18/index.qmd — Research communication; tables, figures, supplement structure\n\nFacilitator notes: intermediate/week-18/facilitator.qmd\nExercise: produce a journal-ready Table 2 and Figure 1 from the week-09 pipeline output\n\nintermediate/week-19/index.qmd — Capstone workshop; guided working session\n\nFacilitator notes: intermediate/week-19/facilitator.qmd\n\nintermediate/week-20/index.qmd — Capstone submission and peer review\n\nFacilitator notes: intermediate/week-20/facilitator.qmd\n\n\n\n\nIntermediate Capstone\n\nAuthor intermediate/capstone/brief.qmd\nAuthor intermediate/capstone/template.qmd\nAuthor intermediate/capstone/rubric.md\n\n\n\nIntermediate Datasets\n\nDocument VitalDB access and slice generation procedure\nCurate eICU sample subset for Intermediate exercises (cohort query documented)\nAdd datasets/intermediate/README.md"
-  },
-  {
-    "objectID": "TODO.html#v0.8.0-intermediate-tier-review-cohort-infrastructure",
-    "href": "TODO.html#v0.8.0-intermediate-tier-review-cohort-infrastructure",
-    "title": "",
-    "section": "v0.8.0 — Intermediate Tier Review + Cohort Infrastructure",
-    "text": "v0.8.0 — Intermediate Tier Review + Cohort Infrastructure\n\nMirrors v0.4.0 + v0.5.0 process for Intermediate tier.\n\n\nClinical and methodological review of all 20 modules\nResolve all critical and major issues\nAuthor facilitator/intermediate-guide.qmd\nCreate GitHub Team: intermediate-cohort-template — read access to mds-curriculum\nCreate cohort-intermediate-01 private repo and team\nDry-run Week 1 Python environment setup\nIssue certificates for all Intermediate capstone-passing residents\n\nGenerate parameterized PDF per resident from certificate/template.qmd\nAppend each record to certificate/REGISTRY.yaml (ID, tier, cohort, curriculum version, capstone URL, date)\n\nTag v0.8.0"
-  },
-  {
-    "objectID": "TODO.html#v0.9.0-advanced-tier-content-draft",
-    "href": "TODO.html#v0.9.0-advanced-tier-content-draft",
-    "title": "",
-    "section": "v0.9.0 — Advanced Tier Content Draft",
-    "text": "v0.9.0 — Advanced Tier Content Draft\n\nDeliverable: All 24 Advanced modules authored, both builder and researcher tracks scaffolded.\n\n\nModule Authoring — Advanced Tier\n\nadvanced/week-01/index.qmd — Causal inference I; DAGs, d-separation, confounding\n\nFacilitator notes: advanced/week-01/facilitator.qmd\nExercise: draw a DAG for the relationship between anesthetic choice, patient severity, and mortality; identify confounders\n\nadvanced/week-02/index.qmd — Causal inference II; propensity scores, matching, IPW\n\nFacilitator notes: advanced/week-02/facilitator.qmd\nExercise: compare anesthetic techniques in observational MIMIC-IV data using propensity score matching\n\nadvanced/week-03/index.qmd — Causal inference III; instrumental variables, DiD, RDD\n\nFacilitator notes: advanced/week-03/facilitator.qmd\nExercise: identify a natural experiment in a provided clinical dataset; justify instrument validity\n\nadvanced/week-04/index.qmd — Sensitivity analysis; unmeasured confounding, E-values\n\nFacilitator notes: advanced/week-04/facilitator.qmd\nExercise: calculate E-value for a week-02 result; interpret in clinical terms\n\nadvanced/week-05/index.qmd — Bayesian thinking I; prior, likelihood, posterior — conceptual\n\nFacilitator notes: advanced/week-05/facilitator.qmd\nExercise: update a prior belief about vasopressor response given simulated intraop data; no code required\n\nadvanced/week-06/index.qmd — Bayesian thinking II; PyMC/Stan in practice\n\nFacilitator notes: advanced/week-06/facilitator.qmd\nExercise: fit a Bayesian logistic regression for AKI using PyMC; compare posterior to frequentist result\n\nadvanced/week-07/index.qmd — Bayesian thinking III; credible intervals, posterior predictive checks\n\nFacilitator notes: advanced/week-07/facilitator.qmd\nExercise: report week-06 results in clinical journal format using credible intervals\n\nadvanced/week-08/index.qmd — MIMIC-IV deep dive; data structure, credentialing, temporal tables\n\nFacilitator notes: advanced/week-08/facilitator.qmd\nExercise: build a de novo ICU cohort from MIMIC-IV using inclusion/exclusion criteria from a published paper\n\nadvanced/week-09/index.qmd — Temporal data I; time-series concepts, stationarity, resampling\n\nFacilitator notes: advanced/week-09/facilitator.qmd\nExercise: preprocess a raw arterial line waveform from VitalDB; handle stationarity and resampling\n\nadvanced/week-10/index.qmd — Temporal data II; waveform feature extraction from VitalDB\n\nFacilitator notes: advanced/week-10/facilitator.qmd\nExercise: extract five clinically meaningful features from high-frequency VitalDB signals; document rationale\n\nadvanced/week-11/index.qmd — AI-assisted workflow I; capabilities and limitations\n\nFacilitator notes: advanced/week-11/facilitator.qmd\nExercise: use an LLM to generate a data wrangling script; audit the output for correctness and assumptions\n\nadvanced/week-12/index.qmd — AI-assisted workflow II; failure modes — leakage, confounding\n\nFacilitator notes: advanced/week-12/facilitator.qmd\nExercise: given an LLM-generated analysis with an embedded label leakage error, identify and fix it\n\nadvanced/week-13/index.qmd — AI-assisted workflow III; structured prompting for analysis tasks\n\nFacilitator notes: advanced/week-13/facilitator.qmd\nExercise: develop a reusable prompt template for a specific analysis task; test and document failure modes\n\nadvanced/week-14/index.qmd — Clinical NLP basics; unstructured notes, tokenization, embeddings\n\nFacilitator notes: advanced/week-14/facilitator.qmd\nExercise: extract structured features from 20 anesthesia notes using a simple NLP pipeline\n\nadvanced/week-15-builder/index.qmd — Clinical tool architecture; validation frameworks, deployment reality\n\nFacilitator notes: advanced/week-15-builder/facilitator.qmd\nExercise: define architecture and validation plan for capstone tool\n\nadvanced/week-15-researcher/index.qmd — Preprint structure; bioRxiv/medRxiv norms, submission workflow\n\nFacilitator notes: advanced/week-15-researcher/facilitator.qmd\nExercise: outline capstone manuscript to preprint standard\n\nadvanced/week-16-builder/index.qmd — Build iteration; supervised working session\n\nFacilitator notes: advanced/week-16-builder/facilitator.qmd\n\nadvanced/week-16-researcher/index.qmd — Manuscript draft; supervised working session\n\nFacilitator notes: advanced/week-16-researcher/facilitator.qmd\n\nadvanced/week-17-builder/index.qmd — Deployment thinking; drift, monitoring, clinical integration reality\n\nFacilitator notes: advanced/week-17-builder/facilitator.qmd\nExercise: write a model monitoring plan for your capstone tool\n\nadvanced/week-17-researcher/index.qmd — Causal communication; presenting uncertainty to non-statisticians\n\nFacilitator notes: advanced/week-17-researcher/facilitator.qmd\nExercise: present findings from capstone draft to a simulated department audience; receive structured feedback\n\nadvanced/week-18/index.qmd — Capstone development week 1; progress check + facilitator feedback\n\nFacilitator notes: advanced/week-18/facilitator.qmd\n\nadvanced/week-19/index.qmd — Capstone development week 2; progress check + facilitator feedback\n\nFacilitator notes: advanced/week-19/facilitator.qmd\n\nadvanced/week-20/index.qmd — Capstone development week 3; progress check + facilitator feedback\n\nFacilitator notes: advanced/week-20/facilitator.qmd\n\nadvanced/week-21/index.qmd — Capstone development week 4; progress check + facilitator feedback\n\nFacilitator notes: advanced/week-21/facilitator.qmd\n\nadvanced/week-22/index.qmd — Capstone development week 5; final pre-submission check\n\nFacilitator notes: advanced/week-22/facilitator.qmd\n\nadvanced/week-23/index.qmd — Capstone peer review + facilitator onboarding session 1\n\nFacilitator notes: advanced/week-23/facilitator.qmd\n\nadvanced/week-24/index.qmd — Capstone submission + facilitator onboarding session 2\n\nFacilitator notes: advanced/week-24/facilitator.qmd\n\n\n\n\nAdvanced Capstone\n\nAuthor advanced/capstone/brief.qmd — builder and researcher tracks documented separately\nAuthor advanced/capstone/builder-template.qmd\nAuthor advanced/capstone/researcher-template.qmd\nAuthor advanced/capstone/rubric.md\n\n\n\nFacilitator Onboarding (embedded in Advanced Weeks 23–24)\n\nAuthor facilitator/advanced-onboarding.qmd — role expectations, cohort management, feedback rubrics\nDefine facilitator graduation criteria (what makes an Advanced graduate ready to facilitate)\nAdd facilitator onboarding to ARCHITECTURE.md pipeline section\n\n\n\nAdvanced Datasets\n\nDocument MIMIC-IV local directory convention and .gitignore policy\nAuthor data dictionary pointers for all Advanced MIMIC-IV modules\nAdd datasets/advanced/README.md"
-  },
-  {
-    "objectID": "TODO.html#v0.10.0-advanced-tier-review-cohort-infrastructure",
-    "href": "TODO.html#v0.10.0-advanced-tier-review-cohort-infrastructure",
-    "title": "",
-    "section": "v0.10.0 — Advanced Tier Review + Cohort Infrastructure",
-    "text": "v0.10.0 — Advanced Tier Review + Cohort Infrastructure\n\nMirrors v0.4.0 + v0.5.0 process for Advanced tier.\n\n\nClinical, methodological, and AI/ethics review of all 24 modules\nResolve all critical and major issues\nAuthor facilitator/advanced-guide.qmd\nCreate GitHub Team: advanced-cohort-template — read access to mds-curriculum\nCreate cohort-advanced-01 private repo and team\nIssue certificates for all Advanced capstone-passing residents\n\nGenerate parameterized PDF per resident from certificate/template.qmd\nAppend each record to certificate/REGISTRY.yaml (ID, tier, cohort, curriculum version, capstone URL, date)\n\nTag v0.10.0"
-  },
-  {
-    "objectID": "TODO.html#v1.0.0-full-curriculum-stable",
-    "href": "TODO.html#v1.0.0-full-curriculum-stable",
-    "title": "",
-    "section": "v1.0.0 — Full Curriculum Stable",
-    "text": "v1.0.0 — Full Curriculum Stable\n\nDeliverable: All tiers delivered at least once, post-cohort revisions applied, facilitator pipeline operational.\n\n\nIntro Course: minimum one cohort completed and revised\nBasic Tier: minimum one cohort completed and revised\nIntermediate Tier: minimum one cohort completed and revised\nAdvanced Tier: minimum one cohort completed and revised\nMinimum one Advanced graduate active as junior facilitator\nCapstone archive contains at least one entry per tier\nAll facilitator guides reviewed by active facilitators\nSite renders cleanly across all tiers with no broken links or missing data pointers\nCHANGELOG.md complete from v0.1.0 through v1.0.0\nPublic announcement (Balinesthesia website, academic network)\nTag v1.0.0"
-  },
-  {
-    "objectID": "TODO.html#backlog-post-v1.0.0",
-    "href": "TODO.html#backlog-post-v1.0.0",
-    "title": "",
-    "section": "Backlog (Post v1.0.0)",
-    "text": "Backlog (Post v1.0.0)\n\nIndonesian language track (module translation)\nCross-institution cohort (collaborative delivery with other residency programs)\nIntegration with IJAMI (Indonesia Journal of Augmented Medical Intelligence) for Advanced Research track capstone publication (coming soon)\nAutomated Quarto site CI/CD (GitHub Actions on push to main)\nDataset versioning with DVC or equivalent\nAdvanced Tier expansion: waveform deep learning module (VitalDB)\nPeer-reviewed publication describing the curriculum design and outcomes"
-  },
-  {
-    "objectID": "ARCHITECTURE.html",
-    "href": "ARCHITECTURE.html",
-    "title": "",
-    "section": "",
-    "text": "Code"
-  },
-  {
-    "objectID": "ARCHITECTURE.html#audience",
-    "href": "ARCHITECTURE.html#audience",
-    "title": "",
-    "section": "Audience",
-    "text": "Audience\nAnesthesiology residents at Universitas Udayana and affiliated hospitals.\nEntry requirement: clinical intelligence only. No prior statistics or programming assumed.\nMotivation lever: their own patient data, their own clinical questions."
-  },
-  {
-    "objectID": "ARCHITECTURE.html#design-principles",
-    "href": "ARCHITECTURE.html#design-principles",
-    "title": "",
-    "section": "Design Principles",
-    "text": "Design Principles\n\nConcept before tool. Every module follows: Concept → Clinical context → Tool. Never Tool → Application.\nClinical anchor is load-bearing, not decorative. Toy datasets are prohibited. Every exercise uses real or realistic clinical data.\nReproducibility as discipline, not afterthought. Version control, environment management, and literate programming are introduced in Week 1 of Intro and never relaxed.\nPrediction vs inference is the central distinction. This single concept separates the Basic researcher track from the Intermediate builder track and must be taught explicitly.\nAI-assisted workflows are taught critically. AI tools enter at Advanced tier only. Residents learn what LLMs cannot catch before they learn to use them."
-  },
-  {
-    "objectID": "ARCHITECTURE.html#tier-design-rationale",
-    "href": "ARCHITECTURE.html#tier-design-rationale",
-    "title": "",
-    "section": "Tier Design Rationale",
-    "text": "Tier Design Rationale\n\nWhy Introductory Course\nThe Introductory Course (4 weeks) serves as a zero-assumption entry path. Residents arrive with clinical intelligence but no programming or statistics background. The Intro tier establishes shared toolchain competence (R, RStudio/VSCode, Git, GitHub, Quarto) before Basic tier content begins. Without this foundation, Week 1 of Basic would require simultaneous learning of tools and concepts — a proven failure mode.\n\n\nWhy R for Basic\nClinical literature residents read is predominantly R-generated (tableone, survival, ggplot2). Teaching R at Basic means they can read and reproduce the code in papers they cite within weeks. Immediate clinical payoff drives retention at this tier.\n\n\nWhy Python for Intermediate\nThe builder track opens at Intermediate. EHR wrangling, feature engineering, and prediction pipelines are better served by Python’s ecosystem. scikit-learn, lifelines, polars, shap — no equivalent coherence in R for this workflow.\n\n\nWhy Python + AI-assisted for Advanced\nBy Advanced, residents have enough foundation to use AI tools critically — as a supervised junior collaborator, not an oracle. Teaching AI-assisted workflows without this foundation produces tool dependency, not competency.\n\n\nWhy 4–6 residents per cohort\nSmall enough for substantive capstone feedback. Large enough for meaningful peer review. At steady state (all three tiers running), 12–18 residents are in the system simultaneously."
-  },
-  {
-    "objectID": "ARCHITECTURE.html#platform-decisions",
-    "href": "ARCHITECTURE.html#platform-decisions",
-    "title": "",
-    "section": "Platform Decisions",
-    "text": "Platform Decisions\n\nQuarto\n\nPolyglot: R chunks in Basic, Python chunks in Intermediate/Advanced, single consistent site\nquarto freeze allows publishing without re-running code against data that cannot be publicly hosted\nParameterized capstone templates scaffold resident documents without constraining content\nSingle source renders to web (reading), PDF (printing), and presentation (in-person sessions)\n\n\n\nGitHub\n\ngithub.com/balinesthesia org is the single home — no second org\nGitHub Teams handle access control per cohort per tier\nCohort repos are private; curriculum content repo is public\nCapstone archive is public (with resident consent)\nFacilitator handoff = team permission grant, not document transfer\n\n\n\nNo LMS\nDeliberate. An LMS adds a platform dependency and separates learning from tooling. Residents learn Git as infrastructure from Week 1. The curriculum lives where the work lives."
-  },
-  {
-    "objectID": "ARCHITECTURE.html#repository-governance",
-    "href": "ARCHITECTURE.html#repository-governance",
-    "title": "",
-    "section": "Repository Governance",
-    "text": "Repository Governance\n\nGitHub Teams Permission Model\n\n\n\n\n\n\n\n\n\nTeam\nMembers\nRepositories\nPermission\n\n\n\n\nfacilitators\nTrained facilitators (staff + Advanced graduates)\nmds-curriculum, facilitator-guide\nWrite\n\n\nbasic-cohort-template\nTemplate team — copied for each Basic cohort\nmds-curriculum\nRead\n\n\nintermediate-cohort-template\nTemplate team — copied for each Intermediate cohort\nmds-curriculum\nRead\n\n\nadvanced-cohort-template\nTemplate team — copied for each Advanced cohort\nmds-curriculum\nRead\n\n\n\nCohort template team timing: Template teams (basic-cohort-template, intermediate-cohort-template, advanced-cohort-template) are created at the start of each tier’s cohort infrastructure milestone — not all at v0.1.0. This ensures template is validated against actual curriculum content before first cohort launch.\nCohort team creation: On cohort launch, copy the appropriate template team, rename to cohort-{tier}-{NN} (e.g., cohort-basic-01), and add resident GitHub accounts. Template teams remain empty for reuse.\n\n\nCurriculum repo (mds-curriculum) — public\nOwned by Balinesthesia org. Facilitators have write access via facilitators team. Residents have read access via their cohort team.\nAll changes via PR. No direct commits to main.\n\n\nCohort repos (e.g., cohort-basic-01) — private\nOne repo per cohort per tier. Created from template with README.md pre-populated with cohort record fields.\nResident teams have write access scoped to their capstone directory. Facilitator has full write access via facilitators team.\nArchived (not deleted) after cohort completion.\n\n\nFacilitator guide (facilitator-guide) — private\nWrite access: facilitators team only. Contains rubrics, onboarding materials, session notes.\nVersioned in sync with curriculum via matching tags."
-  },
-  {
-    "objectID": "ARCHITECTURE.html#certificate-architecture",
-    "href": "ARCHITECTURE.html#certificate-architecture",
-    "title": "",
-    "section": "Certificate Architecture",
-    "text": "Certificate Architecture\n\nCertificate of Competency\nIssued by Division of Data Science and Artificial Intelligence, Study Program of Anesthesiology and Intensive Therapy, Faculty of Medicine, Universitas Udayana.\nSignatories: - Koordinator Program Studi — Prof. Dr. dr. Tjokorda Gde Agung Senapathi, SpAn-TI, Subsp.A.R (K) - Kepala Divisi Data Science dan Artificial Intelligence — dr. I Made Agus Kresna Sucandra, SpAn-TI, Subsp.T.I (K)\nVerification: Every certificate carries a unique ID resolvable at balinesthesia.github.io/mds-curriculum/verify against certificate/REGISTRY.yaml. Public registry ensures transparency without compromising resident privacy.\nGeneration: Parameterized Quarto PDF from certificate/template.qmd. Per-resident params.yml drives rendering. No manual layout work required.\nStorage: - certificate/template.qmd — versioned template - certificate/REGISTRY.yaml — public verification registry - certificate/assets/ — program logo, scanned signatures - certificate/params-example.yml — documentation for certificate generation"
-  },
-  {
-    "objectID": "ARCHITECTURE.html#data-architecture",
-    "href": "ARCHITECTURE.html#data-architecture",
-    "title": "",
-    "section": "Data Architecture",
-    "text": "Data Architecture\ndatasets/\n├── basic/          # Curated, clean, versioned — committed to repo\n├── intermediate/   # VitalDB slices, eICU samples — committed if &lt;100MB, else pointers\n└── advanced/       # MIMIC-IV pointers only\nMIMIC-IV policy: Never committed. Modules assume a local data/mimic-iv/ directory.\nEach module that uses MIMIC-IV includes a data/README.md specifying exact tables, columns, and cohort query used to generate the module dataset — ensuring reproducibility without distributing data.\nPhysioNet credentialing for eICU and MIMIC-IV is a documented prerequisite handled during Intermediate onboarding (not a barrier to entry)."
-  },
-  {
-    "objectID": "ARCHITECTURE.html#versioning-and-cohort-records",
-    "href": "ARCHITECTURE.html#versioning-and-cohort-records",
-    "title": "",
-    "section": "Versioning and Cohort Records",
-    "text": "Versioning and Cohort Records\nEach cohort records: - Curriculum version at cohort start (e.g., v0.2.1) - Any known errata for that version - Capstone archive link\nThis record lives in the cohort repo README.md. When a graduate becomes a facilitator, they can see exactly what changed between their cohort version and the current version."
-  },
-  {
-    "objectID": "ARCHITECTURE.html#facilitator-pipeline",
-    "href": "ARCHITECTURE.html#facilitator-pipeline",
-    "title": "",
-    "section": "Facilitator Pipeline",
-    "text": "Facilitator Pipeline\nAdvanced cohort completion\n        ↓\nFacilitator onboarding (Weeks 23–24 of Advanced, concurrent with capstone)\n        ↓\nJunior facilitator: assigned to Basic cohort (supervised)\n        ↓\nSenior facilitator: assigned to Intermediate cohort\n        ↓\nCurriculum contributor: write access to mds-curriculum repo\nThis pipeline is the primary curriculum sustainability mechanism. It must be explicitly maintained — it does not self-perpetuate."
-  },
-  {
-    "objectID": "ARCHITECTURE.html#decisions-log",
-    "href": "ARCHITECTURE.html#decisions-log",
-    "title": "",
-    "section": "Decisions Log",
-    "text": "Decisions Log\n\n\n\n\n\n\n\n\nDate\nDecision\nRationale\n\n\n\n\n2026-04\nLicense: CC BY-NC 4.0\nInstitutional curriculum, protect against commercial extraction while maximizing academic adoption\n\n\n2026-04\nSingle GitHub org (balinesthesia)\nOrg already exists, institutional, Teams handle access control adequately\n\n\n2026-04\nNo LMS\nToolchain coherence, Git as infrastructure from day one\n\n\n2026-04\nR for Basic, Python for Intermediate/Advanced\nClinical literature compatibility vs builder ecosystem fit\n\n\n2026-04\nLinear tier progression\nFoundation integrity over speed, no lateral entry\n\n\n2026-04\n4–6 residents per cohort\nCapstone feedback quality, peer review viability\n\n\n2026-04\nIntroductory Course added\nZero-assumption entry path; separates tool learning from concept learning\n\n\n2026-04\nCertificate of Competency — department-issued, dual-signed, public registry\nInstitutional credibility for resident credentials; verification without central authority\n\n\n2026-04\nIssuing authority: Division of Data Science and Artificial Intelligence, FK Udayana\nClear organizational ownership for credential legitimacy"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Medical Data Science Curriculum",
-    "section": "",
-    "text": "A tiered, cohort-based curriculum bridging traditional clinical statistics and modern data science for anesthesiology residents. Built around reproducibility, causal reasoning, and real clinical datasets.\nThis curriculum is not a generic data science course. Every concept is anchored to anesthesia and critical care practice. Residents leave as researchers who can build, or builders who can publish."
-  },
-  {
-    "objectID": "index.html#overview",
-    "href": "index.html#overview",
-    "title": "Medical Data Science Curriculum",
-    "section": "",
-    "text": "A tiered, cohort-based curriculum bridging traditional clinical statistics and modern data science for anesthesiology residents. Built around reproducibility, causal reasoning, and real clinical datasets.\nThis curriculum is not a generic data science course. Every concept is anchored to anesthesia and critical care practice. Residents leave as researchers who can build, or builders who can publish."
-  },
-  {
-    "objectID": "index.html#curriculum-structure",
-    "href": "index.html#curriculum-structure",
-    "title": "Medical Data Science Curriculum",
-    "section": "Curriculum Structure",
-    "text": "Curriculum Structure\n\n\n\nTier\nDuration\nLanguage\nGoal\n\n\n\n\nBasic\n16 weeks\nR\nCritical consumer + reproducible researcher\n\n\nIntermediate\n20 weeks\nPython\nIndependent analyst, researcher/builder entry\n\n\nAdvanced\n24 weeks\nPython + AI-assisted\nClinical tool builder or preprint-ready researcher\n\n\n\nProgression: Linear. Basic → Intermediate → Advanced.\nCohort size: 4–6 residents per cohort.\nContact hours: 2 hours/week."
-  },
-  {
-    "objectID": "index.html#license",
-    "href": "index.html#license",
-    "title": "Medical Data Science Curriculum",
-    "section": "License",
-    "text": "License\nCC BY-NC 4.0 — Free to use and adapt for non-commercial academic and clinical education with attribution."
   },
   {
     "objectID": "advanced/index.html",
@@ -362,5 +348,229 @@
     "title": "Advanced Tier",
     "section": "Modules",
     "text": "Modules\nComing soon. Module structure: Week 1–24 with index.qmd (resident-facing) and facilitator.qmd (facilitator notes).\n\n← Back to Home"
+  },
+  {
+    "objectID": "datasets/index.html",
+    "href": "datasets/index.html",
+    "title": "Datasets",
+    "section": "",
+    "text": "Curated synthetic and public anesthesia datasets\nSmall, clean, immediately usable\nCommitted directly to repository\n\n\n\n\n\nVitalDB: Open access, committed if &lt;100MB\neICU-CRD: PhysioNet credentialed, samples committed if &lt;100MB\nLarger datasets: Pointers and download instructions\n\n\n\n\n\nMIMIC-IV: Never committed to repository\nModules assume local data/mimic-iv/ directory\nEach module includes data/README.md specifying exact tables, columns, and cohort query\nReproducibility via code, not data distribution"
+  },
+  {
+    "objectID": "datasets/index.html#tier-specific-data-policy",
+    "href": "datasets/index.html#tier-specific-data-policy",
+    "title": "Datasets",
+    "section": "",
+    "text": "Curated synthetic and public anesthesia datasets\nSmall, clean, immediately usable\nCommitted directly to repository\n\n\n\n\n\nVitalDB: Open access, committed if &lt;100MB\neICU-CRD: PhysioNet credentialed, samples committed if &lt;100MB\nLarger datasets: Pointers and download instructions\n\n\n\n\n\nMIMIC-IV: Never committed to repository\nModules assume local data/mimic-iv/ directory\nEach module includes data/README.md specifying exact tables, columns, and cohort query\nReproducibility via code, not data distribution"
+  },
+  {
+    "objectID": "datasets/index.html#access-requirements",
+    "href": "datasets/index.html#access-requirements",
+    "title": "Datasets",
+    "section": "Access Requirements",
+    "text": "Access Requirements\n\n\n\nDataset\nAccess\nPrerequisite\n\n\n\n\nVitalDB\nOpen\nNone\n\n\neICU-CRD\nPhysioNet credentialed\nCITI training\n\n\nMIMIC-IV\nPhysioNet credentialed\nCITI training\n\n\n\n\n← Back to Home"
+  },
+  {
+    "objectID": "facilitator/intro-verification-checklist.html",
+    "href": "facilitator/intro-verification-checklist.html",
+    "title": "Introductory Course — Verification Checklist",
+    "section": "",
+    "text": "This checklist verifies that every resident’s environment is functional before Week 1 begins. Do not proceed with content delivery until all items are checked. A resident with a broken environment will fall behind permanently."
+  },
+  {
+    "objectID": "facilitator/intro-verification-checklist.html#purpose",
+    "href": "facilitator/intro-verification-checklist.html#purpose",
+    "title": "Introductory Course — Verification Checklist",
+    "section": "",
+    "text": "This checklist verifies that every resident’s environment is functional before Week 1 begins. Do not proceed with content delivery until all items are checked. A resident with a broken environment will fall behind permanently."
+  },
+  {
+    "objectID": "facilitator/intro-verification-checklist.html#individual-resident-verification",
+    "href": "facilitator/intro-verification-checklist.html#individual-resident-verification",
+    "title": "Introductory Course — Verification Checklist",
+    "section": "Individual Resident Verification",
+    "text": "Individual Resident Verification\nResident Name: _________________ Date: _________ Verified By: _________________\n\nR Installation\n\nCan open RStudio (or R from terminal)\nCan execute R --version in terminal and reports 4.3.0 or newer\nCan install a package: install.packages(\"tidyverse\")\nPackage loads without error: library(tidyverse)\n\n\n\nGit Installation\n\nCan open Terminal (macOS/Linux) or Git Bash (Windows)\nCan execute git --version and reports 2.40.0 or newer\nCan execute git config --global user.name and see their name\nCan execute git config --global user.email and see their email\n\n\n\nGitHub Connectivity\n\nHas GitHub account with 2FA enabled\nCan execute ssh -T git@github.com and see “Hi username! You’ve successfully authenticated”\nCan clone a repository: git clone git@github.com:balinesthesia/mds-curriculum.git\nCan navigate into cloned directory and see files\n\n\n\nQuarto Installation\n\nCan execute quarto --version and reports 1.4.0 or newer\nCan render a basic document (create test.qmd with one heading, render to HTML)\nHTML output opens in browser without errors\n\n\n\nFile System Navigation\n\nCan open terminal in a specific directory\nCan navigate up/down directory tree (cd, cd .., ls/dir)\nCan create a new directory: mkdir test-folder\nCan create a new file: touch test.txt (macOS/Linux) or type nul &gt; test.txt (Windows CMD)\nCan move and rename files"
+  },
+  {
+    "objectID": "facilitator/intro-verification-checklist.html#cohort-readiness-gate",
+    "href": "facilitator/intro-verification-checklist.html#cohort-readiness-gate",
+    "title": "Introductory Course — Verification Checklist",
+    "section": "Cohort Readiness Gate",
+    "text": "Cohort Readiness Gate\nBefore Week 1 session:\n\n\n\nMetric\nThreshold\nStatus\n\n\n\n\nResidents with verified setup\n100%\n☐\n\n\nResidents needing 1-on-1 support\n0 or scheduled\n☐\n\n\nBackup laptops available\n1 per 6 residents\n☐\n\n\nFacilitator has all residents’ GitHub usernames\nYes\n☐"
+  },
+  {
+    "objectID": "facilitator/intro-verification-checklist.html#failure-protocols",
+    "href": "facilitator/intro-verification-checklist.html#failure-protocols",
+    "title": "Introductory Course — Verification Checklist",
+    "section": "Failure Protocols",
+    "text": "Failure Protocols\n\nIf a resident fails verification:\n\nImmediate: Schedule 1-on-1 session within 48 hours\nDuring session: Walk through failed items together\nIf unresolved: Provide temporary cloud environment (GitHub Codespaces) as bridge\nDocument: Log issue and resolution for future cohorts\n\n\n\nIf &gt;20% of cohort fails verification:\n\nDo not start Week 1\nReschedule: Move Week 1 by 1 week\nRoot cause: Identify common failure mode (usually Windows Git or SSH)\nRemediation: Group session targeting specific failure"
+  },
+  {
+    "objectID": "facilitator/intro-verification-checklist.html#sign-off",
+    "href": "facilitator/intro-verification-checklist.html#sign-off",
+    "title": "Introductory Course — Verification Checklist",
+    "section": "Sign-off",
+    "text": "Sign-off\nFacilitator: I confirm all residents in this cohort have passed verification or have documented remediation plans.\nSignature: _________________ Date: _________"
+  },
+  {
+    "objectID": "intermediate/index.html",
+    "href": "intermediate/index.html",
+    "title": "Intermediate Tier",
+    "section": "",
+    "text": "The Intermediate tier transitions residents from reproduction to independent analysis. Introduction to prediction vs inference as the central methodological distinction."
+  },
+  {
+    "objectID": "intermediate/index.html#overview",
+    "href": "intermediate/index.html#overview",
+    "title": "Intermediate Tier",
+    "section": "",
+    "text": "The Intermediate tier transitions residents from reproduction to independent analysis. Introduction to prediction vs inference as the central methodological distinction."
+  },
+  {
+    "objectID": "intermediate/index.html#why-python",
+    "href": "intermediate/index.html#why-python",
+    "title": "Intermediate Tier",
+    "section": "Why Python?",
+    "text": "Why Python?\nThe builder track opens at Intermediate. EHR wrangling, feature engineering, and prediction pipelines are better served by Python’s ecosystem. scikit-learn, lifelines, polars, shap — no equivalent coherence in R for this workflow."
+  },
+  {
+    "objectID": "intermediate/index.html#datasets",
+    "href": "intermediate/index.html#datasets",
+    "title": "Intermediate Tier",
+    "section": "Datasets",
+    "text": "Datasets\n\nVitalDB: Open access hemodynamic monitoring dataset\neICU-CRD: PhysioNet credentialed critical care database"
+  },
+  {
+    "objectID": "intermediate/index.html#capstone",
+    "href": "intermediate/index.html#capstone",
+    "title": "Intermediate Tier",
+    "section": "Capstone",
+    "text": "Capstone\nQuarto manuscript + reproducible Python pipeline using VitalDB or eICU."
+  },
+  {
+    "objectID": "intermediate/index.html#modules",
+    "href": "intermediate/index.html#modules",
+    "title": "Intermediate Tier",
+    "section": "Modules",
+    "text": "Modules\nComing soon. Module structure: Week 1–20 with index.qmd (resident-facing) and facilitator.qmd (facilitator notes).\n\n← Back to Home"
+  },
+  {
+    "objectID": "intro/week-01/index.html",
+    "href": "intro/week-01/index.html",
+    "title": "Week 1 — Command Line Basics",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nOpen a terminal (Terminal on macOS/Linux, Git Bash on Windows)\nNavigate the file system using cd, ls/dir, and pwd\nCreate directories with mkdir\nCreate, move, and rename files\nUnderstand absolute vs relative paths"
+  },
+  {
+    "objectID": "intro/week-01/index.html#learning-objectives",
+    "href": "intro/week-01/index.html#learning-objectives",
+    "title": "Week 1 — Command Line Basics",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nOpen a terminal (Terminal on macOS/Linux, Git Bash on Windows)\nNavigate the file system using cd, ls/dir, and pwd\nCreate directories with mkdir\nCreate, move, and rename files\nUnderstand absolute vs relative paths"
+  },
+  {
+    "objectID": "intro/week-01/index.html#why-the-command-line",
+    "href": "intro/week-01/index.html#why-the-command-line",
+    "title": "Week 1 — Command Line Basics",
+    "section": "Why the Command Line?",
+    "text": "Why the Command Line?\nThe command line is the universal interface to your computer. Every tool we use — R, Python, Git, Quarto — can be controlled via the command line. Learning it early means you can troubleshoot any tool later."
+  },
+  {
+    "objectID": "intro/week-01/index.html#core-concepts",
+    "href": "intro/week-01/index.html#core-concepts",
+    "title": "Week 1 — Command Line Basics",
+    "section": "Core Concepts",
+    "text": "Core Concepts\n\nThe Terminal\nThe terminal is a text-based interface to your computer. You type commands; the computer responds.\n\n\nFile System Navigation\n\n\n\nCommand\nPurpose\nExample\n\n\n\n\npwd\nPrint working directory (where am I?)\npwd\n\n\nls\nList files in current directory\nls or ls -la\n\n\ncd\nChange directory\ncd Documents\n\n\ncd ..\nGo up one directory\ncd ..\n\n\ncd ~\nGo to home directory\ncd ~\n\n\n\n\n\nFile Operations\n\n\n\nCommand\nPurpose\nExample\n\n\n\n\nmkdir\nMake directory\nmkdir my-project\n\n\ntouch\nCreate empty file\ntouch notes.txt\n\n\nmv\nMove or rename\nmv old.txt new.txt\n\n\ncp\nCopy\ncp file.txt backup.txt\n\n\nrm\nRemove file\nrm file.txt\n\n\nrm -r\nRemove directory\nrm -r my-folder"
+  },
+  {
+    "objectID": "intro/week-01/index.html#exercise",
+    "href": "intro/week-01/index.html#exercise",
+    "title": "Week 1 — Command Line Basics",
+    "section": "Exercise",
+    "text": "Exercise\n\nPart 1: Navigation\n\nOpen your terminal\nType pwd — note the full path\nType ls — see what files/folders are here\nType cd ~ — go to home directory\nType pwd again — confirm you’re at home\n\n\n\nPart 2: File Operations\n\nCreate a directory: mkdir mds-intro\nEnter it: cd mds-intro\nCreate a file: touch notes.txt (macOS/Linux) or type nul &gt; notes.txt (Windows)\nList it: ls — should see notes.txt\nRename it: mv notes.txt week1-notes.txt\nCreate a subdirectory: mkdir exercises\nMove the file into it: mv week1-notes.txt exercises/\nNavigate in: cd exercises\nList: ls — should see your file\n\n\n\nPart 3: Relative vs Absolute Paths\nFrom ~/mds-intro/exercises/, try:\n\npwd — shows absolute path\ncd .. — goes up to mds-intro\ncd ../.. — goes up two levels\ncd ~/mds-intro/exercises — absolute path back"
+  },
+  {
+    "objectID": "intro/week-01/index.html#common-pitfalls",
+    "href": "intro/week-01/index.html#common-pitfalls",
+    "title": "Week 1 — Command Line Basics",
+    "section": "Common Pitfalls",
+    "text": "Common Pitfalls\n\n\n\n\n\n\n\n\nProblem\nCause\nSolution\n\n\n\n\n“Command not found”\nTypo or not in PATH\nCheck spelling; ensure tool is installed\n\n\n“No such file”\nWrong path\nUse pwd to see where you are; use ls to see files\n\n\nSpaces in names\nUnescaped spaces\nQuote paths: cd \"My Folder\" or escape: cd My\\ Folder"
+  },
+  {
+    "objectID": "intro/week-01/index.html#verification",
+    "href": "intro/week-01/index.html#verification",
+    "title": "Week 1 — Command Line Basics",
+    "section": "Verification",
+    "text": "Verification\nBefore leaving this session, confirm you can:\n\nOpen terminal independently\nNavigate to any directory using cd\nCreate a folder and a file\nMove and rename files\nExplain the difference between cd .. and cd ~"
+  },
+  {
+    "objectID": "intro/week-01/index.html#resources",
+    "href": "intro/week-01/index.html#resources",
+    "title": "Week 1 — Command Line Basics",
+    "section": "Resources",
+    "text": "Resources\n\nmacOS/Linux: Command Line Crash Course\nWindows: Git Bash commands\n\n\n← Back to Intro Course"
+  },
+  {
+    "objectID": "intro/week-03/index.html",
+    "href": "intro/week-03/index.html",
+    "title": "Week 3 — R + Quarto Orientation",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nOpen RStudio and navigate its interface\nCreate a new Quarto document\nWrite text, code chunks, and YAML metadata\nRender a document to HTML\nPush your rendered work to GitHub"
+  },
+  {
+    "objectID": "intro/week-03/index.html#learning-objectives",
+    "href": "intro/week-03/index.html#learning-objectives",
+    "title": "Week 3 — R + Quarto Orientation",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nOpen RStudio and navigate its interface\nCreate a new Quarto document\nWrite text, code chunks, and YAML metadata\nRender a document to HTML\nPush your rendered work to GitHub"
+  },
+  {
+    "objectID": "intro/week-03/index.html#why-r-quarto",
+    "href": "intro/week-03/index.html#why-r-quarto",
+    "title": "Week 3 — R + Quarto Orientation",
+    "section": "Why R + Quarto?",
+    "text": "Why R + Quarto?\n\nR\nR is the lingua franca of clinical research. Most anesthesia papers you read were analyzed with R. Learning R means you can read and reproduce those papers.\n\n\nQuarto\nQuarto is literate programming — code and prose in one document. It ensures:\n\nYour analysis is reproducible (anyone can re-run it)\nYour code is documented (explain what you’re doing)\nYour workflow is version controlled (Git tracks changes)"
+  },
+  {
+    "objectID": "intro/week-03/index.html#core-concepts",
+    "href": "intro/week-03/index.html#core-concepts",
+    "title": "Week 3 — R + Quarto Orientation",
+    "section": "Core Concepts",
+    "text": "Core Concepts\n\nThe Quarto Document Structure\n---\ntitle: \"My Analysis\"\nauthor: \"Your Name\"\ndate: \"2026-04-15\"\n---\n\n## Introduction\n\nThis is **markdown** text.\n\n```r\n# This is an R code chunk\nmean(c(1, 2, 3, 4, 5))\n```\n\n## Results\n\nThe mean is 3. *(In your document: use an inline R expression here)*\n\n\nCode Chunks\nThree backticks + {r} starts a code chunk. Three backticks ends it.\n\n\n\nChunk Option\nPurpose\n\n\n\n\necho: true\nShow code in output (default)\n\n\necho: false\nHide code, show output only\n\n\neval: true\nRun the code (default)\n\n\neval: false\nDon’t run the code\n\n\nwarning: false\nSuppress warnings"
+  },
+  {
+    "objectID": "intro/week-03/index.html#exercise",
+    "href": "intro/week-03/index.html#exercise",
+    "title": "Week 3 — R + Quarto Orientation",
+    "section": "Exercise",
+    "text": "Exercise\n\nPart 1: Create a Quarto Document\n\nOpen RStudio\nFile → New File → Quarto Document\nTitle: “My First Analysis”\nAuthor: Your name\nSave as: ~/mds-work/week3-practice.qmd\n\n\n\nPart 2: Write Content\nReplace the template with (copy exactly, including the backticks that start/end code chunks):\n---\ntitle: \"Drug Dose Calculator\"\nauthor: \"Your Name\"\ndate: \"2026-04-15\"\n---\n\n## Setup\n\nLoad the packages we need:\n\n```r\n#| warning: false\nlibrary(tidyverse)\n```\n\n## Data\n\nCreate a simple dataset of patient weights:\n\n```r\npatients &lt;- tibble(\n  id = 1:5,\n  weight_kg = c(70, 85, 60, 90, 75)\n)\n\npatients\n```\n\n## Calculation\n\nCalculate propofol induction dose (2 mg/kg):\n\n```r\npatients &lt;- patients |&gt;\n  mutate(propofol_mg = weight_kg * 2)\n\npatients\n```\n\n## Summary\n\nThe mean propofol dose is 310 mg. *(In your document: use an inline R expression here)*\n\n\nPart 3: Render\n\nClick “Render” (or press Ctrl+Shift+K / Cmd+Shift+K)\nView the HTML output\nNotice how code, output, and text are interwoven\n\n\n\nPart 4: Version Control\nYour mds-work folder should already have Git initialized from Week 2. If not:\n\nInitialize Git in your mds-work folder (skip if already done):\ncd ~/mds-work\ngit init\nAdd and commit your Week 3 file:\ngit add week3-practice.qmd\ngit commit -m \"Add Week 3 practice document\"\nPush to your personal GitHub repository (create one called mds-work if you haven’t yet)"
+  },
+  {
+    "objectID": "intro/week-03/index.html#r-basics-in-5-minutes",
+    "href": "intro/week-03/index.html#r-basics-in-5-minutes",
+    "title": "Week 3 — R + Quarto Orientation",
+    "section": "R Basics in 5 Minutes",
+    "text": "R Basics in 5 Minutes\n\nVariables\npatient_weight &lt;- 70  # Assign\npatient_weight        # Print\n\n\nVectors\nweights &lt;- c(70, 85, 60, 90, 75)\nmean(weights)\nsd(weights)\n\n\nFunctions\nround(3.14159, 2)  # 3.14\nsqrt(16)           # 4"
+  },
+  {
+    "objectID": "intro/week-03/index.html#common-pitfalls",
+    "href": "intro/week-03/index.html#common-pitfalls",
+    "title": "Week 3 — R + Quarto Orientation",
+    "section": "Common Pitfalls",
+    "text": "Common Pitfalls\n\n\n\n\n\n\n\nProblem\nSolution\n\n\n\n\n“Object not found”\nCheck spelling; ensure you ran the code chunk\n\n\nChunk won’t run\nCheck that backticks are correct (three, not fancy quotes)\n\n\nPackage not found\nRun install.packages(\"packagename\") once\n\n\nRender fails\nCheck YAML indentation (spaces, not tabs)"
+  },
+  {
+    "objectID": "intro/week-03/index.html#verification",
+    "href": "intro/week-03/index.html#verification",
+    "title": "Week 3 — R + Quarto Orientation",
+    "section": "Verification",
+    "text": "Verification\nBefore leaving this session, confirm you can:\n\nCreate a new Quarto document in RStudio\nWrite text, code, and inline code\nRender to HTML\nExplain the difference between .qmd and .html\nPush your work to GitHub"
+  },
+  {
+    "objectID": "intro/week-03/index.html#resources",
+    "href": "intro/week-03/index.html#resources",
+    "title": "Week 3 — R + Quarto Orientation",
+    "section": "Resources",
+    "text": "Resources\n\nQuarto Documentation\nR for Data Science — Free online textbook\n\n\n← Back to Intro Course"
   }
 ]

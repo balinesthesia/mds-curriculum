@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Basic Tier – Medical Data Science Curriculum</title>
+<title>index – Medical Data Science Curriculum</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -128,11 +128,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../intro/index.html"> 
+    <a class="nav-link active" href="../intro/index.html" aria-current="page"> 
 <span class="menu-text">Intro</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../basic/index.html" aria-current="page"> 
+    <a class="nav-link" href="../basic/index.html"> 
 <span class="menu-text">Basic</span></a>
   </li>  
   <li class="nav-item">
@@ -170,57 +170,109 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#why-r" id="toc-why-r" class="nav-link" data-scroll-target="#why-r">Why R?</a></li>
+  <li><a href="#introductory-course" id="toc-introductory-course" class="nav-link active" data-scroll-target="#introductory-course">Introductory Course</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link" data-scroll-target="#learning-goals">Learning Goals</a></li>
+  <li><a href="#structure" id="toc-structure" class="nav-link" data-scroll-target="#structure">Structure</a></li>
+  <li><a href="#week-overview" id="toc-week-overview" class="nav-link" data-scroll-target="#week-overview">Week Overview</a></li>
   <li><a href="#capstone" id="toc-capstone" class="nav-link" data-scroll-target="#capstone">Capstone</a></li>
-  <li><a href="#modules" id="toc-modules" class="nav-link" data-scroll-target="#modules">Modules</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/balinesthesia/mds-curriculum/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Basic Tier</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-<p class="subtitle lead">16 weeks · R · Reproducible Researcher</p>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"></h1></header><div class="quarto-title-block"><div class="quarto-title-tools-only"><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
+<section id="introductory-course" class="level1">
+<h1>Introductory Course</h1>
+<p><strong>Duration:</strong> 4 weeks<br>
+<strong>Goal:</strong> Zero-assumption entry path — establish shared toolchain competence before Basic tier content begins</p>
+<hr>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>The Basic tier transforms clinicians into reproducible researchers. Residents learn to read, critique, and reproduce the statistical methods they encounter in anesthesia literature.</p>
+<p>Residents arrive with clinical intelligence but no programming or statistics background. The Introductory Course separates tool learning from concept learning. Without this foundation, Week 1 of Basic would require simultaneous learning of tools and concepts — a proven failure mode.</p>
 </section>
-<section id="why-r" class="level2">
-<h2 class="anchored" data-anchor-id="why-r">Why R?</h2>
-<p>Clinical literature residents read is predominantly R-generated (<code>tableone</code>, <code>survival</code>, <code>ggplot2</code>). Teaching R at Basic means they can read and reproduce the code in papers they cite within weeks. Immediate clinical payoff drives retention.</p>
+<section id="learning-goals" class="level2">
+<h2 class="anchored" data-anchor-id="learning-goals">Learning Goals</h2>
+<p>By the end of this course, residents will:</p>
+<ol type="1">
+<li>Navigate the command line confidently (terminal, file system, paths)</li>
+<li>Use Git and GitHub for version control (clone, commit, push, fork)</li>
+<li>Render a Quarto document with R code chunks</li>
+<li>Understand core programming concepts (variables, data types, functions)</li>
+<li>Refresh basic statistics intuition (mean, median, variance, distributions, p-values)</li>
+</ol>
+</section>
+<section id="structure" class="level2">
+<h2 class="anchored" data-anchor-id="structure">Structure</h2>
+<p>Each week follows the pattern:</p>
+<pre><code>week-NN/
+├── index.qmd          # Resident-facing module
+├── facilitator.qmd    # Facilitator notes
+└── data/              # Module dataset (if any)</code></pre>
+</section>
+<section id="week-overview" class="level2">
+<h2 class="anchored" data-anchor-id="week-overview">Week Overview</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 28%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Week</th>
+<th>Topic</th>
+<th>Key Skills</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Command line basics</td>
+<td>Terminal navigation, file operations</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Git and GitHub</td>
+<td>Version control, repository workflow</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>R + Quarto orientation</td>
+<td>Literate programming, document rendering</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Programming + Statistics</td>
+<td>Variables, functions, summary statistics</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="capstone" class="level2">
 <h2 class="anchored" data-anchor-id="capstone">Capstone</h2>
-<p>Quarto report reproducing and critiquing a published anesthesia paper + R code on GitHub.</p>
+<p>No formal capstone. Completion verified via <code>facilitator/intro-verification-checklist.qmd</code>.</p>
 </section>
-<section id="modules" class="level2">
-<h2 class="anchored" data-anchor-id="modules">Modules</h2>
-<p><em>Coming soon. Module structure: Week 1–16 with <code>index.qmd</code> (resident-facing) and <code>facilitator.qmd</code> (facilitator notes).</em></p>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Clinical intelligence (you have this)</li>
+<li>No programming or statistics background assumed</li>
+<li>Personal laptop (Windows, macOS, or Linux)</li>
+</ul>
 <hr>
-<p><a href="../index.html">← Back to Home</a></p>
+<p><em>See main <a href="../index.html">README.md</a> for full curriculum overview.</em></p>
 
 
 <!-- -->
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -675,30 +727,59 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Basic Tier"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "16 weeks · R · Reproducible Researcher"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>The Basic tier transforms clinicians into reproducible researchers. Residents learn to read, critique, and reproduce the statistical methods they encounter in anesthesia literature.</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why R?</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Clinical literature residents read is predominantly R-generated (<span class="in">`tableone`</span>, <span class="in">`survival`</span>, <span class="in">`ggplot2`</span>). Teaching R at Basic means they can read and reproduce the code in papers they cite within weeks. Immediate clinical payoff drives retention.</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Capstone</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Quarto report reproducing and critiquing a published anesthesia paper + R code on GitHub.</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Modules</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>*Coming soon. Module structure: Week 1–16 with `index.qmd` (resident-facing) and `facilitator.qmd` (facilitator notes).*</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">← Back to Home</span><span class="co">](../index.qmd)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introductory Course</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>**Duration:** 4 weeks  </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>**Goal:** Zero-assumption entry path — establish shared toolchain competence before Basic tier content begins</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>Residents arrive with clinical intelligence but no programming or statistics background. The Introductory Course separates tool learning from concept learning. Without this foundation, Week 1 of Basic would require simultaneous learning of tools and concepts — a proven failure mode.</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Learning Goals</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>By the end of this course, residents will:</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Navigate the command line confidently (terminal, file system, paths)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Use Git and GitHub for version control (clone, commit, push, fork)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Render a Quarto document with R code chunks</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Understand core programming concepts (variables, data types, functions)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Refresh basic statistics intuition (mean, median, variance, distributions, p-values)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Structure</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>Each week follows the pattern:</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="in">week-NN/</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="in">├── index.qmd          # Resident-facing module</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="in">├── facilitator.qmd    # Facilitator notes</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="in">└── data/              # Module dataset (if any)</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Week Overview</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Week <span class="pp">|</span> Topic <span class="pp">|</span> Key Skills <span class="pp">|</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|-------|------------|</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> Command line basics <span class="pp">|</span> Terminal navigation, file operations <span class="pp">|</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> Git and GitHub <span class="pp">|</span> Version control, repository workflow <span class="pp">|</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> R + Quarto orientation <span class="pp">|</span> Literate programming, document rendering <span class="pp">|</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> Programming + Statistics <span class="pp">|</span> Variables, functions, summary statistics <span class="pp">|</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## Capstone</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>No formal capstone. Completion verified via <span class="in">`facilitator/intro-verification-checklist.qmd`</span>.</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prerequisites</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Clinical intelligence (you have this)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No programming or statistics background assumed</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Personal laptop (Windows, macOS, or Linux)</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>*See main [README.md](../index.qmd) for full curriculum overview.*</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
