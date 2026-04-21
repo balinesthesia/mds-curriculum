@@ -1,0 +1,175 @@
+---
+title: "Basic Tier — Setup Guide"
+subtitle: "Pre-session checklist for residents (R, RStudio/VSCode, Quarto, Git, GitHub)"
+---
+
+## Purpose
+
+This guide ensures every resident arrives at Week 1 with a working development environment. The Basic tier requires a complete R ecosystem for reproducible research. Do not assume prior technical knowledge. Test this process yourself on a clean machine before the cohort begins.
+
+---
+
+## OS Requirements
+
+| OS | Minimum Version | Notes |
+|----|-----------------|-------|
+| Windows | Windows 10 | WSL2 recommended for Git Bash compatibility |
+| macOS | macOS 11 (Big Sur) | Terminal.app or iTerm2 |
+| Linux | Ubuntu 20.04 LTS | Any modern distro with `apt` equivalent |
+
+---
+
+## Installation Steps
+
+### 1. R (4.3.0 or newer)
+
+**Windows:**
+1. Download from [cran.r-project.org](https://cran.r-project.org/bin/windows/base/)
+2. Run installer with default options
+3. Verify: Open RGui, type `R.version.string`
+
+**macOS:**
+```bash
+brew install --cask r
+```
+
+> **Note:** The `--cask` flag installs the official CRAN R with full toolchain support needed for package compilation.
+
+**Linux (Ubuntu):**
+```bash
+sudo apt update
+sudo apt install r-base
+```
+
+### 2. RStudio Desktop
+
+Download from [posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/)
+
+RStudio provides an integrated environment with:
+- Script editor with syntax highlighting
+- Console for interactive R execution
+- Environment and file browsers
+- Built-in Git integration
+- Quarto rendering support
+
+**Alternative: VSCode**
+If you prefer VSCode:
+- Download from [code.visualstudio.com](https://code.visualstudio.com/)
+- Install extensions: R Extension Pack, Quarto
+
+### 3. Essential R Packages
+
+Open RStudio and run in the Console:
+
+```r
+install.packages(c(
+  "tidyverse",
+  "tableone",
+  "survival",
+  "survminer",
+  "ggplot2",
+  "dplyr",
+  "readr",
+  "knitr",
+  "rmarkdown"
+))
+```
+
+Verify installation:
+```r
+library(tidyverse)
+library(survival)
+```
+
+### 4. Quarto
+
+Download from [quarto.org/docs/get-started](https://quarto.org/docs/get-started/)
+
+Verify installation:
+```bash
+quarto --version
+```
+
+### 5. Git
+
+**Windows:**
+- Download from [git-scm.com](https://git-scm.com/download/win)
+- Use Git Bash as terminal
+
+**macOS:**
+```bash
+xcode-select --install
+```
+
+**Linux:**
+```bash
+sudo apt install git
+```
+
+Verify:
+```bash
+git --version
+```
+
+### 6. GitHub Account
+
+1. Create account at [github.com](https://github.com)
+2. Enable two-factor authentication
+3. Add SSH key (follow GitHub docs)
+4. Test: `ssh -T git@github.com`
+
+---
+
+## Pre-Session Distribution
+
+Send residents this checklist **2 weeks before Week 1**:
+
+```
+Subject: Medical Data Science — Basic Tier Setup Required
+
+Dear Resident,
+
+Before our first Basic tier session, please complete the environment setup:
+
+□ Install R (4.3.0+): https://cran.r-project.org/
+□ Install RStudio: https://posit.co/download/rstudio-desktop/
+□ Install Quarto: https://quarto.org/docs/get-started/
+□ Install Git: https://git-scm.com/downloads
+□ Create GitHub account: https://github.com (enable 2FA)
+□ Add SSH key to GitHub (follow their documentation)
+□ Install required R packages (see installation guide)
+
+Verification: Can you run these commands?
+  R --version        (Should show R version 4.3.0 or newer)
+  git --version
+  quarto --version
+  ssh -T git@github.com
+
+Reply with "Setup complete" once done.
+```
+
+---
+
+## Troubleshooting Common Issues
+
+| Issue | Resolution |
+|-------|------------|
+| "R not found" | Check PATH; restart RStudio after R installation |
+| Package installation fails | Check internet; try different CRAN mirror |
+| Git Bash won't open | Install Git with "Use Git from Git Bash only" option |
+| SSH key rejected | Ensure key is added to ssh-agent: `eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519` |
+| Quarto render fails | Check for spaces in file paths (Windows) |
+| tidyverse fails to load | May need additional system libraries on Linux |
+
+---
+
+## Facilitator Verification
+
+Before the cohort starts:
+
+- [ ] Tested setup on clean Windows VM
+- [ ] Tested setup on clean macOS install
+- [ ] Sent pre-session email to all residents
+- [ ] Tracked responses; followed up with non-responders
+- [ ] Scheduled 1-on-1 sessions for residents reporting issues
+

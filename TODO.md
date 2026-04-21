@@ -65,9 +65,9 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 > Deliverable: All 16 Basic modules authored as `.qmd` files, unreviewed. Capstone brief drafted.
 
 ### Environment and Setup
-- [ ] Author `facilitator/setup-guide.qmd` — pre-session resident setup checklist (R, RStudio/VSCode, Quarto, Git, GitHub account)
-- [ ] Author `facilitator/verification-checklist.qmd` — "setup works" confirmation items
-- [ ] Author `basic/README.md` — tier overview, learning goals, dataset index
+- [x] Author `facilitator/setup-guide.qmd` — pre-session resident setup checklist (R, RStudio/VSCode, Quarto, Git, GitHub account)
+- [x] Author `facilitator/verification-checklist.qmd` — "setup works" confirmation items
+- [x] Author `basic/README.md` — tier overview, learning goals, dataset index
 
 ### Module Authoring — Basic Tier
 - [ ] `basic/week-01/index.qmd` — Environment & Philosophy; reproducibility rationale; Retraction Watch framing
