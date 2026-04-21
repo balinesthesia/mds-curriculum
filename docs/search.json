@@ -217,6 +217,55 @@
     "text": "License\nCC BY-NC 4.0 — Free to use and adapt for non-commercial academic and clinical education with attribution."
   },
   {
+    "objectID": "facilitator/setup-guide.html",
+    "href": "facilitator/setup-guide.html",
+    "title": "Basic Tier — Setup Guide",
+    "section": "",
+    "text": "This guide ensures every resident arrives at Week 1 with a working development environment. The Basic tier requires a complete R ecosystem for reproducible research. Do not assume prior technical knowledge. Test this process yourself on a clean machine before the cohort begins."
+  },
+  {
+    "objectID": "facilitator/setup-guide.html#purpose",
+    "href": "facilitator/setup-guide.html#purpose",
+    "title": "Basic Tier — Setup Guide",
+    "section": "",
+    "text": "This guide ensures every resident arrives at Week 1 with a working development environment. The Basic tier requires a complete R ecosystem for reproducible research. Do not assume prior technical knowledge. Test this process yourself on a clean machine before the cohort begins."
+  },
+  {
+    "objectID": "facilitator/setup-guide.html#os-requirements",
+    "href": "facilitator/setup-guide.html#os-requirements",
+    "title": "Basic Tier — Setup Guide",
+    "section": "OS Requirements",
+    "text": "OS Requirements\n\n\n\nOS\nMinimum Version\nNotes\n\n\n\n\nWindows\nWindows 10\nWSL2 recommended for Git Bash compatibility\n\n\nmacOS\nmacOS 11 (Big Sur)\nTerminal.app or iTerm2\n\n\nLinux\nUbuntu 20.04 LTS\nAny modern distro with apt equivalent"
+  },
+  {
+    "objectID": "facilitator/setup-guide.html#installation-steps",
+    "href": "facilitator/setup-guide.html#installation-steps",
+    "title": "Basic Tier — Setup Guide",
+    "section": "Installation Steps",
+    "text": "Installation Steps\n\n1. R (4.3.0 or newer)\nWindows: 1. Download from cran.r-project.org 2. Run installer with default options 3. Verify: Open RGui, type R.version.string\nmacOS:\nbrew install --cask r\n\nNote: The --cask flag installs the official CRAN R with full toolchain support needed for package compilation.\n\nLinux (Ubuntu):\nsudo apt update\nsudo apt install r-base\n\n\n2. RStudio Desktop\nDownload from posit.co/download/rstudio-desktop/\nRStudio provides an integrated environment with: - Script editor with syntax highlighting - Console for interactive R execution - Environment and file browsers - Built-in Git integration - Quarto rendering support\nAlternative: VSCode If you prefer VSCode: - Download from code.visualstudio.com - Install extensions: R Extension Pack, Quarto\n\n\n3. Essential R Packages\nOpen RStudio and run in the Console:\ninstall.packages(c(\n  \"tidyverse\",\n  \"tableone\",\n  \"survival\",\n  \"survminer\",\n  \"ggplot2\",\n  \"dplyr\",\n  \"readr\",\n  \"knitr\",\n  \"rmarkdown\"\n))\nVerify installation:\nlibrary(tidyverse)\nlibrary(survival)\n\n\n4. Quarto\nDownload from quarto.org/docs/get-started\nVerify installation:\nquarto --version\n\n\n5. Git\nWindows: - Download from git-scm.com - Use Git Bash as terminal\nmacOS:\nxcode-select --install\nLinux:\nsudo apt install git\nVerify:\ngit --version\n\n\n6. GitHub Account\n\nCreate account at github.com\nEnable two-factor authentication\nAdd SSH key (follow GitHub docs)\nTest: ssh -T git@github.com"
+  },
+  {
+    "objectID": "facilitator/setup-guide.html#pre-session-distribution",
+    "href": "facilitator/setup-guide.html#pre-session-distribution",
+    "title": "Basic Tier — Setup Guide",
+    "section": "Pre-Session Distribution",
+    "text": "Pre-Session Distribution\nSend residents this checklist 2 weeks before Week 1:\nSubject: Medical Data Science — Basic Tier Setup Required\n\nDear Resident,\n\nBefore our first Basic tier session, please complete the environment setup:\n\n□ Install R (4.3.0+): https://cran.r-project.org/\n□ Install RStudio: https://posit.co/download/rstudio-desktop/\n□ Install Quarto: https://quarto.org/docs/get-started/\n□ Install Git: https://git-scm.com/downloads\n□ Create GitHub account: https://github.com (enable 2FA)\n□ Add SSH key to GitHub (follow their documentation)\n□ Install required R packages (see installation guide)\n\nVerification: Can you run these commands?\n  R --version        (Should show R version 4.3.0 or newer)\n  git --version\n  quarto --version\n  ssh -T git@github.com\n\nReply with \"Setup complete\" once done."
+  },
+  {
+    "objectID": "facilitator/setup-guide.html#troubleshooting-common-issues",
+    "href": "facilitator/setup-guide.html#troubleshooting-common-issues",
+    "title": "Basic Tier — Setup Guide",
+    "section": "Troubleshooting Common Issues",
+    "text": "Troubleshooting Common Issues\n\n\n\n\n\n\n\nIssue\nResolution\n\n\n\n\n“R not found”\nCheck PATH; restart RStudio after R installation\n\n\nPackage installation fails\nCheck internet; try different CRAN mirror\n\n\nGit Bash won’t open\nInstall Git with “Use Git from Git Bash only” option\n\n\nSSH key rejected\nEnsure key is added to ssh-agent: eval \"$(ssh-agent -s)\" && ssh-add ~/.ssh/id_ed25519\n\n\nQuarto render fails\nCheck for spaces in file paths (Windows)\n\n\ntidyverse fails to load\nMay need additional system libraries on Linux"
+  },
+  {
+    "objectID": "facilitator/setup-guide.html#facilitator-verification",
+    "href": "facilitator/setup-guide.html#facilitator-verification",
+    "title": "Basic Tier — Setup Guide",
+    "section": "Facilitator Verification",
+    "text": "Facilitator Verification\nBefore the cohort starts:\n\nTested setup on clean Windows VM\nTested setup on clean macOS install\nSent pre-session email to all residents\nTracked responses; followed up with non-responders\nScheduled 1-on-1 sessions for residents reporting issues"
+  },
+  {
     "objectID": "facilitator/intro-setup-guide.html",
     "href": "facilitator/intro-setup-guide.html",
     "title": "Introductory Course — Setup Guide",
@@ -409,6 +458,48 @@
     "objectID": "facilitator/intro-verification-checklist.html#sign-off",
     "href": "facilitator/intro-verification-checklist.html#sign-off",
     "title": "Introductory Course — Verification Checklist",
+    "section": "Sign-off",
+    "text": "Sign-off\nFacilitator: I confirm all residents in this cohort have passed verification or have documented remediation plans.\nSignature: _________________ Date: _________"
+  },
+  {
+    "objectID": "facilitator/verification-checklist.html",
+    "href": "facilitator/verification-checklist.html",
+    "title": "Basic Tier — Verification Checklist",
+    "section": "",
+    "text": "This checklist verifies that every resident’s environment is functional before Week 1 begins. The Basic tier requires working R, packages, Quarto, and GitHub connectivity. Do not proceed with content delivery until all items are checked. A resident with a broken environment will fall behind permanently."
+  },
+  {
+    "objectID": "facilitator/verification-checklist.html#purpose",
+    "href": "facilitator/verification-checklist.html#purpose",
+    "title": "Basic Tier — Verification Checklist",
+    "section": "",
+    "text": "This checklist verifies that every resident’s environment is functional before Week 1 begins. The Basic tier requires working R, packages, Quarto, and GitHub connectivity. Do not proceed with content delivery until all items are checked. A resident with a broken environment will fall behind permanently."
+  },
+  {
+    "objectID": "facilitator/verification-checklist.html#individual-resident-verification",
+    "href": "facilitator/verification-checklist.html#individual-resident-verification",
+    "title": "Basic Tier — Verification Checklist",
+    "section": "Individual Resident Verification",
+    "text": "Individual Resident Verification\nResident Name: _________________ Date: _________ Verified By: _________________\n\nR Installation\n\nCan open RStudio\nCan execute R --version in terminal and reports 4.3.0 or newer\nCan install a package: install.packages(\"tidyverse\")\nPackage loads without error: library(tidyverse)\n\n\n\nEssential Packages\n\nlibrary(tableone) loads without error\nlibrary(survival) loads without error\nlibrary(survminer) loads without error\n\n\n\nGit Installation\n\nCan open Terminal (macOS/Linux) or Git Bash (Windows)\nCan execute git --version and reports 2.40.0 or newer\nCan execute git config --global user.name and see their name\nCan execute git config --global user.email and see their email\n\n\n\nGitHub Connectivity\n\nHas GitHub account with 2FA enabled\nCan execute ssh -T git@github.com and see “Hi username! You’ve successfully authenticated”\nCan clone a repository: git clone git@github.com:balinesthesia/mds-curriculum.git\nCan navigate into cloned directory and see files\n\n\n\nQuarto Installation\n\nCan execute quarto --version and reports 1.4.0 or newer\nCan render a basic document (create test.qmd with one heading, render to HTML)\nHTML output opens in browser without errors\n\n\n\nRStudio Integration\n\nCan create a new Quarto Document from RStudio menu\nCan render document using Render button\nGit tab shows in RStudio Environment pane (after opening Git project)\nCan commit a file change from RStudio Git pane\n\n\n\nFile System Navigation\n\nCan open terminal in a specific directory\nCan navigate up/down directory tree (cd, cd .., ls/dir)\nCan create a new directory: mkdir test-folder\nCan create a new file: touch test.txt (macOS/Linux) or type nul &gt; test.txt (Windows CMD)\nCan move and rename files"
+  },
+  {
+    "objectID": "facilitator/verification-checklist.html#cohort-readiness-gate",
+    "href": "facilitator/verification-checklist.html#cohort-readiness-gate",
+    "title": "Basic Tier — Verification Checklist",
+    "section": "Cohort Readiness Gate",
+    "text": "Cohort Readiness Gate\nBefore Week 1 session:\n\n\n\nMetric\nThreshold\nStatus\n\n\n\n\nResidents with verified setup\n100%\n☐\n\n\nResidents needing 1-on-1 support\n0 or scheduled\n☐\n\n\nBackup laptops available\n1 per 6 residents\n☐\n\n\nFacilitator has all residents’ GitHub usernames\nYes\n☐"
+  },
+  {
+    "objectID": "facilitator/verification-checklist.html#failure-protocols",
+    "href": "facilitator/verification-checklist.html#failure-protocols",
+    "title": "Basic Tier — Verification Checklist",
+    "section": "Failure Protocols",
+    "text": "Failure Protocols\n\nIf a resident fails verification:\n\nImmediate: Schedule 1-on-1 session within 48 hours\nDuring session: Walk through failed items together\nIf unresolved: Provide temporary cloud environment (GitHub Codespaces) as bridge\nDocument: Log issue and resolution for future cohorts\n\n\n\nIf &gt;20% of cohort fails verification:\n\nDo not start Week 1\nReschedule: Move Week 1 by 1 week\nRoot cause: Identify common failure mode (usually Windows Git, SSH, or package installation)\nRemediation: Group session targeting specific failure"
+  },
+  {
+    "objectID": "facilitator/verification-checklist.html#sign-off",
+    "href": "facilitator/verification-checklist.html#sign-off",
+    "title": "Basic Tier — Verification Checklist",
     "section": "Sign-off",
     "text": "Sign-off\nFacilitator: I confirm all residents in this cohort have passed verification or have documented remediation plans.\nSignature: _________________ Date: _________"
   },
