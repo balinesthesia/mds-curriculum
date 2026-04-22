@@ -81,7 +81,7 @@ Write 3–5 sentences:
 
 > What warning signs might a critical reader have noticed before the retraction? What does this teach us about our responsibility as consumers of anesthesia research?
 
-Save your response as `week1-reflection.md` in your course repository.
+Save your response as `week-01-reflection.md` in your course repository.
 
 ## Common Pitfalls in Anesthesia Research
 
