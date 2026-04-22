@@ -315,39 +315,60 @@
     "text": "Facilitator Verification\nBefore the cohort starts:\n\nTested setup on clean Windows VM\nTested setup on clean macOS install\nSent pre-session email to all residents\nTracked responses; followed up with non-responders\nScheduled 1-on-1 sessions for residents reporting issues"
   },
   {
-    "objectID": "basic/index.html",
-    "href": "basic/index.html",
-    "title": "Basic Tier",
+    "objectID": "basic/week-01/index.html",
+    "href": "basic/week-01/index.html",
+    "title": "Week 1 — Environment & Philosophy",
     "section": "",
-    "text": "The Basic tier transforms clinicians into reproducible researchers. Residents learn to read, critique, and reproduce the statistical methods they encounter in anesthesia literature."
+    "text": "By the end of this session, you will be able to:\n\nExplain why reproducibility matters in clinical research\nDistinguish between reproducibility, repeatability, and replicability\nIdentify common methodological failures that lead to retraction\nUse Retraction Watch to find case studies of failed research\nRecognize the hallmarks of irreproducible anesthesia research"
   },
   {
-    "objectID": "basic/index.html#overview",
-    "href": "basic/index.html#overview",
-    "title": "Basic Tier",
+    "objectID": "basic/week-01/index.html#learning-objectives",
+    "href": "basic/week-01/index.html#learning-objectives",
+    "title": "Week 1 — Environment & Philosophy",
     "section": "",
-    "text": "The Basic tier transforms clinicians into reproducible researchers. Residents learn to read, critique, and reproduce the statistical methods they encounter in anesthesia literature."
+    "text": "By the end of this session, you will be able to:\n\nExplain why reproducibility matters in clinical research\nDistinguish between reproducibility, repeatability, and replicability\nIdentify common methodological failures that lead to retraction\nUse Retraction Watch to find case studies of failed research\nRecognize the hallmarks of irreproducible anesthesia research"
   },
   {
-    "objectID": "basic/index.html#why-r",
-    "href": "basic/index.html#why-r",
-    "title": "Basic Tier",
-    "section": "Why R?",
-    "text": "Why R?\nClinical literature residents read is predominantly R-generated (tableone, survival, ggplot2). Teaching R at Basic means they can read and reproduce the code in papers they cite within weeks. Immediate clinical payoff drives retention."
+    "objectID": "basic/week-01/index.html#why-reproducibility-matters",
+    "href": "basic/week-01/index.html#why-reproducibility-matters",
+    "title": "Week 1 — Environment & Philosophy",
+    "section": "Why Reproducibility Matters",
+    "text": "Why Reproducibility Matters\nAnesthesia practice depends on evidence. When we choose an induction dose, a monitoring technique, or a rescue protocol, we assume the evidence base is sound. But evidence fails when research cannot be reproduced.\nClinical stakes: Irreproducible findings enter guidelines. Incorrect guidelines harm patients. Retractions damage trust in our specialty.\nYour role: As a clinician who reads and contributes to the literature, you are a gatekeeper. Learn to recognize weak evidence before it shapes your practice."
   },
   {
-    "objectID": "basic/index.html#capstone",
-    "href": "basic/index.html#capstone",
-    "title": "Basic Tier",
-    "section": "Capstone",
-    "text": "Capstone\nQuarto report reproducing and critiquing a published anesthesia paper + R code on GitHub."
+    "objectID": "basic/week-01/index.html#core-concepts",
+    "href": "basic/week-01/index.html#core-concepts",
+    "title": "Week 1 — Environment & Philosophy",
+    "section": "Core Concepts",
+    "text": "Core Concepts\n\nDefinitions\n\n\n\n\n\n\n\n\nTerm\nMeaning\nExample\n\n\n\n\nRepeatability\nSame team, same setup, same result\nLab reruns the analysis; gets identical coefficients\n\n\nReproducibility\nDifferent team, same data, same result\nIndependent analyst downloads your dataset; recreates your figures\n\n\nReplicability\nDifferent team, different data, similar result\nNew study in different hospital confirms your finding\n\n\n\nWe focus on reproducibility in this tier. It is the foundation — without it, replicability is meaningless.\n\n\nThe Reproducibility Crisis\nEstimates suggest 50–90% of published research findings cannot be reproduced. Causes include:\n\nUnavailable data or code — the “trust me” approach\nP-hacking — running multiple analyses, reporting only significant ones\nHARKing — Hypothesizing After Results are Known\nStatistical errors — incorrect tests, multiple comparison failures\nFraud — fabrication, falsification (rare but catastrophic)\n\n\n\nRetraction Watch\nRetraction Watch (retractionwatch.com) maintains a database of retracted papers with reasons. It is a teaching tool: every retraction contains a lesson.\nCommon reasons in anesthesia literature:\n\n\n\nReason\nExample Pattern\n\n\n\n\nData fabrication\nPatient records do not match hospital database\n\n\nStatistical error\nIncorrect analysis chosen; p-values invalid\n\n\nUnavailable data\nAuthors decline to share raw data upon request\n\n\nEthical violation\nLack of IRB approval for human subjects\n\n\nImage manipulation\nWestern blot bands duplicated or altered"
   },
   {
-    "objectID": "basic/index.html#modules",
-    "href": "basic/index.html#modules",
-    "title": "Basic Tier",
-    "section": "Modules",
-    "text": "Modules\nComing soon. Module structure: Week 1–16 with index.qmd (resident-facing) and facilitator.qmd (facilitator notes).\n\n← Back to Home"
+    "objectID": "basic/week-01/index.html#exercise",
+    "href": "basic/week-01/index.html#exercise",
+    "title": "Week 1 — Environment & Philosophy",
+    "section": "Exercise",
+    "text": "Exercise\n\nPart 1: Explore Retraction Watch\n\nGo to retractionwatch.com\nSearch for “anesthesia” or “anesthesiology”\nSelect one retracted paper from a mainstream journal (Anesthesia & Analgesia, British Journal of Anaesthesia, Anesthesiology)\nRead the retraction notice (usually linked)\nNote: year of publication, year of retraction, stated reason\n\n\n\nPart 2: Identify the Failure\nFor your selected paper, answer:\n\nWhat was the core claim? (What did the authors say they found?)\nWhat methodological failure led to retraction?\nWas the error detectable from the published paper alone?\nCould sharing raw data or code have prevented this?\n\n\n\nPart 3: Reflect\nWrite 3–5 sentences:\n\nWhat warning signs might a critical reader have noticed before the retraction? What does this teach us about our responsibility as consumers of anesthesia research?\n\nSave your response as week-01-reflection.md in your course repository."
+  },
+  {
+    "objectID": "basic/week-01/index.html#common-pitfalls-in-anesthesia-research",
+    "href": "basic/week-01/index.html#common-pitfalls-in-anesthesia-research",
+    "title": "Week 1 — Environment & Philosophy",
+    "section": "Common Pitfalls in Anesthesia Research",
+    "text": "Common Pitfalls in Anesthesia Research\n\n\n\n\n\n\n\n\nPitfall\nWhy It Happens\nHow to Spot It\n\n\n\n\nUnderpowered study\nSmall N, rare outcomes\nConfidence intervals include null; post-hoc power calculations\n\n\nMultiple comparisons unchecked\nMany secondary outcomes\nNo Bonferroni, FDR, or other adjustment; p-values cluster near 0.05\n\n\nSelective reporting\nNegative primary outcome\nProtocol pre-specified outcomes differ from published outcomes\n\n\nConfounding by indication\nRetrospective drug comparison\nGroups differ systematically (sicker patients get drug X)\n\n\nMissing data mishandling\nDropouts, incomplete records\nNo description of missingness; complete-case analysis only"
+  },
+  {
+    "objectID": "basic/week-01/index.html#verification",
+    "href": "basic/week-01/index.html#verification",
+    "title": "Week 1 — Environment & Philosophy",
+    "section": "Verification",
+    "text": "Verification\nBefore leaving this session, confirm you can:\n\nNavigate Retraction Watch and find anesthesia-related retractions\nIdentify the stated reason for a retraction\nExplain the difference between reproducibility and replicability\nList three warning signs of potentially irreproducible research\nSubmit your reflection document"
+  },
+  {
+    "objectID": "basic/week-01/index.html#resources",
+    "href": "basic/week-01/index.html#resources",
+    "title": "Week 1 — Environment & Philosophy",
+    "section": "Resources",
+    "text": "Resources\n\nRetraction Watch Database: retractionwatch.com\nPaper: Ioannidis, J.P.A. (2005). “Why Most Published Research Findings Are False.” PLoS Medicine\nBlog: Error Statistics Philosophy — Deborah Mayo on statistical criticism\nBook: Rigor Mortis (Richard Harris) — case studies of failed biomedical research\n\n\n← Back to Basic Tier"
   },
   {
     "objectID": "advanced/index.html",
@@ -397,6 +418,41 @@
     "title": "Advanced Tier",
     "section": "Modules",
     "text": "Modules\nComing soon. Module structure: Week 1–24 with index.qmd (resident-facing) and facilitator.qmd (facilitator notes).\n\n← Back to Home"
+  },
+  {
+    "objectID": "basic/index.html",
+    "href": "basic/index.html",
+    "title": "Basic Tier",
+    "section": "",
+    "text": "The Basic tier transforms clinicians into reproducible researchers. Residents learn to read, critique, and reproduce the statistical methods they encounter in anesthesia literature."
+  },
+  {
+    "objectID": "basic/index.html#overview",
+    "href": "basic/index.html#overview",
+    "title": "Basic Tier",
+    "section": "",
+    "text": "The Basic tier transforms clinicians into reproducible researchers. Residents learn to read, critique, and reproduce the statistical methods they encounter in anesthesia literature."
+  },
+  {
+    "objectID": "basic/index.html#why-r",
+    "href": "basic/index.html#why-r",
+    "title": "Basic Tier",
+    "section": "Why R?",
+    "text": "Why R?\nClinical literature residents read is predominantly R-generated (tableone, survival, ggplot2). Teaching R at Basic means they can read and reproduce the code in papers they cite within weeks. Immediate clinical payoff drives retention."
+  },
+  {
+    "objectID": "basic/index.html#capstone",
+    "href": "basic/index.html#capstone",
+    "title": "Basic Tier",
+    "section": "Capstone",
+    "text": "Capstone\nQuarto report reproducing and critiquing a published anesthesia paper + R code on GitHub."
+  },
+  {
+    "objectID": "basic/index.html#modules",
+    "href": "basic/index.html#modules",
+    "title": "Basic Tier",
+    "section": "Modules",
+    "text": "Modules\nComing soon. Module structure: Week 1–16 with index.qmd (resident-facing) and facilitator.qmd (facilitator notes).\n\n← Back to Home"
   },
   {
     "objectID": "datasets/index.html",
