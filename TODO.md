@@ -70,9 +70,9 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [x] Author `basic/README.md` — tier overview, learning goals, dataset index
 
 ### Module Authoring — Basic Tier
-- [ ] `basic/week-01/index.qmd` — Environment & Philosophy; reproducibility rationale; Retraction Watch framing
-  - [ ] Facilitator notes: `basic/week-01/facilitator.qmd`
-  - [ ] Exercise: inspect a retracted anesthesia paper, identify the methodological failure
+- [x] `basic/week-01/index.qmd` — Environment & Philosophy; reproducibility rationale; Retraction Watch framing
+  - [x] Facilitator notes: `basic/week-01/facilitator.qmd`
+  - [x] Exercise: inspect a retracted anesthesia paper, identify the methodological failure
 - [ ] `basic/week-02/index.qmd` — R + Quarto + GitHub basics; literate programming concept
   - [ ] Facilitator notes: `basic/week-02/facilitator.qmd`
   - [ ] Exercise: create a `.qmd` file, render to HTML, push to GitHub
