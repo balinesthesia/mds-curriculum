@@ -73,9 +73,9 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [x] `basic/week-01/index.qmd` — Environment & Philosophy; reproducibility rationale; Retraction Watch framing
   - [x] Facilitator notes: `basic/week-01/facilitator.qmd`
   - [x] Exercise: inspect a retracted anesthesia paper, identify the methodological failure
-- [ ] `basic/week-02/index.qmd` — R + Quarto + GitHub basics; literate programming concept
-  - [ ] Facilitator notes: `basic/week-02/facilitator.qmd`
-  - [ ] Exercise: create a `.qmd` file, render to HTML, push to GitHub
+- [x] `basic/week-02/index.qmd` — R + Quarto + GitHub basics; literate programming concept
+  - [x] Facilitator notes: `basic/week-02/facilitator.qmd`
+  - [x] Exercise: create a `.qmd` file, render to HTML, push to GitHub
 - [ ] `basic/week-03/index.qmd` — Data structures & tidy data; observation vs variable
   - [ ] Facilitator notes: `basic/week-03/facilitator.qmd`
   - [ ] Exercise: tidy a messy anesthesia chart exported as CSV
