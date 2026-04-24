@@ -1,13 +1,11 @@
 ---
 title: "Medical Data Science Curriculum"
-subtitle: "Introductory Course — Division of Data Science and Artificial Intelligence, FK Udayana"
+subtitle: "Division of Data Science and Artificial Intelligence — FK Udayana"
 about:
   template: marquee
   links:
     - text: Start Introductory Course
-      href: intro/week-01/index.qmd
-    - text: Curriculum Overview
-      href: overview.qmd
+      href: intro/index.qmd
     - text: Basic Tier
       href: basic/index.qmd
     - text: Intermediate Tier
@@ -19,46 +17,29 @@ about:
       icon: github
 ---
 
-## Introductory Course
+## Overview
 
-**Duration:** 4 weeks  
-**Goal:** Zero-assumption entry path — establish shared toolchain competence before Basic tier content begins
+A tiered, cohort-based curriculum bridging traditional clinical statistics and modern data science for anesthesiology residents. Built around reproducibility, causal reasoning, and real clinical datasets.
 
-Residents arrive with clinical intelligence but no programming or statistics background. The Introductory Course separates tool learning from concept learning. Without this foundation, Week 1 of Basic would require simultaneous learning of tools and concepts — a proven failure mode.
-
----
-
-## Learning Goals
-
-By the end of this course, residents will:
-
-1. Navigate the command line confidently (terminal, file system, paths)
-2. Use Git and GitHub for version control (clone, commit, push, fork)
-3. Render a Quarto document with R code chunks
-4. Understand core programming concepts (variables, data types, functions)
-5. Refresh basic statistics intuition (mean, median, variance, distributions, p-values)
+This curriculum is **not** a generic data science course. Every concept is anchored to anesthesia and critical care practice. Residents leave as researchers who can build, or builders who can publish.
 
 ---
 
-## Week Overview
+## Curriculum Structure
 
-| Week | Topic | Key Skills |
-|------|-------|------------|
-| [1](intro/week-01/index.qmd) | Command line basics | Terminal navigation, file operations |
-| [2](intro/week-02/index.qmd) | Git and GitHub | Version control, repository workflow |
-| [3](intro/week-03/index.qmd) | R + Quarto orientation | Literate programming, document rendering |
-| [4](intro/week-04/index.qmd) | Programming + Statistics | Variables, functions, summary statistics |
+| Tier | Duration | Language | Goal |
+|---|---|---|---|
+| [Introductory](intro/index.qmd) | 4 weeks | R (toolchain only) | Shared competence: R, RStudio, Git, GitHub, Quarto |
+| [Basic](basic/index.qmd) | 16 weeks | R | Critical consumer + reproducible researcher |
+| [Intermediate](intermediate/index.qmd) | 20 weeks | Python | Independent analyst, researcher/builder entry |
+| [Advanced](advanced/index.qmd) | 24 weeks | Python + AI-assisted | Clinical tool builder or preprint-ready researcher |
 
----
-
-## Prerequisites
-
-- Clinical intelligence (you have this)
-- No programming or statistics background assumed
-- Personal laptop (Windows, macOS, or Linux)
+**Progression:** Linear. Introductory → Basic → Intermediate → Advanced.  
+**Cohort size:** 4–6 residents per cohort.  
+**Contact hours:** 2 hours/week.
 
 ---
 
-## Full Curriculum
+## License
 
-The Introductory Course is the entry point to a four-tier curriculum. See the [Curriculum Overview](overview.qmd) for the complete structure: Basic → Intermediate → Advanced.
+[CC BY-NC 4.0](LICENSE) — Free to use and adapt for non-commercial academic and clinical education with attribution.
