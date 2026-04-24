@@ -18,11 +18,12 @@ This curriculum is **not** a generic data science course. Every concept is ancho
 
 | Tier | Duration | Language | Goal |
 |---|---|---|---|
+| Introductory | 4 weeks | R (toolchain only) | Shared competence: R, RStudio, Git, GitHub, Quarto |
 | Basic | 16 weeks | R | Critical consumer + reproducible researcher |
 | Intermediate | 20 weeks | Python | Independent analyst, researcher/builder entry |
 | Advanced | 24 weeks | Python + AI-assisted | Clinical tool builder or preprint-ready researcher |
 
-**Progression:** Linear. Basic → Intermediate → Advanced.  
+**Progression:** Linear. Introductory → Basic → Intermediate → Advanced.  
 **Cohort size:** 4–6 residents per cohort.  
 **Cadence:** Rolling. All three tiers run concurrently at steady state.  
 **Contact hours:** 2 hours/week.  
@@ -42,6 +43,12 @@ This curriculum is **not** a generic data science course. Every concept is ancho
 
 ```
 mds-curriculum/
+├── intro/                       # Introductory Course (4 weeks)
+│   ├── week-01/
+│   │   ├── index.qmd          # Resident-facing module
+│   │   ├── facilitator.qmd    # Facilitator notes
+│   │   └── data/              # Module dataset or pointer
+│   └── ...
 ├── basic/
 │   ├── week-01/
 │   │   ├── index.qmd          # Resident-facing module
@@ -125,6 +132,6 @@ Attribution: **Division of Data Science and Artificial Intelligence, Study Progr
 
 ## Contributing
 
-This curriculum is maintained by Balinesthesia. Contributions from Advanced graduates and external collaborators are welcome via pull request.
+This curriculum is maintained by Balinesthesia. Contributions from Advanced graduates are welcome via pull request. External collaborators should fork and submit PRs — see `ARCHITECTURE.md` for governance details.
 
 See `ARCHITECTURE.md` for design decisions and rationale before opening a PR.

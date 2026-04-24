@@ -156,8 +156,10 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [ ] Document dry-run findings as GitHub Issues; resolve before cohort start
 - [ ] Author `certificate/template.qmd` — parameterized Quarto PDF; fields: recipient name, tier, cohort, date, curriculum version, certificate ID
 - [ ] Add `certificate/design-reference.html` — self-contained HTML mockup for visual design review and stakeholder sign-off
+  - [ ] **Review timing:** Dry-run certificate design with both signatories at v0.5.0, before first cohort graduates
 - [ ] Add `certificate/assets/` — program logo, HoD signature scans (two signatories)
 - [ ] Test certificate PDF render end-to-end against example params
+- [ ] Author `certificate/verify.qmd` — static verification page at `/verify` that takes certificate ID, displays recipient name, tier, cohort, date, curriculum version; lookups from REGISTRY.yaml
 
 ---
 
@@ -169,6 +171,7 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [ ] Log friction points as GitHub Issues during delivery (do not fix mid-cohort)
 - [ ] Complete capstone peer review (Week 16)
 - [ ] Archive capstones to `capstone-archive/basic-cohort-01/` (with resident consent)
+  - [ ] Author `capstone-archive/consent-form.md` — consent for public archival, withdrawal procedure, contact for removal requests
 - [ ] Post-cohort review: triage all Issues into patch/minor/major
 - [ ] Apply all patch and minor revisions
 - [ ] Issue certificates for all capstone-passing residents
@@ -176,6 +179,16 @@ Update this file via PR only. Mark tasks `[x]` on completion.
   - [ ] Append each record to `certificate/REGISTRY.yaml` (ID, tier, cohort, curriculum version, capstone URL, date)
 - [ ] Update `CHANGELOG.md`
 - [ ] Tag `v0.6.0`
+
+---
+
+## v0.6.5 — Intermediate Prerequisite Verification
+> Deliverable: All prerequisites completed before Intermediate cohort starts.
+
+- [ ] Verify all Basic graduates have completed capstone and received certificates
+- [ ] Confirm all Intermediate residents have PhysioNet credentialing complete (CITI training + access approval)
+- [ ] Confirm all Intermediate residents have local MIMIC-IV data directory configured (path, `.gitignore`, space verified)
+- [ ] Author `intermediate/prerequisites.md` — check-gate document: who is eligible to start Intermediate
 
 ---
 

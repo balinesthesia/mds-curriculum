@@ -18,7 +18,7 @@ Motivation lever: their own patient data, their own clinical questions.
 1. **Concept before tool.** Every module follows: Concept → Clinical context → Tool. Never Tool → Application.
 2. **Clinical anchor is load-bearing, not decorative.** Toy datasets are prohibited. Every exercise uses real or realistic clinical data.
 3. **Reproducibility as discipline, not afterthought.** Version control, environment management, and literate programming are introduced in Week 1 of Intro and never relaxed.
-4. **Prediction vs inference is the central distinction.** This single concept separates the Basic researcher track from the Intermediate builder track and must be taught explicitly.
+4. **Prediction vs inference is the track-defining distinction.** This concept separates Basic's researcher track from Intermediate's builder track. It first appears conceptually at Basic week 8 ("Inference philosophy") and is formalized explicitly at Intermediate week 6.
 5. **AI-assisted workflows are taught critically.** AI tools enter at Advanced tier only. Residents learn what LLMs cannot catch before they learn to use them.
 
 ---
@@ -36,6 +36,8 @@ Clinical literature residents read is predominantly R-generated (`tableone`, `su
 ### Why Python for Intermediate
 
 The builder track opens at Intermediate. EHR wrangling, feature engineering, and prediction pipelines are better served by Python's ecosystem. `scikit-learn`, `lifelines`, `polars`, `shap` — no equivalent coherence in R for this workflow.
+
+**Calibration vs discrimination:** Intermediate explicitly teaches this distinction as a load-bearing clinical-ML concept. Discrimination (AUC) measures ranking ability; calibration (Brier score, reliability diagrams) measures probability accuracy. A miscalibrated model can have excellent AUC yet harm patients by systematically over/under-estimating risk. This is the defining failure mode of LLMs in clinical settings and must be taught as primary, not secondary.
 
 ### Why Python + AI-assisted for Advanced
 
@@ -137,7 +139,7 @@ datasets/
 **MIMIC-IV policy:** Never committed. Modules assume a local `data/mimic-iv/` directory.  
 Each module that uses MIMIC-IV includes a `data/README.md` specifying exact tables, columns, and cohort query used to generate the module dataset — ensuring reproducibility without distributing data.
 
-**PhysioNet credentialing** for eICU and MIMIC-IV is a documented prerequisite handled during Intermediate onboarding (not a barrier to entry).
+**PhysioNet credentialing** for eICU and MIMIC-IV is a documented prerequisite **completed before Intermediate starts**, not handled during onboarding. CITI training and access approval take 2–6 weeks. Residents without credentialing at Intermediate Week 1 cannot run MIMIC-IV exercises.
 
 ---
 
@@ -168,6 +170,8 @@ Curriculum contributor: write access to mds-curriculum repo
 
 This pipeline is the primary curriculum sustainability mechanism. It must be explicitly maintained — it does not self-perpetuate.
 
+**Operational Risk:** For the first ~60 weeks after launch (16 Intro + 16 Basic + 20 Intermediate + 8 Advanced weeks until onboarding begins), the facilitator pipeline produces no output. During this period, facilitation capacity relies on the curriculum author(s). Bus factor = 1. Plan accordingly.
+
 ---
 
 ## Decisions Log
@@ -183,3 +187,19 @@ This pipeline is the primary curriculum sustainability mechanism. It must be exp
 | 2026-04 | Introductory Course added | Zero-assumption entry path; separates tool learning from concept learning |
 | 2026-04 | Certificate of Competency — department-issued, dual-signed, public registry | Institutional credibility for resident credentials; verification without central authority |
 | 2026-04 | Issuing authority: Division of Data Science and Artificial Intelligence, FK Udayana | Clear organizational ownership for credential legitimacy |
+
+---
+
+## Single Points of Failure
+
+Before handoff to a successor, the following would need to exist:
+
+| SPF | Current State | Mitigation Required |
+|-----|---------------|---------------------|
+| Curriculum author | One person | Documented authoring guidelines, style guide, review rubrics |
+| Facilitator pipeline | 60-week lead time | Pre-trained facilitator bench or interim staffing plan |
+| Certificate signatories | Two specific individuals | Succession plan for both signatory roles |
+| MIMIC-IV credentialing | Author's credential | Institutional credential for curriculum, not individual |
+| GitHub org ownership | Single owner | Backup owner with full admin rights |
+
+This is not a flaw — it is the honest shape of starting something. Documenting it enables intentional handoff when the time comes.
