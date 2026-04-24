@@ -76,9 +76,9 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [x] `basic/week-02/index.qmd` — R + Quarto + GitHub basics; literate programming concept
   - [x] Facilitator notes: `basic/week-02/facilitator.qmd`
   - [x] Exercise: create a `.qmd` file, render to HTML, push to GitHub
-- [ ] `basic/week-03/index.qmd` — Data structures & tidy data; observation vs variable
-  - [ ] Facilitator notes: `basic/week-03/facilitator.qmd`
-  - [ ] Exercise: tidy a messy anesthesia chart exported as CSV
+- [x] `basic/week-03/index.qmd` — Data structures & tidy data; observation vs variable
+  - [x] Facilitator notes: `basic/week-03/facilitator.qmd`
+  - [x] Exercise: tidy a messy anesthesia chart exported as CSV
 - [ ] `basic/week-04/index.qmd` — Clinical data types; continuous, ordinal, nominal, time-to-event
   - [ ] Facilitator notes: `basic/week-04/facilitator.qmd`
   - [ ] Exercise: classify SOFA score components by data type; justify choices
