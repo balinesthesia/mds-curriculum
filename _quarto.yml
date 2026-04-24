@@ -23,6 +23,8 @@ website:
     left:
       - text: "Intro"
         href: intro/index.qmd
+      - text: "Overview"
+        href: overview.qmd
       - text: "Basic"
         href: basic/index.qmd
       - text: "Intermediate"
