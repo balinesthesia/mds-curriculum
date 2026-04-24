@@ -2,17 +2,25 @@ name: Quarto Render
 
 on:
   push:
-    branches: main
+    branches: [main]
+
+concurrency:
+  group: render-docs
+  cancel-in-progress: false  # Queue pushes; do not cancel — every commit should render
 
 jobs:
   render:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write  # Needed for failure notification step
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
+      # R pinned to 4.3.0 — matches the minimum version stated in
+      # facilitator/setup-guide.qmd. CI acts as contract enforcer:
+      # if a module accidentally requires a newer R feature, CI catches it.
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
         with:
@@ -32,5 +40,20 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add docs/
-          git diff --cached --quiet || (git commit -m "chore: render quarto site to docs/ [skip ci]" && git push)
+          git add -A docs/
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: render quarto site to docs/ [skip ci]"
+            for i in 1 2 3; do
+              git pull --rebase origin main && git push && break || sleep 5
+            done
+          fi
+
+      - name: Notify on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "CI render failed on ${{ github.sha }}" \
+            --body "Quarto render failed. See run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --label "ci-failure" || true
