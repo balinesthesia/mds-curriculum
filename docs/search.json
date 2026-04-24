@@ -315,6 +315,167 @@
     "text": "Facilitator Verification\nBefore the cohort starts:\n\nTested setup on clean Windows VM\nTested setup on clean macOS install\nSent pre-session email to all residents\nTracked responses; followed up with non-responders\nScheduled 1-on-1 sessions for residents reporting issues"
   },
   {
+    "objectID": "basic/week-02/index.html",
+    "href": "basic/week-02/index.html",
+    "title": "Week 2 — Literate Programming for Reproducible Research",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nExplain why literate programming prevents the failures you analyzed in Week 1\nCreate a reproducible Quarto document with code, prose, and metadata\nUse chunk options to control what is shown vs. what is executed\nRender a document to HTML and verify it reproduces without error\nPush a complete analysis to GitHub as a version-controlled artifact"
+  },
+  {
+    "objectID": "basic/week-02/index.html#learning-objectives",
+    "href": "basic/week-02/index.html#learning-objectives",
+    "title": "Week 2 — Literate Programming for Reproducible Research",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nExplain why literate programming prevents the failures you analyzed in Week 1\nCreate a reproducible Quarto document with code, prose, and metadata\nUse chunk options to control what is shown vs. what is executed\nRender a document to HTML and verify it reproduces without error\nPush a complete analysis to GitHub as a version-controlled artifact"
+  },
+  {
+    "objectID": "basic/week-02/index.html#why-literate-programming",
+    "href": "basic/week-02/index.html#why-literate-programming",
+    "title": "Week 2 — Literate Programming for Reproducible Research",
+    "section": "Why Literate Programming?",
+    "text": "Why Literate Programming?\nIn Week 1, you analyzed retracted papers. One recurring failure mode was: the analysis could not be reproduced because the method was described in prose, not in code. Readers had to trust the authors’ verbal description of their statistical procedure.\nLiterate programming (Quarto, R Markdown, Jupyter) inverts this. The code is the method description. The prose explains why. Together they create a single artifact that:\n\nCan be re-run by anyone with the data\nDocuments decisions where they were made (in the same file)\nIs version-controlled, so every change is tracked\n\nThis is not a convenience. It is a disciplinary practice that protects against the exact failures you found in Retraction Watch."
+  },
+  {
+    "objectID": "basic/week-02/index.html#core-concepts",
+    "href": "basic/week-02/index.html#core-concepts",
+    "title": "Week 2 — Literate Programming for Reproducible Research",
+    "section": "Core Concepts",
+    "text": "Core Concepts\n\nThe Reproducibility Stack\n┌─────────────────────────┐\n│  Quarto document (.qmd) │  ← Code + prose + metadata\n├─────────────────────────┤\n│  Version control (Git)  │  ← Every change tracked\n├─────────────────────────┤\n│  Remote repository        │  ← GitHub: backup + share\n├─────────────────────────┤\n│  Environment (renv)     │  ← Package versions locked\n└─────────────────────────┘\nWeek 2 covers the top two layers. Environment management (renv) comes later.\n\n\nChunk Options for Reproducibility\n\n\n\n\n\n\n\n\nOption\nPurpose\nReproducibility Role\n\n\n\n\necho: true\nShow code\nOthers can see exactly what was done\n\n\necho: false\nHide code\nClean output, but code is still in source\n\n\neval: true\nRun code\nDefault; ensures output is current\n\n\neval: false\nSkip execution\nFor slow or one-time operations\n\n\nmessage: false\nHide package messages\nCleaner output without losing code\n\n\nwarning: false\nHide warnings\nUse carefully — warnings often matter\n\n\n\nRule: echo: true for all analysis code unless you have a specific reason. Transparency is the default.\n\n\nYAML Metadata as Documentation\nThe YAML header is not decoration. It is the minimum viable documentation for reproducibility:\n---\ntitle: \"Propofol Dose Analysis\"\nauthor: \"Your Name\"\ndate: \"2026-04-22\"\nformat: html\n---\nAdd these fields for research documents:\n---\ntitle: \"Propofol Dose Analysis\"\nsubtitle: \"Basic Tier — Week 2 Exercise\"\nauthor: \"Your Name\"\ndate: \"2026-04-22\"\nformat:\n  html:\n    code-fold: false    # Never hide code by default\n    toc: true         # Table of contents for navigation\nexecute:\n  echo: true          # Global echo setting\n---"
+  },
+  {
+    "objectID": "basic/week-02/index.html#exercise",
+    "href": "basic/week-02/index.html#exercise",
+    "title": "Week 2 — Literate Programming for Reproducible Research",
+    "section": "Exercise",
+    "text": "Exercise\n\nPart 1: Create a Reproducible Document\n\nOpen RStudio\nFile → New File → Quarto Document\nSave as: ~/mds-work/basic-week2-reproducibility.qmd\nReplace the template with the following structure (copy exactly):\n\n---\ntitle: \"Reproducibility Exercise — Basic Week 2\"\nauthor: \"Your Name\"\ndate: \"2026-04-22\"\nformat:\n  html:\n    code-fold: false\n    toc: true\nexecute:\n  echo: true\n---\n\n## Purpose\n\nThis document demonstrates a reproducible analysis workflow. Every step is documented in code and prose.\n\n## Data\n\nLoad the built-in `mtcars` dataset (used here as a stand-in for clinical data):\n\n```r\n#| message: false\ndata(mtcars)\nhead(mtcars)"
+  },
+  {
+    "objectID": "basic/week-02/index.html#analysis",
+    "href": "basic/week-02/index.html#analysis",
+    "title": "Week 2 — Literate Programming for Reproducible Research",
+    "section": "Analysis",
+    "text": "Analysis\nCalculate mean miles per gallon (analogous to calculating mean drug dose):\nmean_mpg &lt;- mean(mtcars$mpg)\nmean_mpg"
+  },
+  {
+    "objectID": "basic/week-02/index.html#results",
+    "href": "basic/week-02/index.html#results",
+    "title": "Week 2 — Literate Programming for Reproducible Research",
+    "section": "Results",
+    "text": "Results\nThe mean MPG is r round(mean_mpg, 1)."
+  },
+  {
+    "objectID": "basic/week-02/index.html#conclusion",
+    "href": "basic/week-02/index.html#conclusion",
+    "title": "Week 2 — Literate Programming for Reproducible Research",
+    "section": "Conclusion",
+    "text": "Conclusion\nThis analysis is fully reproducible: the code is visible, the data source is named, and the output is generated from the code.\n\n### Part 2: Render and Verify\n\n1. Click **Render** (or Ctrl+Shift+K / Cmd+Shift+K)\n2. Open the generated HTML file in a browser\n3. Verify:\n   - [ ] Code is visible for every analysis step\n   - [ ] Output appears below each code chunk\n   - [ ] No \"magic numbers\" — every statistic is generated from code\n   - [ ] The document renders without errors\n\n### Part 3: Version Control\n\n1. Ensure your `mds-work` folder is a Git repository (initialized in Intro Week 2):\n   ```bash\n   cd ~/mds-work\n   git status\n\nStage, commit, and push:\ngit add basic-week2-reproducibility.qmd\ngit commit -m \"Add Week 2 reproducibility exercise\"\ngit push origin main\nVerify on GitHub that the .qmd file is visible.\n\n\nPart 4: Reflection\nIn your document, add a final section:\n## Reflection\n\nHow does this workflow prevent the failures you found in Retraction Watch? Write 2–3 sentences.\nRe-render and push the updated document."
+  },
+  {
+    "objectID": "basic/week-02/index.html#common-pitfalls",
+    "href": "basic/week-02/index.html#common-pitfalls",
+    "title": "Week 2 — Literate Programming for Reproducible Research",
+    "section": "Common Pitfalls",
+    "text": "Common Pitfalls\n\n\n\n\n\n\n\n\nPitfall\nWhy It Happens\nHow to Prevent\n\n\n\n\n“It works on my machine”\nUndocumented package versions\nUse renv (covered later); for now, note package versions in prose\n\n\n“I changed the data but forgot to update the text”\nManual text updates\nUse inline R expressions: `r mean(mtcars$mpg)`\n\n\n“The code is in the document but I can’t find it”\necho: false everywhere\nDefault to echo: true; hide code only for final reports\n\n\n“I rendered once and never again”\nStale output\nRe-render before every commit; check that HTML updates\n\n\n“I pushed the HTML but not the QMD”\nOnly committing output\nAlways commit .qmd (source); HTML is generated, optional to commit"
+  },
+  {
+    "objectID": "basic/week-02/index.html#verification",
+    "href": "basic/week-02/index.html#verification",
+    "title": "Week 2 — Literate Programming for Reproducible Research",
+    "section": "Verification",
+    "text": "Verification\nBefore leaving this session, confirm you can:\n\nExplain how literate programming prevents irreproducible analysis\nCreate a Quarto document with YAML, prose, code chunks, and inline expressions\nUse echo: true as the default chunk option\nRender to HTML and verify the output\nCommit and push both .qmd and .html to GitHub\nIdentify one Retraction Watch failure mode that this workflow would have prevented"
+  },
+  {
+    "objectID": "basic/week-02/index.html#resources",
+    "href": "basic/week-02/index.html#resources",
+    "title": "Week 2 — Literate Programming for Reproducible Research",
+    "section": "Resources",
+    "text": "Resources\n\nQuarto Guide: quarto.org/docs/guide\nR for Data Science (2e): r4ds.hadley.nz — Quarto chapter\nTen Simple Rules for Reproducible Computational Research: PLOS Computational Biology\n\n\n← Back to Basic Tier"
+  },
+  {
+    "objectID": "basic/index.html",
+    "href": "basic/index.html",
+    "title": "Basic Tier",
+    "section": "",
+    "text": "The Basic tier transforms clinicians into reproducible researchers. Residents learn to read, critique, and reproduce the statistical methods they encounter in anesthesia literature."
+  },
+  {
+    "objectID": "basic/index.html#overview",
+    "href": "basic/index.html#overview",
+    "title": "Basic Tier",
+    "section": "",
+    "text": "The Basic tier transforms clinicians into reproducible researchers. Residents learn to read, critique, and reproduce the statistical methods they encounter in anesthesia literature."
+  },
+  {
+    "objectID": "basic/index.html#why-r",
+    "href": "basic/index.html#why-r",
+    "title": "Basic Tier",
+    "section": "Why R?",
+    "text": "Why R?\nClinical literature residents read is predominantly R-generated (tableone, survival, ggplot2). Teaching R at Basic means they can read and reproduce the code in papers they cite within weeks. Immediate clinical payoff drives retention."
+  },
+  {
+    "objectID": "basic/index.html#capstone",
+    "href": "basic/index.html#capstone",
+    "title": "Basic Tier",
+    "section": "Capstone",
+    "text": "Capstone\nQuarto report reproducing and critiquing a published anesthesia paper + R code on GitHub."
+  },
+  {
+    "objectID": "basic/index.html#modules",
+    "href": "basic/index.html#modules",
+    "title": "Basic Tier",
+    "section": "Modules",
+    "text": "Modules\nComing soon. Module structure: Week 1–16 with index.qmd (resident-facing) and facilitator.qmd (facilitator notes).\n\n← Back to Home"
+  },
+  {
+    "objectID": "advanced/index.html",
+    "href": "advanced/index.html",
+    "title": "Advanced Tier",
+    "section": "",
+    "text": "The Advanced tier produces residents who can build clinical tools or produce preprint-ready research. AI-assisted workflows are taught critically — residents learn what LLMs cannot catch before they learn to use them."
+  },
+  {
+    "objectID": "advanced/index.html#overview",
+    "href": "advanced/index.html#overview",
+    "title": "Advanced Tier",
+    "section": "",
+    "text": "The Advanced tier produces residents who can build clinical tools or produce preprint-ready research. AI-assisted workflows are taught critically — residents learn what LLMs cannot catch before they learn to use them."
+  },
+  {
+    "objectID": "advanced/index.html#why-ai-assisted",
+    "href": "advanced/index.html#why-ai-assisted",
+    "title": "Advanced Tier",
+    "section": "Why AI-assisted?",
+    "text": "Why AI-assisted?\nBy Advanced, residents have enough foundation to use AI tools critically — as a supervised junior collaborator, not an oracle. Teaching AI-assisted workflows without this foundation produces tool dependency, not competency."
+  },
+  {
+    "objectID": "advanced/index.html#datasets",
+    "href": "advanced/index.html#datasets",
+    "title": "Advanced Tier",
+    "section": "Datasets",
+    "text": "Datasets\n\nMIMIC-IV: PhysioNet credentialed (local copy required, never committed)"
+  },
+  {
+    "objectID": "advanced/index.html#capstone",
+    "href": "advanced/index.html#capstone",
+    "title": "Advanced Tier",
+    "section": "Capstone",
+    "text": "Capstone\nDeployed clinical tool prototype or preprint-ready manuscript (builder/researcher track)."
+  },
+  {
+    "objectID": "advanced/index.html#facilitator-pipeline",
+    "href": "advanced/index.html#facilitator-pipeline",
+    "title": "Advanced Tier",
+    "section": "Facilitator Pipeline",
+    "text": "Facilitator Pipeline\nAdvanced graduates can become junior facilitators for Basic cohorts, creating a sustainable curriculum model."
+  },
+  {
+    "objectID": "advanced/index.html#modules",
+    "href": "advanced/index.html#modules",
+    "title": "Advanced Tier",
+    "section": "Modules",
+    "text": "Modules\nComing soon. Module structure: Week 1–24 with index.qmd (resident-facing) and facilitator.qmd (facilitator notes).\n\n← Back to Home"
+  },
+  {
     "objectID": "basic/week-01/index.html",
     "href": "basic/week-01/index.html",
     "title": "Week 1 — Environment & Philosophy",
@@ -369,90 +530,6 @@
     "title": "Week 1 — Environment & Philosophy",
     "section": "Resources",
     "text": "Resources\n\nRetraction Watch Database: retractionwatch.com\nPaper: Ioannidis, J.P.A. (2005). “Why Most Published Research Findings Are False.” PLoS Medicine\nBlog: Error Statistics Philosophy — Deborah Mayo on statistical criticism\nBook: Rigor Mortis (Richard Harris) — case studies of failed biomedical research\n\n\n← Back to Basic Tier"
-  },
-  {
-    "objectID": "advanced/index.html",
-    "href": "advanced/index.html",
-    "title": "Advanced Tier",
-    "section": "",
-    "text": "The Advanced tier produces residents who can build clinical tools or produce preprint-ready research. AI-assisted workflows are taught critically — residents learn what LLMs cannot catch before they learn to use them."
-  },
-  {
-    "objectID": "advanced/index.html#overview",
-    "href": "advanced/index.html#overview",
-    "title": "Advanced Tier",
-    "section": "",
-    "text": "The Advanced tier produces residents who can build clinical tools or produce preprint-ready research. AI-assisted workflows are taught critically — residents learn what LLMs cannot catch before they learn to use them."
-  },
-  {
-    "objectID": "advanced/index.html#why-ai-assisted",
-    "href": "advanced/index.html#why-ai-assisted",
-    "title": "Advanced Tier",
-    "section": "Why AI-assisted?",
-    "text": "Why AI-assisted?\nBy Advanced, residents have enough foundation to use AI tools critically — as a supervised junior collaborator, not an oracle. Teaching AI-assisted workflows without this foundation produces tool dependency, not competency."
-  },
-  {
-    "objectID": "advanced/index.html#datasets",
-    "href": "advanced/index.html#datasets",
-    "title": "Advanced Tier",
-    "section": "Datasets",
-    "text": "Datasets\n\nMIMIC-IV: PhysioNet credentialed (local copy required, never committed)"
-  },
-  {
-    "objectID": "advanced/index.html#capstone",
-    "href": "advanced/index.html#capstone",
-    "title": "Advanced Tier",
-    "section": "Capstone",
-    "text": "Capstone\nDeployed clinical tool prototype or preprint-ready manuscript (builder/researcher track)."
-  },
-  {
-    "objectID": "advanced/index.html#facilitator-pipeline",
-    "href": "advanced/index.html#facilitator-pipeline",
-    "title": "Advanced Tier",
-    "section": "Facilitator Pipeline",
-    "text": "Facilitator Pipeline\nAdvanced graduates can become junior facilitators for Basic cohorts, creating a sustainable curriculum model."
-  },
-  {
-    "objectID": "advanced/index.html#modules",
-    "href": "advanced/index.html#modules",
-    "title": "Advanced Tier",
-    "section": "Modules",
-    "text": "Modules\nComing soon. Module structure: Week 1–24 with index.qmd (resident-facing) and facilitator.qmd (facilitator notes).\n\n← Back to Home"
-  },
-  {
-    "objectID": "basic/index.html",
-    "href": "basic/index.html",
-    "title": "Basic Tier",
-    "section": "",
-    "text": "The Basic tier transforms clinicians into reproducible researchers. Residents learn to read, critique, and reproduce the statistical methods they encounter in anesthesia literature."
-  },
-  {
-    "objectID": "basic/index.html#overview",
-    "href": "basic/index.html#overview",
-    "title": "Basic Tier",
-    "section": "",
-    "text": "The Basic tier transforms clinicians into reproducible researchers. Residents learn to read, critique, and reproduce the statistical methods they encounter in anesthesia literature."
-  },
-  {
-    "objectID": "basic/index.html#why-r",
-    "href": "basic/index.html#why-r",
-    "title": "Basic Tier",
-    "section": "Why R?",
-    "text": "Why R?\nClinical literature residents read is predominantly R-generated (tableone, survival, ggplot2). Teaching R at Basic means they can read and reproduce the code in papers they cite within weeks. Immediate clinical payoff drives retention."
-  },
-  {
-    "objectID": "basic/index.html#capstone",
-    "href": "basic/index.html#capstone",
-    "title": "Basic Tier",
-    "section": "Capstone",
-    "text": "Capstone\nQuarto report reproducing and critiquing a published anesthesia paper + R code on GitHub."
-  },
-  {
-    "objectID": "basic/index.html#modules",
-    "href": "basic/index.html#modules",
-    "title": "Basic Tier",
-    "section": "Modules",
-    "text": "Modules\nComing soon. Module structure: Week 1–16 with index.qmd (resident-facing) and facilitator.qmd (facilitator notes).\n\n← Back to Home"
   },
   {
     "objectID": "datasets/index.html",
