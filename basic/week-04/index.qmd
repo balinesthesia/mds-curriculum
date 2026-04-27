@@ -73,7 +73,8 @@ median(map)
 asa <- ordered(c("II", "III", "II", "IV", "III", "II"), 
                levels = c("I", "II", "III", "IV", "V", "VI"))
 table(asa)
-median(asa)  # Returns "III" — the middle category
+names(which.max(table(asa)))  # Returns the most frequent category ("II")
+# Note: base R median() does not support factors — use table() for ordinal summaries
 ```
 
 ### Nominal Data
@@ -176,10 +177,11 @@ sex_factor <- factor(c("male", "female", "female", "male"))
 **Trap 3: Factors that are secretly ordered**
 
 ```r
-# Wrong — treated as nominal
+# Wrong — treated as nominal (R assigns alphabetical level order: 0,2,3,5,8)
 pain_wrong <- factor(c(0, 2, 5, 3, 8))
 
-# Right — treated as ordinal
+# Right — treated as ordinal (levels = 0:10 specifies full ordered scale 0-10)
+# Note: both values and levels are coerced to character internally by ordered()
 pain_right <- ordered(c(0, 2, 5, 3, 8), levels = 0:10)
 ```
 
@@ -303,7 +305,7 @@ Before leaving this session, confirm you can:
 - **R for Data Science (2e):** [r4ds.hadley.nz/factors.html](https://r4ds.hadley.nz/factors.html) — Factors chapter
 - **SOFA Score:** Vincent, et al. (1996). "The SOFA score to describe organ dysfunction/failure." *Intensive Care Medicine*
 - **ASA Physical Status:** [ASA House of Delegates, 2020](https://www.asahq.org/standards-and-practice-parameters/statement-on-asa-physical-status-classification-system)
-- **Survival Analysis in R:** [therinspark.com/survival.html](https://therinspark.com/survival.html) — For Week 13 prep
+- **Survival Analysis in R:** [CRAN Task View: Survival Analysis](https://cran.r-project.org/web/views/Survival.html) — For Week 13 prep
 
 ---
 

@@ -98,13 +98,17 @@ weight_kg <- pmin(weight_kg, 120)
 propofol_mg <- round(weight_kg * rnorm(20, mean = 2.0, sd = 0.3))
 
 # Add one outlier: data entry error (weight recorded in pounds, not kg)
-# Patient 110: weight entered as 154 (pounds = 70 kg), but propofol calculated as if kg
-weight_kg[10] <- 154  # Data entry error
+# Patient 110: propofol_mg was calculated from the correct weight (~63 kg with seed 42)
+# Then weight is overwritten to 154 (pounds entered instead of kg)
+# Expected result with seed 42: mg_per_kg for patient 110 ≈ 0.8 (far below clinical range 1.5-2.5)
+weight_kg[10] <- 154  # Data entry error — do not change without updating seed
 
 # ASA class: mostly II-III, some IV
 asa <- sample(c("I", "II", "II", "II", "III", "III", "III", "IV"), 20, replace = TRUE)
 
 # Case duration (minutes): right-skewed (most short, some very long)
+# meanlog/sdlog are parameters of the underlying normal (log scale), not the output mean/SD
+# With meanlog=4.5, sdlog=0.8: median output ≈ exp(4.5) ≈ 90 min; mean output ≈ 120 min
 case_duration <- round(rlnorm(20, meanlog = 4.5, sdlog = 0.8))
 
 # Combine into data frame
@@ -141,7 +145,8 @@ For `asa` (ordinal), compute:
 
 ```r
 table(patients$asa)
-median(patients$asa)  # Valid for ordered factors
+names(which.max(table(patients$asa)))  # Most frequent ASA class (mode)
+# Note: base R median() does not support factors — use table() for ordinal summaries
 ```
 
 **Document your findings in your Quarto document.** For each variable, note:
@@ -183,8 +188,8 @@ patients$mg_per_kg <- patients$propofol_mg / patients$weight_kg
 
 summary(patients$mg_per_kg)
 
-# Which patient has the extreme mg/kg ratio?
-patients$patient_id[which.max(patients$mg_per_kg)]
+# Which patient has the extreme (lowest) mg/kg ratio?
+patients$patient_id[which.min(patients$mg_per_kg)]
 ```
 
 **Question:** Does this confirm your outlier diagnosis? What would the correct weight be if the entry was in pounds?

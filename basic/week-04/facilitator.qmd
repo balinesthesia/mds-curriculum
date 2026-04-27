@@ -133,9 +133,9 @@ mode(patients$map)  # Pointless for continuous
 # Continuous: Summary statistics
 summary(patients$map)
 
-# Ordinal: Median and table
-median(patients$asa)
+# Ordinal: Table and mode (base R median() does not support factors)
 table(patients$asa)
+names(which.max(table(patients$asa)))  # Most frequent ASA class
 
 # Nominal: Table only
 table(patients$sex)
