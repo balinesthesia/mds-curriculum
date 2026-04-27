@@ -82,9 +82,9 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [x] `basic/week-04/index.qmd` — Clinical data types; continuous, ordinal, nominal, time-to-event
   - [x] Facilitator notes: `basic/week-04/facilitator.qmd`
   - [x] Exercise: classify SOFA score components by data type; justify choices
-- [ ] `basic/week-05/index.qmd` — EDA I: distributions, shape, spread, outliers
-  - [ ] Facilitator notes: `basic/week-05/facilitator.qmd`
-  - [ ] Exercise: describe propofol dose distribution across a curated case dataset
+- [x] `basic/week-05/index.qmd` — EDA I: distributions, shape, spread, outliers
+  - [x] Facilitator notes: `basic/week-05/facilitator.qmd`
+  - [x] Exercise: describe propofol dose distribution across a curated case dataset
 - [ ] `basic/week-06/index.qmd` — EDA II: ggplot2, visual thinking
   - [ ] Facilitator notes: `basic/week-06/facilitator.qmd`
   - [ ] Exercise: plot intraoperative MAP over time for 10 cases; annotate events
