@@ -79,9 +79,9 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [x] `basic/week-03/index.qmd` — Data structures & tidy data; observation vs variable
   - [x] Facilitator notes: `basic/week-03/facilitator.qmd`
   - [x] Exercise: tidy a messy anesthesia chart exported as CSV
-- [ ] `basic/week-04/index.qmd` — Clinical data types; continuous, ordinal, nominal, time-to-event
-  - [ ] Facilitator notes: `basic/week-04/facilitator.qmd`
-  - [ ] Exercise: classify SOFA score components by data type; justify choices
+- [x] `basic/week-04/index.qmd` — Clinical data types; continuous, ordinal, nominal, time-to-event
+  - [x] Facilitator notes: `basic/week-04/facilitator.qmd`
+  - [x] Exercise: classify SOFA score components by data type; justify choices
 - [ ] `basic/week-05/index.qmd` — EDA I: distributions, shape, spread, outliers
   - [ ] Facilitator notes: `basic/week-05/facilitator.qmd`
   - [ ] Exercise: describe propofol dose distribution across a curated case dataset
