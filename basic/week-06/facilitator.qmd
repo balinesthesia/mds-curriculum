@@ -1,0 +1,236 @@
+---
+title: "Week 6 -- Facilitator Notes"
+subtitle: "Exploratory Data Analysis II: ggplot2 and Visual Thinking"
+---
+
+## Learning Objectives
+
+Residents should move from describing distributions with numbers (Week 5) to seeing them with pictures. They must understand that visualization is not decoration -- it is a diagnostic and communication tool. The key skill is choosing the right geometry and aesthetics for the clinical question, then refining the design for clarity and accuracy.
+
+---
+
+## Session Format
+
+| Segment | Duration | Activity |
+|---------|----------|----------|
+| Recap | 5 min | Review Week 5 summaries; how would you show the same information visually? |
+| Lecture | 20 min | Grammar of graphics; mapping vs. setting; geometry selection |
+| Live Demo | 15 min | Build MAP time series; overlay, facet, annotate |
+| Independent Exercise | 30 min | Parts 1-5: create data, plot, facet, annotate, highlight hypotension |
+| Group Discussion | 15 min | Part 6: compare dashboards; debate which panel answers which question |
+| Reflection | 5 min | Export best figure; discuss publication standards |
+| Check-in | 5 min | Preview Week 7 (statistical testing); verify GitHub push |
+
+---
+
+## Key Teaching Points
+
+### ggplot2 Is Not Magic -- It Is a Grammar
+
+Many residents have used Excel or GraphPad and think of plotting as "choose chart type." ggplot2 forces a different mindset: data -> aesthetics -> geometry -> refinement.
+
+Walk through the template explicitly:
+
+> "Every plot starts with data. Then you decide: what goes on the x-axis? On the y-axis? What color? What shape? Those decisions go inside aes(). Then you pick the mark: point, line, box, bar. That is the geom. Then you adjust scales, facets, and themes."
+
+**Common confusion:** aes() means "map a variable to a visual property." It does NOT mean "set a property to a constant."
+
+```r
+# WRONG: aes(color = "red") maps the string literal "red" to color
+ggplot(data, aes(x = time, y = map, color = "red")) + geom_line()
+
+# RIGHT: color = "red" sets a constant color for all lines
+ggplot(data, aes(x = time, y = map)) + geom_line(color = "red")
+```
+
+**Diagnostic question:** If a resident gets a legend with a single entry called "red," they put the color inside aes().
+
+### Grouping Is Essential for Time Series
+
+The most common error in this exercise: forgetting group = patient_id.
+
+Without grouping, ggplot2 connects all points in order, creating a single zigzag line that jumps between patients. With grouping, each patient gets their own line.
+
+Demonstrate both:
+
+```r
+# WRONG: one continuous line jumping between patients
+ggplot(map_data, aes(x = time_min, y = map)) + geom_line()
+
+# RIGHT: one line per patient
+ggplot(map_data, aes(x = time_min, y = map, group = patient_id)) + geom_line()
+```
+
+This connects directly to the long-format data structure from Week 3. Each row is one observation; the grouping variable tells ggplot2 which observations belong together.
+
+### Facets vs. Overlays: When to Use Which
+
+| Goal | Use | Why |
+|------|-----|-----|
+| Compare overall patterns | Overlay (alpha transparency) | Shows density and common trajectory |
+| Compare individual details | Facet | Avoids overplotting; reveals outliers |
+| Compare subgroups | Color + overlay | Direct comparison of group means |
+| Compare many individuals | Facet with small multiples | Scales fixed for comparability |
+
+**Teaching point:** The overlaid plot (Part 2) shows that most patients follow a similar pattern but obscures individual variation. The faceted plot (Part 3) reveals individual responses but makes it harder to see the group pattern. Neither is wrong -- they answer different questions.
+
+### Clinical Annotation Is Not Decoration
+
+The event annotations (Part 4) and hypotension shading (Part 5) connect the plot to clinical reality. A MAP trace without event labels is just a squiggly line. With labels, it becomes: "Intubation caused a pressor response in 7/10 patients."
+
+Key annotations for clinical time series:
+- **Vertical lines:** Mark events (intubation, incision, drug administration)
+- **Horizontal lines:** Mark thresholds (MAP = 65, SpO2 = 92%, glucose = 70)
+- **Shaded regions:** Highlight abnormal periods (hypotension, hypoxemia)
+- **Text labels:** Name events directly on the plot
+
+**Rule:** Every annotation must answer a clinical question. If it does not, remove it.
+
+### Color Is a Scientific Choice, Not an Aesthetic One
+
+Default ggplot2 colors are not colorblind-safe. The default discrete palette uses red and green, which 8% of male clinicians cannot distinguish.
+
+Teach the viridis family:
+
+```r
+# Colorblind-safe sequential (continuous data)
+ggplot(data, aes(x = time, y = map, color = cardiac_output)) +
+  geom_line() +
+  scale_color_viridis_c()
+
+# Colorblind-safe qualitative (groups)
+ggplot(data, aes(x = time, y = map, color = treatment_group)) +
+  geom_line() +
+  scale_color_viridis_d()
+```
+
+**Clinical red flag:** If you use red and green on the same plot, a reviewer with deuteranopia cannot read your figure. Use blue-orange or viridis instead.
+
+### Publication-Ready Means Reproducible and Accessible
+
+A figure is publication-ready when:
+- It is generated by code, not hand-adjusted in PowerPoint
+- It uses vector graphics (PDF, SVG) for print resolution
+- It has sufficient DPI (300+) for raster outputs
+- It includes alt text for screen readers
+- It uses colorblind-safe palettes
+- It has readable fonts at final print size
+
+```r
+ggsave(
+  filename = "figure_1_map_trajectories.pdf",
+  width = 180,          # mm for single-column journal
+  height = 120,
+  units = "mm"
+)
+```
+
+**Rule:** Never export from RStudio plot pane with right-click "Save as PNG." Always use ggsave() with explicit dimensions.
+
+---
+
+## Live Demo Script
+
+Build the MAP plot together, step by step:
+
+1. Generate the data (Part 1) -- explain set.seed(42), expand.grid(), long format
+2. Basic line plot (Part 2) -- show the jumbled version first, then add group
+3. Facet (Part 3) -- compare fixed vs. free scales
+4. Annotations (Part 4) -- add vertical lines, discuss readability
+5. Hypotension shading (Part 5) -- explain geom_rect() with -Inf and Inf
+6. Dashboard (Part 6) -- show how different views answer different questions
+7. Export (Part 7) -- demonstrate PDF vs. PNG, dimensions, DPI
+
+**Key pause:** After the basic line plot, ask: "What is wrong with this picture?" (Answer: lines jump between patients because group is missing.)
+
+**Key pause:** After faceting, ask: "Why are all y-axes the same?" (Answer: scales = "fixed" enables comparison. If one patient is hypotensive and another is not, you see it immediately.)
+
+---
+
+## Exercise Guidance
+
+**Part 1:** Data generation. Watch for:
+- library(dplyr) before using %>% and mutate()
+- set.seed(42) for reproducibility
+- Understanding expand.grid() creates the Cartesian product
+- NA_character_ for missing event labels
+
+**Part 2:** Basic plot. Common issues:
+- Forgetting group = patient_id -- show the jumbled plot first, then fix
+- alpha = 0.5 for transparency -- explain why without it, the last patient drawn covers the others
+
+**Part 3:** Facets. Common issues:
+- ncol = 2 vs. ncol = 5 -- discuss readability
+- scales = "free_y" -- show what happens and why fixed is better for comparison
+
+**Part 4:** Annotations. Common issues:
+- geom_vline() needs data = event_times because the events are a separate dataset
+- geom_text() with y = Inf and vjust = 1.5 -- explain coordinate system
+
+**Part 5:** Hypotension shading. Common issues:
+- rle_id() may not exist -- provide the alternative with cumsum() and lag()
+- geom_rect() with ymin = -Inf and ymax = Inf -- explain it spans the full y-axis
+- Red shading with alpha = 0.1 -- too dark obscures the data; too light is invisible
+
+**Part 6:** Dashboard. Common issues:
+- patchwork not installed -- show install.packages("patchwork")
+- Panel layout: (p1 + p2) / (p3 + p4) means top row has two panels, bottom row has two panels
+- Different datasets for different panels (event_times, hypotension_data)
+
+**Part 7:** Export. Common issues:
+- Forgetting units = "in" or units = "mm" -- default is inches
+- DPI too low for print -- 72 DPI is screen resolution; 300+ is print resolution
+- File format: PNG for web/PowerPoint; PDF for publications
+
+---
+
+## Troubleshooting During Session
+
+| Problem | Quick Fix |
+|---------|-----------|
+| "My lines are jumbled" | Add group = patient_id inside aes() |
+| "Colors are ugly" | Add scale_color_viridis_d() or scale_color_brewer() |
+| "Facet labels are cut off" | Increase ggsave() height or use theme(strip.text = element_text(size = 8)) |
+| "I cannot install patchwork" | Use gridExtra::grid.arrange() as fallback |
+| "geom_rect() shades everything" | Check that hypotension_data has correct start_time and end_time |
+| "Text labels overlap" | Use check_overlap = TRUE or ggrepel::geom_text_repel() |
+| "Plot looks different when I knit" | ggsave() inside code chunks can conflict with chunk options -- use chunk fig.width and fig.height instead |
+| "I do not understand rle_id()" | Use the cumsum() + lag() alternative provided in the exercise |
+
+---
+
+## Assessment
+
+Verify each resident can:
+
+- [ ] Build a ggplot from ggplot() + geom_*() with correct aes() mappings
+- [ ] Distinguish mapped aesthetics (inside aes()) from constant settings (outside aes())
+- [ ] Choose geom_line(), geom_point(), geom_histogram(), geom_boxplot() appropriately
+- [ ] Create faceted plots with facet_wrap() and justify scales = "fixed" vs. "free"
+- [ ] Add clinical annotations: geom_hline(), geom_vline(), geom_text()
+- [ ] Export figures with ggsave() in appropriate format, resolution, and dimensions
+- [ ] Apply colorblind-safe palettes (viridis, ColorBrewer)
+- [ ] Combine multiple plots into a dashboard with patchwork
+
+If not, schedule 1-on-1. Week 7 (statistical testing) and Week 8 (Table 1) assume these visualization skills.
+
+---
+
+## Preparation Checklist
+
+- [ ] Tested MAP simulation code on classroom R version
+- [ ] Verified patchwork installs cleanly (or prepared gridExtra fallback)
+- [ ] Prepared colorblindness simulation (e.g., dichromat package or online simulator)
+- [ ] Printed ggplot2 cheat sheets for each resident
+- [ ] Identified residents who struggled with dplyr in Week 3-4
+- [ ] Verified classroom machines can render Quarto with embedded ggplot2 figures
+
+---
+
+## Connection to Week 5 and Week 7
+
+**From Week 5:** "Last week you computed means and medians. This week you see them. A histogram is the shape behind the summary statistics. A boxplot is the five-number summary drawn."
+
+**To Week 7:** "Next week we ask: is the difference between groups real or random? The plots you draw this week will become the figures that justify your choice of statistical test. A skewed distribution on a histogram means: do not use a t-test. A clear separation on a boxplot means: maybe there is an effect."
+
+End session with: "Numbers describe. Pictures convince. Next week: prove it."

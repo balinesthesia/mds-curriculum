@@ -1,0 +1,484 @@
+---
+title: "Week 6 -- Exploratory Data Analysis II: ggplot2 and Visual Thinking"
+---
+
+## Learning Objectives
+
+By the end of this session, you will be able to:
+
+- Build layered visualizations using ggplot2 grammar of graphics
+- Choose appropriate geometry for your data type and research question
+- Map variables to aesthetics (position, color, size, shape) effectively
+- Create faceted plots to compare groups or individuals
+- Add annotations, reference lines, and text to communicate clinical context
+- Export publication-ready figures in appropriate format and resolution
+- Apply visual design principles: data-ink ratio, color accessibility, typography
+
+## Why Visualization Matters
+
+Numbers describe. Pictures convince. A well-designed plot can:
+
+- Reveal patterns invisible in tables (clusters, trends, outliers)
+- Communicate findings to clinicians who will not read your statistics
+- Support or refute assumptions required for statistical tests
+- Identify data quality issues (impossible values, gaps, duplicates)
+
+**The goal is not a pretty picture. The goal is a true picture that is easy to understand.**
+
+## Core Concepts
+
+### The Grammar of Graphics
+
+ggplot2 is built on a grammar: every plot is a mapping from data to visual elements.
+
+| Component | Purpose | Example |
+|-----------|---------|---------|
+| **Data** | The dataset | `data = patients` |
+| **Aesthetics** | Visual properties mapped to variables | `aes(x = age, y = map, color = group)` |
+| **Geometry** | The visual mark representing data | `geom_point(), geom_line(), geom_boxplot()` |
+| **Scales** | How data values map to visual values | `scale_x_log10(), scale_color_viridis_d()` |
+| **Facets** | Small multiples by group | `facet_wrap(~ patient_id)` |
+| **Themes** | Non-data visual adjustments | `theme_minimal(), theme_bw()` |
+| **Coordinates** | The coordinate system | `coord_flip(), coord_cartesian()` |
+
+Every ggplot follows this template:
+
+```r
+ggplot(data = <DATA>) +
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>)) +
+  <SCALE_FUNCTION> +
+  <FACET_FUNCTION> +
+  <THEME_FUNCTION>
+```
+
+### Aesthetics: Mapping vs. Setting
+
+**Critical distinction:** Mapping inside `aes()` vs. setting outside `aes()`.
+
+```r
+# WRONG: color is a constant, not a variable
+ggplot(data, aes(x = time, y = map, color = "red")) + geom_line()
+
+# RIGHT: color mapped to a variable inside aes()
+ggplot(data, aes(x = time, y = map, color = patient_id)) + geom_line()
+
+# RIGHT: constant color set outside aes()
+ggplot(data, aes(x = time, y = map)) + geom_line(color = "red")
+```
+
+| Aesthetic | Maps Variable To | Clinical Example |
+|-----------|-----------------|------------------|
+| `x`, `y` | Position on axes | Time, MAP, dose |
+| `color` | Color of points/lines | Treatment group, severity |
+| `fill` | Interior color of shapes | Histogram bins, boxplot boxes |
+| `size` | Diameter of points | Sample size, uncertainty |
+| `shape` | Point symbol | Categorical group |
+| `alpha` | Transparency | Overlap density |
+| `linetype` | Line pattern | Predicted vs. observed |
+
+### Geometry Selection Guide
+
+| Question | Geometry | Clinical Example |
+|----------|----------|------------------|
+| How is X distributed? | `geom_histogram(), geom_density()` | Distribution of ICU LOS |
+| How do X and Y relate? | `geom_point(), geom_smooth()` | Dose vs. response |
+| How does Y change over time? | `geom_line()` | MAP during surgery |
+| How does Y differ by group? | `geom_boxplot(), geom_violin()` | MAP by ASA class |
+| What are the proportions? | `geom_bar(), geom_col()` | Complication rates |
+| Where are the thresholds? | `geom_hline(), geom_vline()` | MAP = 65 mmHg line |
+
+### Facets: When to Use Them
+
+Facets create small multiples -- the same plot repeated for subsets of data.
+
+```r
+# Compare patients side by side
+ggplot(map_data, aes(x = time_min, y = map)) +
+  geom_line() +
+  facet_wrap(~ patient_id, ncol = 2)
+```
+
+| Facet Function | Use When | Example |
+|---------------|----------|---------|
+| `facet_wrap(~ var)` | One categorical variable, many levels | One panel per patient |
+| `facet_grid(row ~ col)` | Two categorical variables | Rows = treatment, columns = timepoint |
+| `facet_wrap(~ var, scales = "free_y")` | Different y-ranges per group | Vital signs with different baselines |
+
+**Rule:** Use `scales = "fixed"` (default) when you want to compare magnitudes across panels. Use `scales = "free"` when the shape matters more than the absolute values.
+
+## Exercise
+
+### Part 1: Create Simulated Intraoperative MAP Data
+
+Generate a dataset of MAP (mean arterial pressure) measurements over time for 10 patients undergoing surgery:
+
+```r
+library(dplyr)
+library(ggplot2)
+
+set.seed(42)
+
+# 10 patients, each with baseline MAP and 120 minutes of readings
+patient_ids <- 101:110
+baseline_map <- round(rnorm(10, mean = 85, sd = 10))
+
+# Create time series: every 2 minutes for 120 minutes
+time_points <- seq(0, 120, by = 2)
+
+# Expand to long format
+map_data <- expand.grid(
+  patient_id = patient_ids,
+  time_min = time_points
+) %>%
+  as_tibble() %>%
+  arrange(patient_id, time_min) %>%
+  mutate(
+    baseline = baseline_map[match(patient_id, patient_ids)],
+    # Induction drop (time 0): MAP falls 20-40% from baseline
+    induction_drop = if_else(
+      time_min == 0,
+      baseline * runif(1, -0.4, -0.2),
+      0
+    ),
+    # Maintenance: baseline + small fluctuations (+/-10%)
+    maintenance_noise = rnorm(n(), 0, 5),
+    # Events: spikes during intubation (time 3), incision (time 10), extubation (time 110)
+    event_spike = if_else(
+      time_min %in% c(3, 10, 110),
+      runif(n(), 15, 25),
+      0
+    ),
+    # Combine
+    map = baseline + induction_drop + maintenance_noise + event_spike
+  ) %>%
+  ungroup() %>%
+  # Ensure MAP stays in realistic range (40-180)
+  mutate(map = pmax(pmin(map, 180), 40)) %>%
+  # Add event labels
+  mutate(
+    event = case_when(
+      time_min == 0 ~ "Induction",
+      time_min == 3 ~ "Intubation",
+      time_min == 10 ~ "Incision",
+      time_min == 110 ~ "Extubation",
+      TRUE ~ NA_character_
+    )
+  )
+
+head(map_data)
+```
+
+### Part 2: Basic Line Plot
+
+Create a line plot of MAP over time for all patients on one panel:
+
+```r
+ggplot(map_data, aes(x = time_min, y = map, group = patient_id)) +
+  geom_line(alpha = 0.5, color = "steelblue") +
+  labs(
+    title = "Intraoperative MAP: 10 Cases",
+    x = "Time from Induction (minutes)",
+    y = "MAP (mmHg)"
+  ) +
+  theme_minimal()
+```
+
+**Questions:**
+- What patterns do you see?
+- Can you identify the induction drop?
+- Can you identify the event spikes?
+- Is it easy to compare individual patients?
+
+### Part 3: Facet by Patient
+
+Create small multiples to compare patients side by side:
+
+```r
+ggplot(map_data, aes(x = time_min, y = map)) +
+  geom_line(color = "steelblue") +
+  facet_wrap(~ patient_id, ncol = 2) +
+  labs(
+    title = "MAP Trajectories by Patient",
+    x = "Time from Induction (minutes)",
+    y = "MAP (mmHg)"
+  ) +
+  theme_minimal()
+```
+
+**Questions:**
+- How does this compare to the overlaid version?
+- Which patient had the lowest baseline MAP?
+- Which patient had the largest event spike at intubation?
+- What does the y-axis scale tell you about comparing across patients?
+
+### Part 4: Add Event Annotations
+
+Enhance the faceted plot by marking events with vertical lines and labels:
+
+```r
+# Get unique events with their times
+event_times <- map_data %>%
+  filter(!is.na(event)) %>%
+  distinct(time_min, event)
+
+ggplot(map_data, aes(x = time_min, y = map)) +
+  geom_line(color = "steelblue") +
+  geom_vline(
+    data = event_times,
+    aes(xintercept = time_min),
+    linetype = "dashed",
+    color = "gray50"
+  ) +
+  geom_text(
+    data = event_times,
+    aes(x = time_min, y = Inf, label = event),
+    vjust = 1.5,
+    angle = 90,
+    size = 3,
+    color = "gray30"
+  ) +
+  facet_wrap(~ patient_id, ncol = 2) +
+  labs(
+    title = "MAP with Annotated Surgical Events",
+    x = "Time from Induction (minutes)",
+    y = "MAP (mmHg)"
+  ) +
+  theme_minimal()
+```
+
+**Questions:**
+- Do the dashed lines help or clutter?
+- Are the event labels readable?
+- Can you see the MAP response to each event?
+
+### Part 5: Highlight Hypotension Episodes
+
+Add a horizontal reference line at MAP = 65 mmHg (clinical threshold for hypotension) and shade regions where MAP < 65:
+
+```r
+# Identify hypotension periods per patient
+hypotension_data <- map_data %>%
+  group_by(patient_id) %>%
+  mutate(
+    is_hypotensive = map < 65,
+    # Create runs of consecutive hypotensive periods
+    hypotension_run = rle_id(is_hypotensive & !is.na(is_hypotensive))
+  ) %>%
+  filter(is_hypotensive) %>%
+  group_by(patient_id, hypotension_run) %>%
+  summarise(
+    start_time = min(time_min),
+    end_time = max(time_min),
+    .groups = "drop"
+  )
+
+ggplot(map_data, aes(x = time_min, y = map)) +
+  # Shade hypotension regions
+  geom_rect(
+    data = hypotension_data,
+    aes(xmin = start_time, xmax = end_time, ymin = -Inf, ymax = Inf),
+    fill = "red",
+    alpha = 0.1
+  ) +
+  geom_line(color = "steelblue") +
+  geom_hline(yintercept = 65, linetype = "dashed", color = "red") +
+  facet_wrap(~ patient_id, ncol = 2) +
+  labs(
+    title = "MAP with Hypotension Episodes Highlighted",
+    subtitle = "Red shading: MAP < 65 mmHg",
+    x = "Time from Induction (minutes)",
+    y = "MAP (mmHg)"
+  ) +
+  theme_minimal()
+```
+
+**Questions:**
+- Which patient had the longest hypotension episode?
+- Which event triggered the most widespread hypotension?
+- Does the shading help or distract?
+
+### Part 6: Create a Summary Dashboard
+
+Combine multiple views into a single multi-panel figure using `patchwork`:
+
+```r
+library(patchwork)
+
+p1 <- ggplot(map_data, aes(x = map)) +
+  geom_histogram(binwidth = 5, fill = "steelblue", color = "black") +
+  labs(
+    title = "MAP Distribution (All Patients)",
+    x = "MAP (mmHg)",
+    y = "Count"
+  ) +
+  theme_minimal()
+
+p2 <- map_data %>%
+  group_by(patient_id) %>%
+  summarise(
+    mean_map = mean(map),
+    min_map = min(map),
+    max_map = max(map),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x = reorder(patient_id, mean_map), y = mean_map)) +
+  geom_col(fill = "steelblue") +
+  geom_errorbar(aes(ymin = min_map, ymax = max_map), width = 0.2) +
+  labs(
+    title = "Mean MAP by Patient",
+    x = "Patient ID",
+    y = "MAP (mmHg)"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+p3 <- ggplot(map_data, aes(x = time_min, y = map)) +
+  geom_line(aes(group = patient_id), alpha = 0.3) +
+  geom_hline(yintercept = 65, linetype = "dashed", color = "red") +
+  labs(
+    title = "All Patients Overlaid",
+    x = "Time from Induction (minutes)",
+    y = "MAP (mmHg)"
+  ) +
+  theme_minimal()
+
+p4 <- ggplot(map_data, aes(x = time_min, y = map)) +
+  geom_line(color = "steelblue") +
+  facet_wrap(~ patient_id, ncol = 2) +
+  labs(
+    title = "Individual Trajectories",
+    x = "Time from Induction (minutes)",
+    y = "MAP (mmHg)"
+  ) +
+  theme_minimal()
+
+(p1 + p2) / (p3 + p4) +
+  plot_annotation(
+    title = "Intraoperative MAP Analysis Dashboard",
+    subtitle = "Distribution, summary, and time-series views"
+  )
+```
+
+**Reflection:** Which panel tells you what? When would you use each?
+
+### Part 7: Export Your Figure
+
+Save your favorite plot to a file:
+
+```r
+ggsave(
+  filename = "map_time_series.png",
+  width = 10,
+  height = 6,
+  dpi = 300,
+  units = "in"
+)
+```
+
+Use `pdf()` for vector graphics suitable for publication:
+
+```r
+ggsave("map_time_series.pdf", width = 8, height = 4)
+```
+
+## Common Pitfalls
+
+| Pitfall | Why It Happens | How to Prevent |
+|---------|----------------|----------------|
+| "My lines are all jumbled" | Forgot `group = patient_id` in `aes()` | Always specify grouping for time series with multiple subjects |
+| "Colors are ugly" | Default palette is not colorblind-safe | Use `scale_color_viridis_d()` or `scale_color_brewer()` |
+| "Axis labels are cut off" | Margins too small | Use `ggsave(..., width, height)` with sufficient size; adjust `theme(plot.margin = ...)` |
+| "Facets have different y-axis scales" | `scales = "free_y"` | Use `facet_wrap(..., scales = "fixed")` for comparison |
+| "Legend is missing" | Aesthetic mapped inside `geom_*` instead of `ggplot()` | Put `aes(color = ...)` in `ggplot()`, not `geom_line(aes(...))` |
+| "Plot is slow with 100,000 points" | Overplotting | Use `geom_bin2d()` for density, or sample for exploration |
+| "I can not find the outlier" | Overplotting hides points | Use `alpha` transparency, or `geom_point(position = "jitter")` |
+| "Date axis is unreadable" | Default formatting | Use `scale_x_date(date_labels = "%b %d")` |
+
+## Visual Design Principles for Clinical Plots
+
+### 1. Data-Ink Ratio (Tufte)
+
+Maximize the proportion of ink that represents data. Minimize:
+
+- Unnecessary grid lines (use `theme_minimal()` or `theme_classic()`)
+- Background shading (avoid `theme_bw()` for publication)
+- Decorative borders
+- 3D effects (never use `3d` in clinical plots)
+
+**Good:** Clean axes, direct labeling, no chartjunk.
+
+### 2. Color Choice
+
+- **Sequential data** (intensity): Use single-hue gradients (blues, grays)
+- **Diverging data** (above/below threshold): Use two-hue gradients (red-blue centered at white)
+- **Categorical data** (groups): Use perceptually distinct, colorblind-safe palettes
+  - `scale_color_viridis_d()` -- default for discrete
+  - `scale_color_brewer(palette = "Set2")` -- ColorBrewer qualitative
+- **Never use rainbow** -- misleading order, not colorblind-safe
+
+**Clinical accessibility:** ~8% of males have red-green colorblindness. Test with `viridis` or `colorblindr::cvd_grid()`.
+
+### 3. Typography
+
+- Use sans-serif fonts for presentations (Arial, Helvetica)
+- Use serif fonts for print publications (Times, Palatino)
+- Axis text: 9-11 pt for publication, larger for slides
+- Title: 12-14 pt for publication, 24-36 pt for slides
+- Avoid all-caps axis labels (harder to read)
+
+### 4. Aspect Ratio
+
+Choose width:height ratio to reveal patterns:
+
+- Time series: wide (16:9 or 4:3) -- shows trends clearly
+- Scatter plots: square (1:1) if variables on same scale
+- Bar charts: moderate width -- bars should not be too thin or too thick
+
+**Rule:** The plot should fit the medium without squinting.
+
+### 5. Direct Labeling
+
+Avoid legends when possible. Label lines directly:
+
+```r
+ggplot(data, aes(x = time, y = value, color = group)) +
+  geom_line() +
+  geom_text(
+    aes(label = group),
+    hjust = 1,
+    vjust = 1,
+    check_overlap = TRUE
+  ) +
+  theme(legend.position = "none")
+```
+
+Reduces eye movement, improves comprehension.
+
+## Verification
+
+Before leaving this session, confirm you can:
+
+- [ ] Build a ggplot from `ggplot(data, aes(...)) + geom_*()`
+- [ ] Choose appropriate geometry for the data type and question
+- [ ] Map variables to aesthetics inside `aes()`
+- [ ] Set constant aesthetics outside `aes()`
+- [ ] Customize labels with `labs()`
+- [ ] Apply a clean theme (`theme_minimal()`)
+- [ ] Create faceted plots with `facet_wrap()` or `facet_grid()`
+- [ ] Add reference lines (`geom_hline(), geom_vline()`)
+- [ ] Annotate plots with text (`geom_text()`)
+- [ ] Save plots with `ggsave()` in appropriate format and resolution
+- [ ] Push your Quarto document with embedded plots to GitHub
+
+## Resources
+
+- **ggplot2 Reference:** https://ggplot2.tidyverse.org/reference/ -- Complete function list
+- **R for Data Science (2e):** https://r4ds.hadley.nz/data-visualize.html -- Visualization chapter
+- **ggplot2 Cheat Sheet:** https://github.com/rstudio/cheatsheets/raw/main/data-visualization-2.1.pdf -- Quick reference
+- **ColorBrewer Palettes:** https://colorbrewer2.org/ -- Choose perceptually uniform color schemes
+- **Graphical Principles:** Edward Tufte, *The Visual Display of Quantitative Information* -- Classic on data-ink ratio
+- **Clinical Visualization:** https://www.sciencedirect.com/science/article/pii/S0735675721000275 -- Best practices for medical plots
+
+---
+
+[<- Back to Basic Tier](../index.qmd)

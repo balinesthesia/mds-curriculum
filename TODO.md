@@ -85,9 +85,9 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [x] `basic/week-05/index.qmd` — EDA I: distributions, shape, spread, outliers
   - [x] Facilitator notes: `basic/week-05/facilitator.qmd`
   - [x] Exercise: describe propofol dose distribution across a curated case dataset
-- [ ] `basic/week-06/index.qmd` — EDA II: ggplot2, visual thinking
-  - [ ] Facilitator notes: `basic/week-06/facilitator.qmd`
-  - [ ] Exercise: plot intraoperative MAP over time for 10 cases; annotate events
+- [x] `basic/week-06/index.qmd` — EDA II: ggplot2, visual thinking
+  - [x] Facilitator notes: `basic/week-06/facilitator.qmd`
+  - [x] Exercise: plot intraoperative MAP over time for 10 cases; annotate events
 - [ ] `basic/week-07/index.qmd` — Table 1; `tableone`, descriptive statistics
   - [ ] Facilitator notes: `basic/week-07/facilitator.qmd`
   - [ ] Exercise: reproduce Table 1 from a resident-chosen anesthesia RCT
