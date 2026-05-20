@@ -1,0 +1,423 @@
+---
+title: "Week 7 — Facilitator Notes"
+subtitle: "Table 1: Descriptive Statistics and Baseline Characteristics"
+---
+
+## Learning Objectives
+
+Residents should understand that randomization is not magic — it is a design principle that works on average. Table 1 demonstrates whether randomization succeeded in this trial. The key skill is computing descriptive statistics correctly (appropriate to data type), interpreting them, and communicating balance or imbalance to readers.
+
+By session end, residents should move from "I computed the mean" to "I checked the distribution, chose the right summary, and confirmed the groups are balanced."
+
+---
+
+## Session Format
+
+| Segment | Duration | Activity |
+|---------|----------|----------|
+| Recap | 5 min | Week 6: visualization helps spot patterns. Week 7: numbers describe the baseline population. |
+| Lecture | 20 min | Why Table 1 matters; structure; choosing summary statistics by data type; SMD vs. p-values |
+| Live Demo | 15 min | Load dataset, run CreateTableOne(), interpret output, discuss balance |
+| Independent Exercise | 30 min | Parts 1-5: load data, identify variables, create stratified Table 1, handle non-normal data |
+| Group Discussion | 10 min | Part 7: interpret clinical significance of imbalances; is 3-year age difference important? |
+| Reflection | 5 min | Export and format for publication; push to GitHub |
+| Check-in | 5 min | Preview Week 8 (hypothesis testing); confirm understanding of SMD |
+
+---
+
+## Key Teaching Points
+
+### Table 1 Is Trust
+
+Many residents think Table 1 is boring. It is not. Table 1 tells reviewers: "I randomized correctly. My groups are comparable. My answer is not due to baseline differences."
+
+Frame it this way:
+
+> "Imagine you are a journal editor. A researcher submits a trial claiming Drug A reduces mortality. The first thing you check: did they randomize properly? If the Drug A group is older, sicker, and has more comorbidities, maybe the benefit is just selection bias, not the drug. Table 1 is your evidence that selection bias is not the explanation."
+
+**Teaching moment:** Show a real Table 1 from a published trial (positive result). Show another from a retracted trial (groups were imbalanced, suggesting methodological issues). Ask: which would you trust?
+
+### Data Type Determines the Summary Statistic
+
+The single most common error: reporting mean (SD) for skewed data.
+
+**Teaching rule:** Before you summarize, visualize.
+
+```r
+# ALWAYS do this first
+hist(patient_data$icu_length_of_stay)  # Right-skewed? Bimodal?
+hist(patient_data$age)                 # Symmetric?
+
+# Then choose
+# Normal-ish? → mean (SD)
+# Skewed? → median [IQR]
+# Categorical? → n (%)
+```
+
+Show the difference:
+
+```r
+# ICU LOS is right-skewed (most short, some very long)
+# Wrong: mean LOS 12.5 (SD 20.5)  -- SD is almost as large as mean (odd!)
+# Right: median LOS 8 [3, 16]     -- IQR is reasonable
+
+# Age is approximately normal
+# Right: mean age 65 (SD 12)
+# Also correct: median age 65 [57, 74] -- both are reasonable
+```
+
+**Key insight:** When SD is close to the mean (high coefficient of variation), the data is likely skewed. That is your cue to use median [IQR].
+
+### The P-Value Paradox in Table 1
+
+Many residents are taught: "If p < 0.05, reject the null." But in Table 1, the null is "groups are equal," and after randomization, you WANT to fail to reject it.
+
+But here is the trap: with large N, even tiny random imbalances become "significant."
+
+**Teaching example:**
+
+> "I randomized 1,000 patients to Drug A or B. By chance, Drug A group is 1 year older on average (65 vs. 64). With N=500 per group, the t-test p-value is 0.02 -- 'significant'! Did randomization fail? No. This is a 1-year difference in an elderly population. It does not matter clinically. The p-value is misleading because we have large power to detect tiny differences."
+
+**Better approach: Standardized Mean Difference (SMD)**
+
+SMD = (mean_group1 - mean_group2) / pooled SD
+
+- SMD < 0.1: negligible difference (good balance)
+- SMD 0.1–0.2: small difference (usually acceptable)
+- SMD > 0.2: moderate or large difference (investigate; may need adjustment)
+
+**Clinical judgment always wins.** A SMD of 0.15 in age might be fine (3-year difference in age 65 population). A SMD of 0.15 in SOFA score might be concerning (1-point difference signals sicker group).
+
+### `tableone` Handles the Hard Parts
+
+The `tableone` package automatically:
+- Detects data type (numeric vs. factor)
+- Chooses appropriate tests (t-test for normal, Mann-Whitney for non-normal, χ² for categorical)
+- Reports count and percentage for categorical
+- Computes SMD
+
+But you must tell it which variables are categorical:
+
+```r
+# WRONG: R treats male as numeric
+tab1 <- CreateTableOne(vars = c("age", "male", "sofa"), strata = "treatment", data = df)
+
+# RIGHT: Tell R that male is categorical
+tab1 <- CreateTableOne(
+  vars = c("age", "male", "sofa"),
+  strata = "treatment",
+  data = df,
+  factorVars = c("male")  # Tell it explicitly
+)
+```
+
+### Non-Normal Data Needs Different Tests
+
+After residents compute summary statistics, they run a statistical test. The test choice depends on the data:
+
+| Data Distribution | Test | R Function |
+|---|---|---|
+| Continuous, normal | t-test (independent samples) | t.test() or `test = TRUE` in CreateTableOne() |
+| Continuous, non-normal | Mann-Whitney U test | wilcox.test() or `nonnormal = c("var_name")` in CreateTableOne() |
+| Categorical, binary | χ² test or Fisher's exact | chisq.test() or fisher.test() or `exactTest = "var_name"` |
+| Categorical, >2 levels | χ² test or Fisher's exact | chisq.test() or fisher.test() |
+
+**Teaching point:** Show both a normal and non-normal variable's summary:
+
+```r
+# Age (normal) → use t-test
+hist(df$age)  # Bell curve → t-test appropriate
+# Output: age 65 (SD 12) vs. 64 (SD 11), p = 0.72, SMD = 0.08
+
+# ICU LOS (non-normal) → use Mann-Whitney
+hist(df$icu_los)  # Right tail → Mann-Whitney appropriate
+# Output: ICU LOS 8 [4, 15] vs. 9 [5, 16], p = 0.45
+```
+
+### Missing Data Is Clinically Important
+
+Always report missing data in Table 1. It reveals data quality issues:
+
+```
+Age, mean (SD)               65 (12)        64 (11)
+  Missing, n (%)             0 (0%)         0 (0%)
+SOFA score, median [IQR]     7 [5, 9]       7 [6, 9]
+  Missing, n (%)             1 (2%)         3 (6%)  ← Group B has more missing data!
+```
+
+If missing rates differ by group, ask: Why? Is one arm collecting data less carefully? Did one group have instrument failures?
+
+---
+
+## Live Demo Script
+
+Build a Table 1 from the simulated trial data:
+
+### Setup
+
+```r
+library(tableone)
+library(dplyr)
+
+# Show the data
+str(sedation_trial)
+head(sedation_trial)
+
+# Ask: What data types do we have?
+# Expected answers:
+# - age_years: numeric (continuous)
+# - male: factor (categorical binary)
+# - bmi: numeric (continuous)
+# - asa_class: factor (categorical ordinal)
+# - sofa_score: numeric (continuous)
+# - treatment_group: factor (grouping variable)
+```
+
+### Step 1: Check Distributions
+
+```r
+# Histogram of age (approximately normal)
+hist(sedation_trial$age_years)
+
+# Histogram of ICU days (right-skewed)
+hist(sedation_trial$icu_days)
+
+# Table of ASA class (categorical)
+table(sedation_trial$asa_class)
+```
+
+**Teach:** "Age looks normal. ICU days is right-skewed. ASA is categorical. These distributions determine how we summarize each variable."
+
+### Step 2: Create Overall Summary
+
+```r
+tab1_overall <- CreateTableOne(
+  vars = c("age_years", "male", "bmi", "sofa_score", "icu_days"),
+  data = sedation_trial,
+  factorVars = c("male"),
+  smd = FALSE,
+  test = FALSE
+)
+
+print(tab1_overall, showAllLevels = TRUE)
+```
+
+**Teach:** "Look at the default summary. R is reporting mean (SD) for age and ICU days. That is wrong for ICU days because it is right-skewed. We will fix this in the next step."
+
+### Step 3: Create Stratified Table with Correct Specifications
+
+```r
+tab1_stratified <- CreateTableOne(
+  vars = c("age_years", "male", "bmi", "asa_class", "sofa_score", "icu_days"),
+  strata = "treatment_group",
+  data = sedation_trial,
+  factorVars = c("male", "asa_class"),
+  nonnormal = c("icu_days"),  # Tell R to report median for ICU days
+  smd = TRUE,
+  test = TRUE
+)
+
+print(tab1_stratified, showAllLevels = TRUE, nonnormal = c("icu_days"))
+```
+
+**Teach:** "Now R is reporting:
+- age_years as mean (SD) -- correct, because it is normal
+- male as n (%) -- correct, because it is categorical
+- asa_class as n (%) -- correct, because it is categorical
+- sofa_score as mean (SD) -- this could be median [IQR] if we specify it as nonnormal
+- icu_days as median [IQR] -- correct, because we specified nonnormal
+
+Look at the p-values. All are > 0.05. This is GOOD. It means randomization worked. Look at the SMD values. All are < 0.1. This is also GOOD."
+
+### Step 4: Interpret the Output
+
+Ask residents:
+
+1. "Are the groups balanced on age?" → Mean 65.4 vs. 64.2, SMD 0.09, p = 0.41. Yes, balanced.
+2. "Are the groups balanced on ASA class?" → Look at the breakdown. Roughly equal distribution across classes, p = 0.59. Yes.
+3. "Are the groups balanced on ICU days?" → Median 11 vs. 10, p = 0.51. Yes, balanced.
+
+**Key teaching moment:** "If I told you one group was randomized to Propofol and one to Dexmedetomidine, could you guess which is which based on Table 1 alone? No -- they look identical. That is what randomization should do."
+
+---
+
+## Exercise Guidance
+
+### Part 1: Load and Explore
+
+**Watch for:**
+- Students not understanding the data frame structure (rows = patients, columns = variables)
+- Confusion between N=100 total and N=50 per group
+- Using the simulated data vs. downloading their own RCT (both are fine; guide them to use simulated data for time)
+
+**Teach:** "Always start by looking at your data. Run `str()` and `summary()`. Scan the first few rows. Do the values look reasonable? Is there missing data?"
+
+### Part 2: Identify Variables and Data Types
+
+**Watch for:**
+- Treating continuous variables as categorical (e.g., age as a factor)
+- Forgetting that ordinal variables (ASA class, SOFA score) can be numeric or factors
+- Not checking distributions before summarizing
+
+**Common mistake:** A resident looks at the data and sees age = 68, 71, 45... and assumes it is normal-ish. But then they histogram it (if they bother) and see a U-shaped distribution (bimodal: two peaks). This happens when the trial enrolled two age groups intentionally (e.g., young surgical and older medical patients).
+
+**Teach:** "Do not assume data is normal. Histogram it. If you see a tail extending one direction, it is skewed. If you see two peaks, it is bimodal. These shapes affect how you summarize and test."
+
+### Part 3: Create Basic Overall Table
+
+**Watch for:**
+- Errors in specifying `factorVars` (forgetting quotes, wrong variable names)
+- Confusion between "numeric" and "factor" in R
+- Not using `showAllLevels = TRUE` when printing
+
+**Common mistake:** `CreateTableOne(vars = c(age, male))` — missing quotes. Show the error message and teach: "Variable names must be in quotes."
+
+**Teach:** "The overall table tells you: what is my population? Average age 68, mostly male (65%), typical SOFA 5. This is your denominator description."
+
+### Part 4: Create Stratified Table
+
+**Watch for:**
+- Forgetting `strata = "treatment_group"`
+- Not specifying `factorVars` (defaults to numeric)
+- Confusion about SMD column (what does it mean?)
+
+**Common mistake:** Resident runs the code but does not understand the output. They see p-values, SMD columns, and mean (SD) / n (%) and do not know which is which. Walk them through one row:
+
+> "Look at the age row. It says:
+> - Control group: 65 (12)
+> - Treatment group: 64 (11)
+> - p value: 0.41
+> - SMD: 0.08
+>
+> This means: Control group mean age is 65 with SD 12. Treatment group mean age is 64 with SD 11. The difference (1 year) is NOT statistically significant (p = 0.41). The standardized difference is 0.08, which is negligible (< 0.1). Randomization worked."
+
+### Part 5: Specify Non-Normal Variables
+
+**Watch for:**
+- Not understanding why `nonnormal` matters
+- Forgetting to specify it in both `CreateTableOne()` AND `print()`
+- Misinterpreting median [IQR] output
+
+**Common mistake:** Resident specifies `nonnormal = c("icu_days")` in `CreateTableOne()` but forgets it in `print()`. The output still shows mean (SD). Teach: "You must tell `print()` which variables are non-normal so it knows to display median [IQR] instead of mean (SD)."
+
+**Teach:** "Median [IQR] means: the middle value (median) and the range of the middle 50% of the data (IQR). For ICU LOS, median 11 [5, 20] means half the patients left ICU in ≤11 days, and half stayed 11-20+ days."
+
+### Part 6: Format and Export
+
+**Watch for:**
+- Saving to CSV but not opening it to verify contents
+- Not understanding the difference between exporting data and exporting a formatted table for a journal
+
+**Common mistake:** Resident exports to CSV, opens in Excel, and finds the table needs manual formatting. Teach: "A CSV export is raw data. For journal submission, you would manually format in Word/Excel or use R packages like `gt` or `flextable` for fancier output."
+
+**Optional advanced:** If time allows, show how to create a polished table with `gt`:
+
+```r
+library(gt)
+
+# Convert output to data frame
+tab1_df <- as.data.frame(print(tab1_stratified, printToggle = FALSE))
+
+# Create gt table
+gt_table <- gt(tab1_df) %>%
+  tab_header(
+    title = "Baseline Characteristics of ICU Sedation Trial",
+    subtitle = "Propofol vs. Dexmedetomidine"
+  )
+
+gt_table
+```
+
+This is optional and can be left for motivated learners.
+
+### Part 7: Interpret Clinical Significance
+
+**This is the hardest part and the most important.**
+
+Guide residents to ask three questions for each row:
+
+1. **Is there a difference?** (Look at SMD and p-value)
+2. **Does it matter clinically?** (Compare the actual numbers; use clinical judgment)
+3. **Could this confound the results?** (If this variable is related to the outcome, imbalance could bias results)
+
+**Examples:**
+
+**Age difference:** Control 68 (SD 12) vs. Treatment 67 (SD 11), SMD 0.08, p = 0.62
+- Is there a difference? No (p = 0.62, SMD = 0.08).
+- Clinically? A 1-year difference in an elderly population is negligible.
+- Confounding? Age might affect outcomes (older → sicker). But the groups are equal on age, so not a confounder here.
+- **Conclusion:** "Groups are balanced on age."
+
+**Male ratio:** Control 65% vs. Treatment 62%, SMD 0.06, p = 0.58
+- Is there a difference? No (p = 0.58).
+- Clinically? A 3% difference is tiny.
+- Confounding? Sex might affect sedation requirements. But groups are nearly equal.
+- **Conclusion:** "Groups are balanced on sex."
+
+**SOFA score:** Control 7 [6, 9] vs. Treatment 7 [5, 9], SMD 0.05, p = 0.71
+- Is there a difference? No.
+- Clinically? Median is identical.
+- Confounding? SOFA is a severity score. If balanced, it is not a confounder.
+- **Conclusion:** "Groups are balanced on baseline severity."
+
+**Then ask:** "If you had to explain this Table 1 to the hospital Quality Improvement committee, what would you say?"
+
+Expected answer: "The treatment groups were well-balanced at baseline. There were no significant differences in age, sex, or disease severity. This means any difference we see in outcomes is likely due to the treatment, not due to baseline differences."
+
+---
+
+## Troubleshooting During Session
+
+| Problem | Quick Fix |
+|---------|-----------|
+| "I get an error: object 'female' not found" | Missing quotes. Use `c("male", "female")` not `c(male, female)` |
+| "The table shows N but I expected sample size in each group" | Look at the column headers. You will see "Control (n=50)" and "Treatment (n=50)" |
+| "My median is shown as mean" | Specify `nonnormal = c("var_name")` in both `CreateTableOne()` and `print()` |
+| "The output has NA values" | Indicates missing data. Use `CreateTableOne(..., includeNA = TRUE)` to see missing counts |
+| "I do not know if my data is normal" | Make a histogram with `hist()` or a Q-Q plot with `qqnorm()`. Look for bell curve (normal) vs. tail (skew). |
+| "SMD sounds like epidemiology jargon" | It is! But it just means "how different are the groups in units of standard deviation?" SMD < 0.1 = basically the same. |
+| "Should I report p-values in Table 1?" | Modern practice: no. Report descriptive statistics and SMD. p-values encourage the false conclusion that p < 0.05 = imbalanced. |
+| "My p-values are all < 0.05. Did randomization fail?" | Not necessarily. With large N, small random imbalances are statistically significant. Look at SMD (< 0.1?) and clinical significance instead. |
+
+---
+
+## Assessment
+
+Verify each resident can:
+
+- [ ] Load a dataset and check data types with `str()` and `summary()`
+- [ ] Identify whether a variable is continuous, ordinal, or categorical
+- [ ] Choose mean (SD) vs. median [IQR] based on distribution
+- [ ] Create a `CreateTableOne()` object with specified variables and data types
+- [ ] Stratify by a treatment/exposure group using `strata = "var_name"`
+- [ ] Interpret SMD < 0.1 as "balanced" and SMD > 0.2 as "potentially concerning"
+- [ ] Specify non-normal variables with `nonnormal = c()` and print them correctly
+- [ ] Read output and identify which groups are (or are not) balanced
+- [ ] Provide a clinical interpretation: "These groups are balanced except for [X], which may affect [outcome]."
+- [ ] Export a Table 1 to CSV or create a formatted table with `gt`
+- [ ] Push Quarto document with Table 1 analysis to GitHub
+
+If any resident cannot do these, schedule a 1-on-1 before Week 8. Week 8 (hypothesis testing) assumes fluency with descriptive statistics.
+
+---
+
+## Preparation Checklist
+
+- [ ] Tested the simulated sedation trial code on classroom R version
+- [ ] Verified `tableone` package installs cleanly
+- [ ] Printed the example Table 1 output to show residents what to expect
+- [ ] Prepared a real published RCT Table 1 to discuss during lecture (good example and bad example)
+- [ ] Loaded a dataset and confirmed `str()` and `summary()` work as expected
+- [ ] Identified which residents struggled with data types or distributions in Week 5
+- [ ] Verified classroom machines can render Quarto documents with tableone output
+- [ ] Prepared a slide or handout explaining SMD vs. p-values (many residents find this confusing)
+
+---
+
+## Connection to Week 6 and Week 8
+
+**From Week 6:** "You visualized distributions with histograms and boxplots. This week you will summarize them with numbers. The histogram determined whether you use mean or median."
+
+**To Week 8:** "Next week we ask: is the difference between groups real or random? Table 1 checks that baseline is balanced. Table 2 (or the Results section) shows the outcome. If Table 1 is balanced but Table 2 shows a difference, you can attribute it to the treatment."
+
+End session with: "Table 1 is your randomization report card. Groups are balanced? You passed. Groups differ on a confounder? You may need adjustment in the analysis. This is why Table 1 is always the first table in a paper."

@@ -1,0 +1,437 @@
+---
+title: "Week 7 — Table 1: Descriptive Statistics and Baseline Characteristics"
+---
+
+## Learning Objectives
+
+By the end of this session, you will be able to:
+
+- Understand why Table 1 is the most important table in a clinical trial
+- Compute and present descriptive statistics stratified by study groups
+- Use the `tableone` package to generate publication-ready baseline characteristics tables
+- Identify imbalances between groups and interpret their clinical significance
+- Choose appropriate descriptive statistics based on data type and distribution
+- Create a Table 1 from a real randomized controlled trial (RCT)
+
+## Why Table 1 Matters
+
+In medical journals, Table 1 is the gateway to trust. Before reading your results, reviewers ask: **Are the groups balanced?** If randomization worked, treatment groups should look identical at baseline.
+
+Table 1 shows:
+
+- **Population characteristics:** age, sex, comorbidities, disease severity
+- **Evidence of randomization:** no significant differences between groups
+- **Generalizability:** who is included, who is excluded
+- **Missing data:** how much is missing and in which variables
+
+A Table 1 reveals whether your RCT answer applies to your patient. If your population is 85% male but your hospital is 50% female, your results may not generalize.
+
+## Core Concepts
+
+### The Structure of Table 1
+
+| Variable | Control (N=50) | Treatment (N=50) | P-value | Standardized Mean Difference |
+|----------|---|---|---|---|
+| Age, mean (SD) | 65 (12) | 64 (11) | 0.72 | 0.08 |
+| Male, n (%) | 42 (84) | 39 (78) | 0.41 | 0.15 |
+| BMI, median [IQR] | 28 [25, 31] | 27 [24, 30] | 0.18 | — |
+| SOFA score, mean (SD) | 8 (3) | 8 (2) | 0.88 | 0.03 |
+
+**Key elements:**
+
+- **Column headers:** Group labels (treatment group, control group) with N
+- **Row 1: Variable name** — Clinical context (e.g., "Age in years")
+- **Row 2: Summary statistic** — See table below
+- **Row 3: P-value** — From appropriate test (t-test, χ², Mann-Whitney, Fisher)
+- **Optional: Standardized Mean Difference (SMD)** — Effect size for imbalance (>0.1 may be concerning)
+
+### Choosing the Right Summary Statistic
+
+| Data Type | Symmetric? | Summary Statistic | Example |
+|-----------|---|---|---|
+| **Continuous (normal)** | Yes | Mean (SD) | Age 65 (12) |
+| **Continuous (skewed)** | No | Median [IQR] | ICU LOS 5 [2, 10] |
+| **Ordinal** | — | Median [IQR] or n (%) | SOFA score 8 [6, 10] |
+| **Categorical binary** | — | n (%) | Male 42 (84%) |
+| **Categorical >2 levels** | — | n (%) for each | Race: White 30 (60%), Black 12 (24%), Other 8 (16%) |
+
+**Rule:** For continuous variables, check the distribution first (histogram, qqplot). If skewed, use median [IQR]. If symmetric, use mean (SD). If uncertain, present both.
+
+### The P-Value Trap in Table 1
+
+Statistical tests in Table 1 answer: **Are these groups different by chance alone?**
+
+But here is the catch: after randomization, you EXPECT no significant differences. A significant p-value (p < 0.05) does not mean randomization failed -- it may mean your sample size was large enough to detect tiny random imbalances.
+
+**Better approach:** Report standardized mean difference (SMD).
+
+- SMD < 0.1: balanced (negligible difference)
+- SMD 0.1–0.2: small imbalance (usually not clinical concern)
+- SMD > 0.2: moderate or large imbalance (may need adjustment)
+
+**Clinical judgment rule:** If your groups differ in a clinically important way (e.g., mean age 55 vs. 72 in an elderly trial), report it. Whether the p-value is 0.01 or 0.50 is less important than whether it matters to your question.
+
+### Missing Data in Table 1
+
+Always report missing data transparently:
+
+```
+Age, mean (SD)           64 (12)          64 (11)     —
+  Missing, n (%)         2 (4%)           1 (2%)      —
+```
+
+If a variable has >5% missing data, consider:
+- Is it missing at random (MAR)?
+- Do groups differ in missing rates? (sign of data quality issues)
+- Should you exclude this variable from analysis?
+
+## The `tableone` Package
+
+The `tableone` R package automates descriptive statistics and handles data types intelligently.
+
+### Installation and Setup
+
+```r
+install.packages("tableone")
+library(tableone)
+```
+
+### Basic Workflow
+
+```r
+# Create a TableOne object
+# vars: list of variable names to summarize
+# strata: grouping variable (e.g., treatment group)
+# data: your dataset
+# factorVars: list of categorical variables
+# smd: compute standardized mean difference
+# test: whether to run statistical tests (TRUE/FALSE)
+
+tab1 <- CreateTableOne(
+  vars = c("age", "sex", "bmi", "sofa_score"),
+  strata = "treatment_group",
+  data = my_data,
+  factorVars = c("sex"),
+  smd = TRUE,
+  test = TRUE
+)
+
+# Print the table
+print(tab1, showAllLevels = TRUE)
+
+# Or save to file
+tab1_printed <- print(tab1, showAllLevels = TRUE, exact = "sex", nonnormal = "bmi")
+capture.output(tab1_printed, file = "table1.txt")
+```
+
+### Key Arguments
+
+| Argument | Purpose | Example |
+|----------|---------|---------|
+| `vars` | Numeric/categorical variables to summarize | `c("age", "bmi", "sex", "outcome")` |
+| `strata` | Grouping variable (optional; if omitted, shows overall summary) | `"treatment_group"` |
+| `data` | Data frame containing the variables | `my_data` |
+| `factorVars` | List of variables to treat as categorical | `c("sex", "treatment")` |
+| `smd` | Whether to compute SMD | `smd = TRUE` |
+| `test` | Whether to run statistical tests | `test = TRUE` |
+
+### Advanced: Specifying Tests
+
+```r
+# Customize which test is used for which variable
+# nonnormal: variables that are not normally distributed (use Mann-Whitney, χ²)
+# exactTest: variables to use exact test (e.g., Fisher's exact for small counts)
+
+tab1 <- CreateTableOne(
+  vars = c("age", "propofol_dose", "gender", "complications"),
+  strata = "treatment_group",
+  data = surgery_data,
+  factorVars = c("gender", "complications"),
+  nonnormal = c("propofol_dose"),  # Use Mann-Whitney test
+  exactTest = "complications",     # Use Fisher's exact test
+  smd = TRUE,
+  test = TRUE
+)
+
+print(tab1, showAllLevels = TRUE, nonnormal = "propofol_dose", exact = "complications")
+```
+
+## Exercise
+
+### Part 1: Load and Explore a Real RCT Dataset
+
+Download a real anesthesia RCT published in the last 5 years. Good sources:
+- **PubMed Central (PMC):** Free full-text access to published RCTs
+- **Open Science Framework (OSF):** Many trials post supplementary data
+- **ClinicalTrials.gov:** Some linked to published data repositories
+- **GitHub:** Some research groups share raw data with papers
+
+**Example:** Search PubMed for "anesthesia RCT 2023 data" or choose from your institution's library.
+
+For this exercise, here is a **simulated anesthesia RCT dataset** based on typical intensive care sedation trials:
+
+```r
+library(dplyr)
+library(tableone)
+
+set.seed(42)
+
+# Simulate a sedation RCT: propofol vs. dexmedetomidine
+# N = 100 (50 per group)
+n <- 100
+
+sedation_trial <- data.frame(
+  patient_id = 1:n,
+  age_years = round(rnorm(n, mean = 68, sd = 12)),
+  male = rbinom(n, 1, 0.65),
+  bmi = round(rnorm(n, mean = 28, sd = 5), 1),
+  asa_class = sample(c(2, 3, 4), n, prob = c(0.4, 0.45, 0.15), replace = TRUE),
+  sofa_score = rpois(n, 5) + 1,  # SOFA score: typically 3-10
+  icu_admit_type = sample(
+    c("Medical", "Surgical", "Trauma"),
+    n,
+    prob = c(0.5, 0.35, 0.15),
+    replace = TRUE
+  ),
+  reason_sedation = sample(
+    c("Mechanical ventilation", "Agitation", "Other"),
+    n,
+    prob = c(0.7, 0.2, 0.1),
+    replace = TRUE
+  ),
+  # Assign treatment (randomized)
+  treatment_group = rep(c("Propofol", "Dexmedetomidine"), n / 2),
+  # Outcomes (independent of baseline -- this is a properly randomized trial)
+  delirium = rbinom(n, 1, 0.25),
+  mortality_28d = rbinom(n, 1, 0.15),
+  icu_days = rpois(n, 10) + 1
+)
+
+# Convert variables to appropriate types
+sedation_trial <- sedation_trial %>%
+  mutate(
+    male = factor(male, levels = c(0, 1), labels = c("Female", "Male")),
+    asa_class = factor(asa_class, levels = c(2, 3, 4), labels = c("2", "3", "4")),
+    icu_admit_type = factor(icu_admit_type),
+    reason_sedation = factor(reason_sedation),
+    treatment_group = factor(treatment_group),
+    delirium = factor(delirium, levels = c(0, 1), labels = c("No", "Yes")),
+    mortality_28d = factor(mortality_28d, levels = c(0, 1), labels = c("No", "Yes"))
+  )
+
+head(sedation_trial)
+```
+
+### Part 2: Identify Variables and Data Types
+
+Before creating Table 1, document your variables:
+
+```r
+# Print variable names and types
+str(sedation_trial)
+
+# Summary of each variable
+summary(sedation_trial)
+
+# Check for missing data
+colSums(is.na(sedation_trial))
+```
+
+**Questions:**
+
+- Which variables are continuous, ordinal, categorical?
+- Which variables have missing data?
+- Does age look normally distributed? (Hint: rnorm() was used, so yes)
+- Does ICU length of stay look normally distributed? (Hint: rpois() was used, which is right-skewed)
+
+### Part 3: Create a Basic Table 1 (No Stratification)
+
+Generate an overall summary table:
+
+```r
+# Variables to include
+vars_of_interest <- c(
+  "age_years", "male", "bmi", "asa_class",
+  "sofa_score", "icu_admit_type", "reason_sedation",
+  "delirium", "mortality_28d", "icu_days"
+)
+
+# Create the table
+tab1_overall <- CreateTableOne(
+  vars = vars_of_interest,
+  data = sedation_trial,
+  factorVars = c("male", "asa_class", "icu_admit_type", "reason_sedation", "delirium", "mortality_28d"),
+  smd = FALSE,
+  test = FALSE
+)
+
+# Print
+print(tab1_overall, showAllLevels = TRUE)
+```
+
+**Interpretation:**
+
+- What is the mean age?
+- What proportion are male?
+- What is the median SOFA score?
+- Is there much missing data?
+
+### Part 4: Create Table 1 Stratified by Treatment Group
+
+Now stratify by randomization group:
+
+```r
+# Create stratified table
+tab1_stratified <- CreateTableOne(
+  vars = vars_of_interest,
+  strata = "treatment_group",
+  data = sedation_trial,
+  factorVars = c("male", "asa_class", "icu_admit_type", "reason_sedation", "delirium", "mortality_28d"),
+  smd = TRUE,
+  test = TRUE
+)
+
+# Print
+print(tab1_stratified, showAllLevels = TRUE)
+```
+
+**Questions:**
+
+- Are the groups balanced on age? (p-value, SMD)
+- Are the groups balanced on SOFA score?
+- Which variable, if any, shows a concerning imbalance (SMD > 0.2)?
+- Why might randomization have produced these small differences?
+- Is p-value or SMD more useful for interpreting balance?
+
+### Part 5: Handle Non-Normal Variables
+
+Specify that `icu_days` (Poisson-distributed, right-skewed) should use non-parametric tests:
+
+```r
+# Re-create with specifications for non-normal variables
+tab1_nonnormal <- CreateTableOne(
+  vars = vars_of_interest,
+  strata = "treatment_group",
+  data = sedation_trial,
+  factorVars = c("male", "asa_class", "icu_admit_type", "reason_sedation", "delirium", "mortality_28d"),
+  nonnormal = c("sofa_score", "icu_days"),  # Use Mann-Whitney test for these
+  smd = TRUE,
+  test = TRUE
+)
+
+# Print
+print(tab1_nonnormal, showAllLevels = TRUE, nonnormal = c("sofa_score", "icu_days"))
+```
+
+**Interpretation:**
+
+- Is SOFA score normally distributed? (Look at the data or make a histogram)
+- Did specifying `nonnormal` change the p-values?
+- Which test was used for continuous normal variables? (t-test)
+- Which test was used for continuous non-normal variables? (Mann-Whitney)
+- Which test was used for categorical variables? (χ² or Fisher's exact)
+
+### Part 6: Format and Export Table 1
+
+Create a clean, publication-ready Table 1:
+
+```r
+# Capture the printed output
+tab1_output <- print(
+  tab1_nonnormal,
+  showAllLevels = TRUE,
+  nonnormal = c("sofa_score", "icu_days"),
+  exact = "male",  # Use Fisher's exact if any cell has n < 5
+  printToggle = FALSE  # Return as data frame instead of printing
+)
+
+# View
+tab1_output
+
+# Or save to CSV for manual formatting in Excel/Word
+write.csv(tab1_output, "table1_baseline_characteristics.csv")
+```
+
+**Optional:** Create a polished version using `gt` or `flextable` for journal submission:
+
+```r
+library(gt)
+
+# Convert to a gt table for publication
+tab1_gt <- as.data.frame(tab1_output) %>%
+  gt() %>%
+  tab_header(
+    title = "Table 1: Baseline Characteristics",
+    subtitle = "Propofol vs. Dexmedetomidine for Sedation in ICU Patients"
+  ) %>%
+  tab_spanner(
+    label = "Propofol",
+    columns = matches("Propofol")
+  ) %>%
+  tab_spanner(
+    label = "Dexmedetomidine",
+    columns = matches("Dexmedetomidine")
+  ) %>%
+  cols_align(
+    align = "center",
+    columns = starts_with("p")
+  )
+
+tab1_gt
+```
+
+### Part 7: Interpret Your Table 1 (Clinical Reasoning)
+
+For each variable showing p < 0.05 or SMD > 0.1, ask:
+
+**Is the difference clinically meaningful?**
+
+Example questions:
+- If treatment group A is mean age 65 vs. B is 68, does a 3-year difference matter? (Probably not)
+- If treatment group A is 60% male vs. B is 55%, does a 5% difference matter? (Probably not)
+- If treatment group A has mean SOFA 6 vs. B is 7, does 1 point matter? (Maybe -- depends on the severity cutoff)
+- If treatment group A is 10% surgical vs. B is 20% surgical, might this confound the results? (Possibly)
+
+**Document your assessment:**
+
+> "Groups were well-balanced at baseline. Mean age was 68 (SD 12) in both groups (p = 0.86). The Propofol group had slightly higher median SOFA score (7 vs. 6, p = 0.12), but this small difference was unlikely to influence outcomes."
+
+## Common Pitfalls
+
+| Pitfall | Why It Happens | How to Prevent |
+|---------|---|---|
+| "All my p-values are > 0.05" | Randomization worked; this is expected | Stop reporting p-values in Table 1 |
+| "I reported 10 variables, 2 are significant" | By chance alone, ~5% of tests will be significant (1 in 20) | Use SMD instead; interpret clinically |
+| "My mean and SD look wrong" | Data type issue: factor treated as numeric | Check `str()` before creating table |
+| "Table is missing a group" | Forgot `showAllLevels = TRUE` | Always use `showAllLevels = TRUE` for categorical |
+| "I do not understand SMD" | SMD is unfamiliar to many clinicians | Explain: "SMD < 0.1 means the groups look nearly identical" |
+| "My medians are shown as means" | Did not specify `nonnormal` argument | List skewed variables in `nonnormal = c()` |
+| "p-values are missing" | Forgot `test = TRUE` | Add `test = TRUE` when you want tests |
+| "N is different across rows" | Missing data in some variables | Use `CreateTableOne(..., addOverall = TRUE)` to see missing counts |
+
+## Verification
+
+Before moving to Week 8 (hypothesis testing), confirm you can:
+
+- [ ] Load a dataset and check data types with `str()`
+- [ ] Create a `CreateTableOne()` object with specified variables
+- [ ] Choose appropriate summary statistics (mean/SD vs. median/IQR) based on distribution
+- [ ] Identify variables as continuous, ordinal, or categorical
+- [ ] Stratify by a treatment group or exposure variable
+- [ ] Interpret SMD and p-values in Table 1 context
+- [ ] Handle non-normal data with the `nonnormal` argument
+- [ ] Export and format a Table 1 for publication
+- [ ] Explain to a colleague why two groups are (or are not) balanced
+- [ ] Push your Quarto document with Table 1 to GitHub
+
+## Resources
+
+- **tableone Package Documentation:** https://cran.r-project.org/web/packages/tableone/vignettes/introduction.html -- Comprehensive guide with examples
+- **SMD and Balance:** https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5914752/ -- "Covariate balance in randomized trials" (Austin & Stuart 2015)
+- **Table 1 in Medical Literature:** https://pubmed.ncbi.nlm.nih.gov/24688605/ -- Recommendations for Table 1 reporting in RCTs
+- **Anesthesia RCTs with Open Data:** https://osf.io/ -- Open Science Framework; search "anesthesia RCT"
+- **ClinicalTrials.gov:** https://clinicaltrials.gov/ -- Find registered trials; some link to published data
+
+---
+
+[<- Back to Basic Tier](../index.qmd)

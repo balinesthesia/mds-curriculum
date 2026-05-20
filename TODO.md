@@ -88,9 +88,9 @@ Update this file via PR only. Mark tasks `[x]` on completion.
 - [x] `basic/week-06/index.qmd` — EDA II: ggplot2, visual thinking
   - [x] Facilitator notes: `basic/week-06/facilitator.qmd`
   - [x] Exercise: plot intraoperative MAP over time for 10 cases; annotate events
-- [ ] `basic/week-07/index.qmd` — Table 1; `tableone`, descriptive statistics
-  - [ ] Facilitator notes: `basic/week-07/facilitator.qmd`
-  - [ ] Exercise: reproduce Table 1 from a resident-chosen anesthesia RCT
+- [x] `basic/week-07/index.qmd` — Table 1; `tableone`, descriptive statistics
+  - [x] Facilitator notes: `basic/week-07/facilitator.qmd`
+  - [x] Exercise: reproduce Table 1 from a resident-chosen anesthesia RCT
 - [ ] `basic/week-08/index.qmd` — Inference philosophy; hypothesis, error types, effect sizes
   - [ ] Facilitator notes: `basic/week-08/facilitator.qmd`
   - [ ] Exercise: calculate effect size (Cohen's d) for a drug comparison; compare to p-value conclusion
